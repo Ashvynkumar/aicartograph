@@ -3,7 +3,9 @@ import AnimateOnScroll from "@/components/AnimateOnScroll";
 import Container from "@/components/ui/Container";
 import Badge from "@/components/ui/Badge";
 import Card from "@/components/ui/Card";
+import SectionDivider from "@/components/ui/SectionDivider";
 import FlowDiagram from "@/components/graphics/FlowDiagram";
+import { PillarIcon, SourceIcon } from "@/components/graphics/FancyIcons";
 import CTABanner from "@/components/sections/CTABanner";
 import { FRAMEWORK_PILLARS } from "@/lib/constants";
 
@@ -64,29 +66,35 @@ const techHighlights = [
   {
     title: "Semantic Search",
     description: "Vector embeddings for meaning-based retrieval across your entire knowledge corpus.",
+    color: "border-accent-sky/20",
   },
   {
     title: "RAG Pipeline",
     description: "Retrieval-augmented generation for accurate, grounded answers with source attribution.",
+    color: "border-accent-lavender/20",
   },
   {
     title: "Consumption Signals",
     description: "ML-driven signal processing to turn resolution patterns into actionable knowledge priorities.",
+    color: "border-accent-amber/20",
   },
   {
     title: "Real-time Sync",
     description: "Event-driven knowledge updates so your resolution layer is always current.",
+    color: "border-accent-emerald/20",
   },
 ];
+
+const pillarAccentColors = ["text-accent-amber", "text-accent-sky", "text-accent-coral", "text-accent-emerald"];
 
 export default function HowItWorksPage() {
   return (
     <>
       {/* Hero */}
-      <section className="pt-32 pb-20 relative">
-        <div className="absolute top-0 right-1/4 w-96 h-96 bg-brand-500/5 rounded-full blur-3xl" />
+      <section className="pt-28 pb-16 relative">
+        <div className="absolute top-0 right-1/4 w-72 h-72 bg-brand-500/5 rounded-full blur-3xl" />
         <Container className="relative">
-          <AnimateOnScroll className="max-w-3xl space-y-6">
+          <AnimateOnScroll className="max-w-3xl space-y-5">
             <Badge variant="highlight">How It Works</Badge>
             <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-white leading-[1.1]">
               Four pillars.
@@ -95,7 +103,7 @@ export default function HowItWorksPage() {
                 One continuous cycle.
               </span>
             </h1>
-            <p className="text-xl text-white/60 max-w-2xl leading-relaxed">
+            <p className="text-xl text-white/55 max-w-2xl leading-relaxed">
               Connect &rarr; Resolve &rarr; Detect &rarr; Close the Loop.
               Knowledge that improves every day.
             </p>
@@ -103,8 +111,10 @@ export default function HowItWorksPage() {
         </Container>
       </section>
 
+      <SectionDivider variant="rich" />
+
       {/* Flow Diagram */}
-      <section className="py-12 border-t border-white/5">
+      <section className="py-10">
         <Container>
           <AnimateOnScroll>
             <FlowDiagram className="max-w-4xl mx-auto" />
@@ -112,21 +122,26 @@ export default function HowItWorksPage() {
         </Container>
       </section>
 
+      <SectionDivider variant="gradient" />
+
       {/* Detailed Steps */}
-      <section className="py-24">
+      <section className="py-16 lg:py-20">
         <Container>
-          <div className="space-y-24">
+          <div className="space-y-16">
             {FRAMEWORK_PILLARS.map((pillar, i) => (
               <AnimateOnScroll key={pillar.id} delay={i * 0.1}>
-                <div className="grid lg:grid-cols-2 gap-12 items-start">
-                  <div className="space-y-6">
-                    <span className="text-brand-500 font-mono text-sm font-bold">
-                      Pillar {String(i + 1).padStart(2, "0")}
-                    </span>
+                <div className="grid lg:grid-cols-2 gap-10 items-start">
+                  <div className="space-y-4">
+                    <div className="flex items-center gap-3">
+                      <PillarIcon id={pillar.id} className="w-8 h-8" />
+                      <span className={`font-mono text-sm font-bold ${pillarAccentColors[i]}`}>
+                        Pillar {String(i + 1).padStart(2, "0")}
+                      </span>
+                    </div>
                     <h3 className="text-2xl sm:text-3xl font-bold text-white">
                       {pillar.title}
                     </h3>
-                    <p className="text-white/60 leading-relaxed text-lg">
+                    <p className="text-white/55 leading-relaxed text-lg">
                       {pillar.description}
                     </p>
                   </div>
@@ -134,7 +149,7 @@ export default function HowItWorksPage() {
                     {stepDetails[i].details.map((detail) => (
                       <div
                         key={detail}
-                        className="flex items-start gap-3 rounded-xl border border-white/5 bg-white/[0.02] p-4"
+                        className="flex items-start gap-3 rounded-xl border border-white/5 bg-white/[0.02] p-4 hover:border-white/10 transition-colors"
                       >
                         <svg
                           className="w-5 h-5 text-brand-500 mt-0.5 shrink-0"
@@ -149,7 +164,7 @@ export default function HowItWorksPage() {
                             strokeLinejoin="round"
                           />
                         </svg>
-                        <span className="text-white/70">{detail}</span>
+                        <span className="text-white/60 text-sm">{detail}</span>
                       </div>
                     ))}
                   </div>
@@ -160,23 +175,26 @@ export default function HowItWorksPage() {
         </Container>
       </section>
 
+      <SectionDivider variant="rich" />
+
       {/* Source Types */}
-      <section className="py-24 border-t border-white/5">
+      <section className="py-16 lg:py-20">
         <Container>
-          <AnimateOnScroll className="text-center mb-16">
-            <h2 className="text-3xl sm:text-4xl font-bold text-white mb-4">
+          <AnimateOnScroll className="text-center mb-12">
+            <h2 className="text-3xl sm:text-4xl font-bold text-white mb-3">
               Connects to your entire knowledge stack
             </h2>
-            <p className="text-white/50 text-lg">
+            <p className="text-white/45 text-lg">
               No migration. No lock-in. Your knowledge stays where it is.
             </p>
           </AnimateOnScroll>
 
-          <div className="flex flex-wrap justify-center gap-4 max-w-3xl mx-auto">
+          <div className="flex flex-wrap justify-center gap-3 max-w-3xl mx-auto">
             {sourceTypes.map((name, i) => (
               <AnimateOnScroll key={name} delay={i * 0.05}>
-                <div className="rounded-full border border-white/10 bg-white/[0.02] px-6 py-3 text-white/60 text-sm hover:border-brand-500/30 hover:text-white/80 transition-all">
-                  {name}
+                <div className="group rounded-full border border-white/10 bg-white/[0.02] px-5 py-2.5 flex items-center gap-2.5 hover:border-brand-500/30 hover:bg-brand-500/5 transition-all cursor-default">
+                  <SourceIcon name={name} className="w-4 h-4 opacity-70 group-hover:opacity-100 transition-opacity" />
+                  <span className="text-white/55 text-sm group-hover:text-white/80 transition-colors">{name}</span>
                 </div>
               </AnimateOnScroll>
             ))}
@@ -184,22 +202,24 @@ export default function HowItWorksPage() {
         </Container>
       </section>
 
+      <SectionDivider variant="gradient" />
+
       {/* Technical Credibility */}
-      <section className="py-24 border-t border-white/5">
+      <section className="py-16 lg:py-20">
         <Container>
-          <AnimateOnScroll className="text-center mb-16">
-            <h2 className="text-3xl sm:text-4xl font-bold text-white mb-4">
+          <AnimateOnScroll className="text-center mb-12">
+            <h2 className="text-3xl sm:text-4xl font-bold text-white mb-3">
               Built on serious technology
             </h2>
-            <p className="text-white/50 text-lg max-w-2xl mx-auto">
+            <p className="text-white/45 text-lg max-w-2xl mx-auto">
               Modern AI infrastructure designed for accuracy, speed, and scale.
             </p>
           </AnimateOnScroll>
 
-          <div className="grid sm:grid-cols-2 gap-6 max-w-3xl mx-auto">
+          <div className="grid sm:grid-cols-2 gap-5 max-w-3xl mx-auto">
             {techHighlights.map((tech, i) => (
               <AnimateOnScroll key={tech.title} delay={i * 0.1}>
-                <Card>
+                <Card className={`${tech.color}`}>
                   <h3 className="text-white font-semibold mb-2">{tech.title}</h3>
                   <p className="text-white/40 text-sm leading-relaxed">
                     {tech.description}

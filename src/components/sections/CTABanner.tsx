@@ -16,18 +16,18 @@ export default function CTABanner({
   subheadline = "Every answer. Everywhere. The moment it matters.",
 }: CTABannerProps) {
   return (
-    <section className="py-24 lg:py-32 relative">
+    <section className="py-16 lg:py-20 relative">
       <div className="absolute inset-0 bg-gradient-to-b from-transparent via-brand-500/[0.03] to-transparent" />
       <Container className="relative">
         <AnimateOnScroll>
-          <div className="rounded-3xl border border-white/10 bg-white/[0.02] p-12 sm:p-16 text-center space-y-8">
-            <h2 className="text-3xl sm:text-4xl font-bold text-white">
+          <div className="rounded-2xl border border-white/10 bg-gradient-to-br from-white/[0.03] to-brand-500/[0.03] px-8 py-10 sm:px-12 sm:py-12 text-center space-y-6">
+            <h2 className="text-2xl sm:text-3xl font-bold text-white">
               {headline}
             </h2>
-            <p className="text-white/50 text-lg max-w-xl mx-auto">
+            <p className="text-white/50 text-base max-w-lg mx-auto">
               {subheadline}
             </p>
-            <div className="max-w-md mx-auto">
+            <div className="max-w-sm mx-auto">
               <EmailCapture variant="inline" buttonText="Request Early Access" />
             </div>
             <div>

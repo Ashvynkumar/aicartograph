@@ -27,33 +27,33 @@ export default function Navbar() {
 
   return (
     <>
-      <nav
-        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-          scrolled
-            ? "bg-brand-950/80 backdrop-blur-xl border-b border-white/5"
-            : "bg-transparent"
-        }`}
-      >
-        <div className="mx-auto max-w-7xl px-6 sm:px-8 lg:px-12">
-          <div className="flex h-16 items-center justify-between">
-            <Link href="/" onClick={() => setMobileOpen(false)}>
+      <nav className="fixed top-0 left-0 right-0 z-50 px-4 sm:px-6 lg:px-8">
+        <div
+          className={`mx-auto max-w-6xl transition-all duration-500 ${
+            scrolled
+              ? "mt-3 navbar-float px-6"
+              : "mt-0 bg-transparent px-4"
+          }`}
+        >
+          <div className="flex h-14 items-center justify-between">
+            <Link href="/" onClick={() => setMobileOpen(false)} className="shrink-0">
               <Logo variant="dark" />
             </Link>
 
             {/* Desktop nav */}
-            <div className="hidden md:flex items-center gap-8">
+            <div className="hidden md:flex items-center gap-6">
               {NAV_LINKS.map((link) => (
                 <Link
                   key={link.href}
                   href={link.href}
-                  className="text-sm text-white/60 hover:text-white transition-colors"
+                  className="text-sm text-white/50 hover:text-white transition-colors duration-200"
                 >
                   {link.label}
                 </Link>
               ))}
             </div>
 
-            <div className="hidden md:flex items-center gap-4">
+            <div className="hidden md:flex items-center gap-3">
               <Button href={SITE.calendlyUrl} variant="primary" size="sm" external>
                 Schedule a Conversation
               </Button>

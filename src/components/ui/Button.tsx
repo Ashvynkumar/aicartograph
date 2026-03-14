@@ -14,16 +14,16 @@ interface ButtonProps {
 
 const variants = {
   primary:
-    "bg-brand-500 hover:bg-brand-400 text-white shadow-lg shadow-brand-500/20 hover:shadow-brand-400/30",
+    "bg-gradient-to-r from-brand-500 to-brand-400 hover:from-brand-400 hover:to-brand-300 text-white shadow-lg shadow-brand-500/20 hover:shadow-brand-400/30",
   secondary:
-    "border border-brand-400/30 text-brand-300 hover:bg-brand-400/10 hover:border-brand-400/50",
+    "border border-white/15 text-white/70 hover:bg-white/[0.06] hover:border-white/25 hover:text-white",
   ghost: "text-brand-300 hover:text-white hover:bg-white/5",
 };
 
 const sizes = {
-  sm: "px-4 py-2 text-sm",
-  md: "px-6 py-3 text-base",
-  lg: "px-8 py-4 text-lg",
+  sm: "px-5 py-2.5 text-sm",
+  md: "px-6 py-3 text-sm",
+  lg: "px-8 py-3.5 text-base",
 };
 
 export default function Button({
