@@ -5,80 +5,77 @@ import Badge from "@/components/ui/Badge";
 import Card from "@/components/ui/Card";
 import FlowDiagram from "@/components/graphics/FlowDiagram";
 import CTABanner from "@/components/sections/CTABanner";
+import { FRAMEWORK_PILLARS } from "@/lib/constants";
 
 export const metadata: Metadata = {
   title: "How It Works",
   description:
-    "Connect your documentation sources, let Cartograph resolve questions with AI, and continuously improve through feedback loops.",
+    "Connect your knowledge sources, resolve questions with intelligence, detect health issues, and close the feedback loop — continuously.",
 };
 
-const steps = [
+const stepDetails = [
   {
-    number: "01",
-    title: "Connect your documentation",
-    description:
-      "Cartograph integrates with your existing documentation stack — Confluence, GitBook, Notion, Google Docs, internal wikis, and more. No migration required. Your docs stay where they are.",
     details: [
-      "One-click connectors for 15+ platforms",
-      "Automatic content indexing and embedding",
-      "Real-time sync as docs are updated",
-      "Respects existing access controls",
+      "Integrate wikis, help centers, knowledge bases, shared drives, and more",
+      "Automatic content indexing and semantic embedding",
+      "Real-time sync as knowledge is updated",
+      "Respects existing access controls and permissions",
     ],
   },
   {
-    number: "02",
-    title: "Resolve with intelligence",
-    description:
-      "When someone has a question, Cartograph doesn't just search — it resolves. AI-powered synthesis pulls from multiple sources to assemble the precise answer for that person's specific context.",
     details: [
-      "Semantic understanding of intent",
-      "Cross-document synthesis",
-      "Role and context awareness",
+      "Semantic understanding of intent, not just keywords",
+      "Cross-source contextual synthesis",
+      "Role and context awareness for personalized answers",
       "Confidence scoring and source attribution",
     ],
   },
   {
-    number: "03",
-    title: "Improve continuously",
-    description:
-      "Every unresolved question becomes a signal. Cartograph routes feedback to content owners, detects staleness, flags contradictions, and prioritizes what needs to be written, updated, or retired.",
     details: [
-      "Consumption failure tracking",
-      "Automatic staleness detection",
-      "Contradiction alerts across sources",
-      "Content creation priority scoring",
+      "Proactive staleness scoring tied to product changes",
+      "Semantic contradiction analysis across sources",
+      "Coverage gap identification",
+      "Knowledge drift monitoring over time",
+    ],
+  },
+  {
+    details: [
+      "Consumption failure tracking and routing",
+      "Priority scoring for knowledge owners",
+      "Content creation recommendations based on resolution data",
+      "Continuous improvement of resolution rates",
     ],
   },
 ];
 
-const integrations = [
-  "Confluence",
-  "GitBook",
-  "Notion",
-  "Google Docs",
-  "SharePoint",
-  "Zendesk",
-  "Intercom",
-  "Slack",
-  "GitHub",
+const sourceTypes = [
+  "Wikis",
+  "Help Centers",
+  "Knowledge Bases",
+  "Shared Drives",
+  "Project Tools",
+  "Communication Platforms",
+  "Code Repositories",
+  "CRM Systems",
+  "Support Platforms",
 ];
 
 const techHighlights = [
   {
     title: "Semantic Search",
-    description: "Vector embeddings for meaning-based retrieval, not just keyword matching.",
+    description: "Vector embeddings for meaning-based retrieval across your entire knowledge corpus.",
   },
   {
     title: "RAG Pipeline",
-    description: "Retrieval-augmented generation for accurate, grounded answers with citations.",
+    description: "Retrieval-augmented generation for accurate, grounded answers with source attribution.",
   },
   {
-    title: "Feedback Intelligence",
-    description: "ML-driven signal processing to turn consumption patterns into actionable insights.",
+    title: "Consumption Signals",
+    description: "ML-driven signal processing to turn resolution patterns into actionable knowledge priorities.",
   },
   {
     title: "Real-time Sync",
-    description: "Webhook-driven content updates so your resolution layer is always current.",
+    description: "Event-driven knowledge updates so your resolution layer is always current.",
   },
 ];
 
@@ -92,15 +89,15 @@ export default function HowItWorksPage() {
           <AnimateOnScroll className="max-w-3xl space-y-6">
             <Badge variant="highlight">How It Works</Badge>
             <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-white leading-[1.1]">
-              Three steps to
+              Four pillars.
               <br />
               <span className="bg-gradient-to-r from-brand-400 to-brand-300 bg-clip-text text-transparent">
-                knowledge resolution
+                One continuous cycle.
               </span>
             </h1>
             <p className="text-xl text-white/60 max-w-2xl leading-relaxed">
-              Connect, resolve, improve. A continuous loop that makes your documentation
-              better every day.
+              Connect &rarr; Resolve &rarr; Detect &rarr; Close the Loop.
+              Knowledge that improves every day.
             </p>
           </AnimateOnScroll>
         </Container>
@@ -119,22 +116,22 @@ export default function HowItWorksPage() {
       <section className="py-24">
         <Container>
           <div className="space-y-24">
-            {steps.map((step, i) => (
-              <AnimateOnScroll key={step.number} delay={i * 0.1}>
+            {FRAMEWORK_PILLARS.map((pillar, i) => (
+              <AnimateOnScroll key={pillar.id} delay={i * 0.1}>
                 <div className="grid lg:grid-cols-2 gap-12 items-start">
                   <div className="space-y-6">
                     <span className="text-brand-500 font-mono text-sm font-bold">
-                      Step {step.number}
+                      Pillar {String(i + 1).padStart(2, "0")}
                     </span>
                     <h3 className="text-2xl sm:text-3xl font-bold text-white">
-                      {step.title}
+                      {pillar.title}
                     </h3>
                     <p className="text-white/60 leading-relaxed text-lg">
-                      {step.description}
+                      {pillar.description}
                     </p>
                   </div>
                   <div className="space-y-3">
-                    {step.details.map((detail) => (
+                    {stepDetails[i].details.map((detail) => (
                       <div
                         key={detail}
                         className="flex items-start gap-3 rounded-xl border border-white/5 bg-white/[0.02] p-4"
@@ -163,20 +160,20 @@ export default function HowItWorksPage() {
         </Container>
       </section>
 
-      {/* Integrations */}
+      {/* Source Types */}
       <section className="py-24 border-t border-white/5">
         <Container>
           <AnimateOnScroll className="text-center mb-16">
             <h2 className="text-3xl sm:text-4xl font-bold text-white mb-4">
-              Connects to your stack
+              Connects to your entire knowledge stack
             </h2>
             <p className="text-white/50 text-lg">
-              No migration. No lock-in. Your docs stay where they are.
+              No migration. No lock-in. Your knowledge stays where it is.
             </p>
           </AnimateOnScroll>
 
           <div className="flex flex-wrap justify-center gap-4 max-w-3xl mx-auto">
-            {integrations.map((name, i) => (
+            {sourceTypes.map((name, i) => (
               <AnimateOnScroll key={name} delay={i * 0.05}>
                 <div className="rounded-full border border-white/10 bg-white/[0.02] px-6 py-3 text-white/60 text-sm hover:border-brand-500/30 hover:text-white/80 transition-all">
                   {name}
@@ -216,7 +213,7 @@ export default function HowItWorksPage() {
 
       <CTABanner
         headline="See resolution in action"
-        subheadline="Book a 30-minute demo and we'll show you what knowledge resolution looks like for your team."
+        subheadline="Schedule a 30-minute conversation and we'll show you what knowledge resolution looks like for your team."
       />
     </>
   );

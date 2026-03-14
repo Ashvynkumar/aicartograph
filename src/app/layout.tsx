@@ -5,31 +5,34 @@ import Footer from "@/components/layout/Footer";
 
 export const metadata: Metadata = {
   title: {
-    default: "Cartograph — The Knowledge Resolution Platform for SaaS Companies",
-    template: "%s | Cartograph",
+    default: "aiCartograph — Knowledge Resolution Platform for SaaS Companies",
+    template: "%s | aiCartograph",
   },
   description:
-    "Your documentation already has the answers. Cartograph makes sure people actually find them. The Knowledge Resolution Platform for SaaS Companies.",
+    "Every answer. Everywhere. The moment it matters. aiCartograph makes organizational knowledge work, not just exist.",
   metadataBase: new URL("https://aicartograph.com"),
   openGraph: {
     type: "website",
     locale: "en_US",
     url: "https://aicartograph.com",
-    siteName: "Cartograph",
-    title: "Cartograph — The Knowledge Resolution Platform for SaaS Companies",
+    siteName: "aiCartograph",
+    title: "aiCartograph — Knowledge Resolution Platform for SaaS Companies",
     description:
-      "Your documentation already has the answers. Cartograph makes sure people actually find them.",
+      "Every answer. Everywhere. The moment it matters. Make knowledge work, not just exist.",
     images: [{ url: "/og-image.png", width: 1200, height: 630 }],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Cartograph — The Knowledge Resolution Platform",
+    title: "aiCartograph — Knowledge Resolution Platform",
     description:
-      "Your documentation already has the answers. Cartograph makes sure people actually find them.",
+      "Every answer. Everywhere. The moment it matters.",
   },
   robots: {
     index: true,
     follow: true,
+  },
+  icons: {
+    icon: "/aiCartograph_icon_final.svg",
   },
 };
 

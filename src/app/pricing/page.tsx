@@ -10,29 +10,29 @@ import { PRICING_TIERS, SITE } from "@/lib/constants";
 export const metadata: Metadata = {
   title: "Pricing",
   description:
-    "Simple, transparent pricing for knowledge resolution. Start free, scale with credits, grow into a subscription.",
+    "Simple, transparent pricing for knowledge resolution. Start free. Scale with value. Base org subscription plus per-user for active resolution.",
 };
 
 const faqs = [
   {
-    q: "Can I try Cartograph for free?",
-    a: "Yes. Our freemium tier gives you access to core search and chat resolution with limited monthly resolutions. No credit card required.",
+    q: "Can I try aiCartograph for free?",
+    a: "Yes. The Free tier gives you access to basic search and chat resolution with up to 50 knowledge sources and 100 queries per month. No credit card required.",
   },
   {
-    q: "What counts as a resolution?",
-    a: "A resolution is a successful answer to a user question, sourced from your connected documentation. Simple searches don't count — only synthesized answers.",
+    q: "How does the hybrid pricing work?",
+    a: "Each paid tier has a base organization subscription (for infrastructure and platform access) plus a per-user fee for active resolution users. This keeps costs predictable while scaling with your team.",
   },
   {
-    q: "Can I mix subscription and usage-based pricing?",
-    a: "Absolutely. All subscription tiers include a resolution allowance. Additional resolutions are billed at $0.30–$0.75 each depending on complexity.",
+    q: "What counts as an active user?",
+    a: "Any team member who uses aiCartograph to resolve a question in a given billing period. Read-only dashboard viewers don't count.",
   },
   {
-    q: "What's the minimum commitment?",
-    a: "Monthly plans with no minimum commitment. Annual plans available at a 20% discount.",
+    q: "What about customer-facing deployments?",
+    a: "For customer-facing use cases where your end users interact with aiCartograph, we offer usage-based pricing at $0.30–$0.75 per resolution. Volume discounts available.",
   },
   {
-    q: "Do you offer discounts for startups?",
-    a: "Yes. Qualified startups (under $5M ARR) get 50% off for the first year. Contact us for details.",
+    q: "Do you offer annual billing?",
+    a: "Yes. Annual plans are available at a 20% discount on the base subscription. Contact us for details.",
   },
 ];
 
@@ -46,10 +46,11 @@ export default function PricingPage() {
           <AnimateOnScroll className="space-y-6 max-w-3xl mx-auto">
             <Badge variant="highlight">Pricing</Badge>
             <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-white leading-[1.1]">
-              Simple, transparent pricing
+              Start free. Scale with value.
             </h1>
             <p className="text-xl text-white/60 leading-relaxed">
-              Start free. Scale with usage. Grow into full platform access.
+              Base organization subscription + per-user for active resolution.
+              Transparent at every scale.
             </p>
           </AnimateOnScroll>
         </Container>
@@ -58,22 +59,38 @@ export default function PricingPage() {
       {/* Pricing Cards */}
       <section className="py-12">
         <Container>
-          <div className="grid md:grid-cols-3 gap-6 max-w-5xl mx-auto">
+          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 max-w-6xl mx-auto">
             {PRICING_TIERS.map((tier, i) => (
               <AnimateOnScroll key={tier.name} delay={i * 0.1}>
                 <Card highlighted={tier.highlighted} className="h-full flex flex-col">
                   {tier.highlighted && (
-                    <Badge variant="highlight" >Most Popular</Badge>
+                    <Badge variant="highlight">Most Popular</Badge>
                   )}
                   <div className={tier.highlighted ? "mt-4" : ""}>
                     <h3 className="text-xl font-semibold text-white">{tier.name}</h3>
                     <p className="text-white/40 text-sm mt-1">{tier.description}</p>
                   </div>
 
-                  <div className="mt-6 mb-8">
-                    <span className="text-4xl font-bold text-white">${tier.price}</span>
-                    <span className="text-white/40 ml-1">{tier.unit}</span>
+                  <div className="mt-6 mb-2">
+                    {tier.basePrice === null ? (
+                      <span className="text-3xl font-bold text-white">Custom</span>
+                    ) : tier.basePrice === 0 ? (
+                      <span className="text-3xl font-bold text-white">$0</span>
+                    ) : (
+                      <>
+                        <span className="text-3xl font-bold text-white">
+                          ${tier.basePrice}
+                        </span>
+                        <span className="text-white/40 ml-1">{tier.unit}</span>
+                      </>
+                    )}
                   </div>
+                  {tier.perUser > 0 && (
+                    <p className="text-brand-400 text-sm mb-6">
+                      + ${tier.perUser}/active user{tier.unit}
+                    </p>
+                  )}
+                  {tier.perUser === 0 && <div className="mb-6" />}
 
                   <ul className="space-y-3 mb-8 flex-1">
                     {tier.features.map((feature) => (
@@ -97,7 +114,13 @@ export default function PricingPage() {
                   </ul>
 
                   <Button
-                    href={tier.name === "Enterprise" ? SITE.calendlyUrl : "#"}
+                    href={
+                      tier.name === "Enterprise"
+                        ? SITE.calendlyUrl
+                        : tier.name === "Free"
+                          ? "#"
+                          : "#"
+                    }
                     variant={tier.highlighted ? "primary" : "secondary"}
                     className="w-full"
                     external={tier.name === "Enterprise"}
@@ -117,10 +140,10 @@ export default function PricingPage() {
           <div className="max-w-3xl mx-auto">
             <AnimateOnScroll className="text-center mb-12">
               <h2 className="text-3xl font-bold text-white mb-4">
-                Usage-based resolution pricing
+                Customer-facing resolution pricing
               </h2>
               <p className="text-white/50 text-lg">
-                Pay per resolution for additional usage beyond your plan&apos;s allowance.
+                For deployments where your end users interact with aiCartograph directly.
               </p>
             </AnimateOnScroll>
 
@@ -134,60 +157,10 @@ export default function PricingPage() {
                 </div>
                 <p className="text-white/50 max-w-md mx-auto">
                   Price varies by resolution complexity — simple lookups cost less,
-                  multi-document synthesis costs more. Full transparency in your dashboard.
+                  cross-source synthesis costs more. Volume discounts available.
                 </p>
               </Card>
             </AnimateOnScroll>
-          </div>
-        </Container>
-      </section>
-
-      {/* Three-gear model */}
-      <section className="py-24 border-t border-white/5">
-        <Container>
-          <AnimateOnScroll className="text-center mb-16">
-            <h2 className="text-3xl font-bold text-white mb-4">
-              The three-gear model
-            </h2>
-            <p className="text-white/50 text-lg max-w-2xl mx-auto">
-              Start where you are. Scale when you&apos;re ready.
-            </p>
-          </AnimateOnScroll>
-
-          <div className="grid sm:grid-cols-3 gap-8 max-w-4xl mx-auto">
-            {[
-              {
-                gear: "Gear 1",
-                title: "Freemium",
-                purpose: "Adoption",
-                description: "Try core features with limited resolutions. No credit card.",
-              },
-              {
-                gear: "Gear 2",
-                title: "Credits",
-                purpose: "Conversion",
-                description: "Buy resolution credits. Pay for what you use.",
-              },
-              {
-                gear: "Gear 3",
-                title: "Subscription",
-                purpose: "Revenue",
-                description: "Predictable pricing. Full platform. Maximum value.",
-              },
-            ].map((gear, i) => (
-              <AnimateOnScroll key={gear.gear} delay={i * 0.1}>
-                <div className="text-center space-y-4">
-                  <div className="w-16 h-16 mx-auto rounded-full border border-brand-500/30 bg-brand-500/5 flex items-center justify-center">
-                    <span className="text-brand-400 font-mono text-sm font-bold">
-                      {i + 1}
-                    </span>
-                  </div>
-                  <h3 className="text-white font-semibold">{gear.title}</h3>
-                  <p className="text-brand-400 text-sm font-medium">{gear.purpose}</p>
-                  <p className="text-white/40 text-sm">{gear.description}</p>
-                </div>
-              </AnimateOnScroll>
-            ))}
           </div>
         </Container>
       </section>
@@ -216,7 +189,7 @@ export default function PricingPage() {
 
       <CTABanner
         headline="Ready to get started?"
-        subheadline="Start free or book a call to see the full platform."
+        subheadline="Start free or schedule a conversation to see the full platform."
       />
     </>
   );

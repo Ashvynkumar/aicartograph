@@ -37,7 +37,7 @@ export default function Navbar() {
         <div className="mx-auto max-w-7xl px-6 sm:px-8 lg:px-12">
           <div className="flex h-16 items-center justify-between">
             <Link href="/" onClick={() => setMobileOpen(false)}>
-              <Logo />
+              <Logo variant="dark" />
             </Link>
 
             {/* Desktop nav */}
@@ -55,7 +55,7 @@ export default function Navbar() {
 
             <div className="hidden md:flex items-center gap-4">
               <Button href={SITE.calendlyUrl} variant="primary" size="sm" external>
-                Talk to Us
+                Schedule a Conversation
               </Button>
             </div>
 
@@ -110,7 +110,7 @@ export default function Navbar() {
               ))}
               <div className="mt-4">
                 <Button href={SITE.calendlyUrl} variant="primary" external>
-                  Talk to Us
+                  Schedule a Conversation
                 </Button>
               </div>
             </div>

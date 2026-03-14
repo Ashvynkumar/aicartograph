@@ -1,71 +1,35 @@
+import Image from "next/image";
+
 interface LogoProps {
   className?: string;
-  iconOnly?: boolean;
+  variant?: "dark" | "light" | "icon";
 }
 
-export default function Logo({ className = "", iconOnly = false }: LogoProps) {
-  if (iconOnly) {
+export default function Logo({ className = "", variant = "dark" }: LogoProps) {
+  if (variant === "icon") {
     return (
-      <svg
-        viewBox="0 0 32 32"
-        fill="none"
-        xmlns="http://www.w3.org/2000/svg"
+      <Image
+        src="/aiCartograph_icon_final.svg"
+        alt="aiCartograph"
+        width={32}
+        height={32}
         className={className}
-      >
-        <path
-          d="M16 2L4 9v14l12 7 12-7V9L16 2z"
-          stroke="#4597b0"
-          strokeWidth="1.5"
-          fill="none"
-        />
-        <path
-          d="M16 2v28M4 9l12 7 12-7M4 23l12-7 12 7"
-          stroke="#4597b0"
-          strokeWidth="1.5"
-          opacity="0.5"
-        />
-        <circle cx="16" cy="16" r="3" fill="#4597b0" />
-        <circle cx="16" cy="2" r="2" fill="#62acbb" />
-        <circle cx="28" cy="9" r="2" fill="#62acbb" />
-        <circle cx="28" cy="23" r="2" fill="#62acbb" />
-        <circle cx="16" cy="30" r="2" fill="#62acbb" />
-        <circle cx="4" cy="23" r="2" fill="#62acbb" />
-        <circle cx="4" cy="9" r="2" fill="#62acbb" />
-      </svg>
+      />
     );
   }
 
   return (
-    <div className={`flex items-center gap-2.5 ${className}`}>
-      <svg
-        viewBox="0 0 32 32"
-        fill="none"
-        xmlns="http://www.w3.org/2000/svg"
-        className="h-8 w-8"
-      >
-        <path
-          d="M16 2L4 9v14l12 7 12-7V9L16 2z"
-          stroke="#4597b0"
-          strokeWidth="1.5"
-          fill="none"
-        />
-        <path
-          d="M16 2v28M4 9l12 7 12-7M4 23l12-7 12 7"
-          stroke="#4597b0"
-          strokeWidth="1.5"
-          opacity="0.5"
-        />
-        <circle cx="16" cy="16" r="3" fill="#4597b0" />
-        <circle cx="16" cy="2" r="2" fill="#62acbb" />
-        <circle cx="28" cy="9" r="2" fill="#62acbb" />
-        <circle cx="28" cy="23" r="2" fill="#62acbb" />
-        <circle cx="16" cy="30" r="2" fill="#62acbb" />
-        <circle cx="4" cy="23" r="2" fill="#62acbb" />
-        <circle cx="4" cy="9" r="2" fill="#62acbb" />
-      </svg>
-      <span className="text-xl font-semibold tracking-tight text-white">
-        Cartograph
-      </span>
-    </div>
+    <Image
+      src={
+        variant === "dark"
+          ? "/aiCartograph_logo_final_dark.svg"
+          : "/aiCartograph_logo_final_light.svg"
+      }
+      alt="aiCartograph"
+      width={180}
+      height={32}
+      className={`h-8 w-auto ${className}`}
+      priority
+    />
   );
 }

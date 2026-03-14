@@ -12,8 +12,8 @@ interface CTABannerProps {
 }
 
 export default function CTABanner({
-  headline = "Ready to make your documentation actually work?",
-  subheadline = "Join the companies rethinking knowledge resolution.",
+  headline = "Ready to make your knowledge actually work?",
+  subheadline = "Every answer. Everywhere. The moment it matters.",
 }: CTABannerProps) {
   return (
     <section className="py-24 lg:py-32 relative">
@@ -28,11 +28,11 @@ export default function CTABanner({
               {subheadline}
             </p>
             <div className="max-w-md mx-auto">
-              <EmailCapture variant="inline" />
+              <EmailCapture variant="inline" buttonText="Request Early Access" />
             </div>
             <div>
               <Button href={SITE.calendlyUrl} variant="ghost" size="sm" external>
-                Or book a 30-minute call &rarr;
+                Or schedule a conversation &rarr;
               </Button>
             </div>
           </div>

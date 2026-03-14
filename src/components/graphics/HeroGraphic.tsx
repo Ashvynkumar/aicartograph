@@ -140,7 +140,7 @@ export default function HeroGraphic({ className = "" }: { className?: string }) 
           />
         ))}
 
-        {/* Center: Cartograph core */}
+        {/* Center: aiCartograph core */}
         <motion.g
           initial={{ opacity: 0, scale: 0 }}
           animate={{ opacity: 1, scale: 1 }}
@@ -203,7 +203,7 @@ export default function HeroGraphic({ className = "" }: { className?: string }) 
 
         {/* Labels */}
         <text x="60" y="340" fill="#97c1cc" fontSize="11" textAnchor="middle" opacity="0.6">
-          Docs
+          Sources
         </text>
         <text x="280" y="270" fill="#97c1cc" fontSize="11" textAnchor="middle" opacity="0.6">
           Resolution

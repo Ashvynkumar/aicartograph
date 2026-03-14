@@ -62,8 +62,8 @@ export default function ContactPage() {
               Let&apos;s talk
             </h1>
             <p className="text-xl text-white/60 leading-relaxed">
-              Whether you&apos;re curious about knowledge resolution, ready for a demo,
-              or just want to chat — we&apos;d love to hear from you.
+              Whether you&apos;re curious about knowledge resolution, ready for a conversation,
+              or just want to connect — we&apos;d love to hear from you.
             </p>
           </AnimateOnScroll>
         </Container>
@@ -144,7 +144,7 @@ export default function ContactPage() {
                         id="message"
                         rows={5}
                         className={`${inputClasses} resize-none`}
-                        placeholder="Tell us about your documentation challenges..."
+                        placeholder="Tell us about your knowledge challenges..."
                         value={formState.message}
                         onChange={(e) =>
                           setFormState({ ...formState, message: e.target.value })
@@ -167,10 +167,10 @@ export default function ContactPage() {
             {/* Calendly + Info */}
             <AnimateOnScroll delay={0.2}>
               <div className="space-y-8">
-                <h2 className="text-2xl font-bold text-white">Book a call</h2>
+                <h2 className="text-2xl font-bold text-white">Schedule a conversation</h2>
                 <p className="text-white/50 leading-relaxed">
                   Prefer a conversation? Book a 30-minute call and we&apos;ll walk you
-                  through how Cartograph can work for your team.
+                  through how aiCartograph can work for your organization.
                 </p>
 
                 <div className="rounded-2xl border border-white/10 bg-white/[0.02] p-8 space-y-6">
@@ -180,7 +180,7 @@ export default function ContactPage() {
                     className="w-full"
                     external
                   >
-                    Book a 30-minute call
+                    Schedule a 30-minute call
                   </Button>
 
                   <div className="space-y-4 pt-4 border-t border-white/5">
@@ -214,14 +214,14 @@ export default function ContactPage() {
                   </div>
                 </div>
 
-                {/* Calendly embed placeholder */}
+                {/* Calendly embed */}
                 <div className="rounded-2xl border border-white/10 bg-white/[0.02] overflow-hidden">
                   <iframe
                     src="https://calendly.com/ai-cartograph/30min"
                     width="100%"
                     height="600"
                     frameBorder="0"
-                    title="Schedule a call with Cartograph"
+                    title="Schedule a call with aiCartograph"
                     className="rounded-2xl"
                   />
                 </div>

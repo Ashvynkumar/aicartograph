@@ -5,12 +5,12 @@ import Badge from "@/components/ui/Badge";
 import Card from "@/components/ui/Card";
 import { USPIcon } from "@/components/graphics/USPIcons";
 import CTABanner from "@/components/sections/CTABanner";
-import { USPS, CAPABILITIES, COMPETITORS } from "@/lib/constants";
+import { FRAMEWORK_PILLARS, USPS, EIGHTEEN_PROBLEMS, COMPETITOR_APPROACHES } from "@/lib/constants";
 
 export const metadata: Metadata = {
   title: "Product",
   description:
-    "Discover how Cartograph resolves documentation — from feedback loops to cross-doc synthesis and in-product delivery.",
+    "Discover how aiCartograph resolves organizational knowledge — Connect, Resolve, Detect, Close the Loop.",
 };
 
 function ProductHero() {
@@ -21,11 +21,16 @@ function ProductHero() {
         <AnimateOnScroll className="max-w-3xl space-y-6">
           <Badge variant="highlight">Product</Badge>
           <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-white leading-[1.1]">
-            What Cartograph does
+            Knowledge Resolution,
+            <br />
+            <span className="bg-gradient-to-r from-brand-400 to-brand-300 bg-clip-text text-transparent">
+              not knowledge management
+            </span>
           </h1>
           <p className="text-xl text-white/60 max-w-2xl leading-relaxed">
-            Ten capability clusters. Four genuine USPs. One platform that makes your
-            existing documentation actually resolve problems.
+            aiCartograph doesn&apos;t replace your knowledge tools. It makes all of them
+            actually work — resolving questions, detecting health issues, and closing
+            the loop back to knowledge owners.
           </p>
         </AnimateOnScroll>
       </Container>
@@ -33,39 +38,114 @@ function ProductHero() {
   );
 }
 
-function CapabilityClusters() {
+function FourPillars() {
   return (
     <section className="py-24 border-t border-white/5">
       <Container>
         <AnimateOnScroll className="mb-16">
           <h2 className="text-3xl sm:text-4xl font-bold text-white mb-4">
-            10 Capability Clusters
+            Connect &rarr; Resolve &rarr; Detect &rarr; Close the Loop
           </h2>
           <p className="text-white/50 text-lg max-w-2xl">
-            A comprehensive platform covering the full documentation lifecycle — from
-            creation signals to consumption analytics.
+            Four pillars that form a continuous cycle of knowledge resolution.
           </p>
         </AnimateOnScroll>
 
-        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
-          {CAPABILITIES.map((cap, i) => (
-            <AnimateOnScroll key={cap.id} delay={i * 0.05}>
-              <Card className="h-full">
-                <div className="flex items-start gap-4">
-                  <span className="text-brand-500 font-mono text-sm font-bold mt-0.5">
-                    {cap.id}
+        <div className="space-y-16">
+          {FRAMEWORK_PILLARS.map((pillar, i) => (
+            <AnimateOnScroll key={pillar.id} direction={i % 2 === 0 ? "left" : "right"}>
+              <div className="grid lg:grid-cols-3 gap-8 items-start">
+                <div className="space-y-4">
+                  <span className="text-brand-500 font-mono text-sm font-bold">
+                    Pillar {String(i + 1).padStart(2, "0")}
                   </span>
-                  <div>
-                    <h3 className="text-white font-medium mb-1">{cap.name}</h3>
-                    <p className="text-white/40 text-sm leading-relaxed">
-                      {cap.description}
-                    </p>
-                  </div>
+                  <h3 className="text-2xl font-bold text-white">{pillar.verb}</h3>
                 </div>
-              </Card>
+                <div className="lg:col-span-2">
+                  <p className="text-white/60 leading-relaxed text-lg">
+                    {pillar.description}
+                  </p>
+                </div>
+              </div>
             </AnimateOnScroll>
           ))}
         </div>
+      </Container>
+    </section>
+  );
+}
+
+function SarahStory() {
+  return (
+    <section className="py-24 border-t border-white/5">
+      <Container>
+        <AnimateOnScroll className="max-w-4xl mx-auto">
+          <h2 className="text-3xl sm:text-4xl font-bold text-white mb-12 text-center">
+            How It Works in Practice
+          </h2>
+
+          <div className="grid md:grid-cols-2 gap-8">
+            <Card className="space-y-4">
+              <Badge>Without aiCartograph</Badge>
+              <div className="space-y-3 text-white/50 text-sm leading-relaxed mt-4">
+                <p>Sarah, a customer success manager, gets asked about a feature change.</p>
+                <p>She searches the wiki — finds three articles, two outdated, one contradicting the other.</p>
+                <p>She messages the product team. Waits 4 hours. Gets a partial answer.</p>
+                <p>She stitches together a response. The customer gets a half-right answer, a day late.</p>
+                <p className="text-red-400/70 font-medium">Nobody knows this happened. Nobody fixes the knowledge.</p>
+              </div>
+            </Card>
+
+            <Card highlighted className="space-y-4">
+              <Badge variant="highlight">With aiCartograph</Badge>
+              <div className="space-y-3 text-white/60 text-sm leading-relaxed mt-4">
+                <p>Sarah asks aiCartograph. It synthesizes across the wiki, release notes, and support history.</p>
+                <p>She gets a contextual, role-relevant answer in seconds — with sources cited.</p>
+                <p>aiCartograph has already flagged the contradicting articles to the knowledge owner.</p>
+                <p>The staleness score triggered an update request last week.</p>
+                <p className="text-brand-400 font-medium">The loop is closed. Knowledge improves. Everyone benefits.</p>
+              </div>
+            </Card>
+          </div>
+        </AnimateOnScroll>
+      </Container>
+    </section>
+  );
+}
+
+function EighteenProblems() {
+  return (
+    <section className="py-24 border-t border-white/5">
+      <Container>
+        <AnimateOnScroll className="text-center mb-16">
+          <h2 className="text-3xl sm:text-4xl font-bold text-white mb-4">
+            The 18 Problems Diagnostic
+          </h2>
+          <p className="text-white/50 text-lg max-w-2xl mx-auto">
+            We mapped every way knowledge fails in organizations. How many do you recognize?
+          </p>
+        </AnimateOnScroll>
+
+        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3 max-w-5xl mx-auto">
+          {EIGHTEEN_PROBLEMS.map((problem, i) => (
+            <AnimateOnScroll key={problem.id} delay={i * 0.03}>
+              <div className="rounded-xl border border-white/10 bg-white/[0.02] p-4 text-center hover:border-brand-500/30 hover:bg-brand-500/5 transition-all cursor-default">
+                <span className="text-brand-500 font-mono text-xs block mb-1">
+                  {String(problem.id).padStart(2, "0")}
+                </span>
+                <span className="text-white/70 text-sm font-medium">
+                  {problem.name}
+                </span>
+              </div>
+            </AnimateOnScroll>
+          ))}
+        </div>
+
+        <AnimateOnScroll className="text-center mt-12">
+          <p className="text-brand-400 font-medium text-lg">
+            If you recognize five or more, your organization has a knowledge resolution problem.
+          </p>
+        </AnimateOnScroll>
       </Container>
     </section>
   );
@@ -77,7 +157,7 @@ function USPDeepDive() {
       <Container>
         <AnimateOnScroll className="mb-16 text-center">
           <h2 className="text-3xl sm:text-4xl font-bold text-white mb-4">
-            Four things nobody else does
+            Four genuine differentiators
           </h2>
           <p className="text-white/50 text-lg max-w-2xl mx-auto">
             These aren&apos;t incremental features. They&apos;re fundamental capabilities
@@ -88,11 +168,7 @@ function USPDeepDive() {
         <div className="space-y-20">
           {USPS.map((usp, i) => (
             <AnimateOnScroll key={usp.id} direction={i % 2 === 0 ? "left" : "right"}>
-              <div
-                className={`grid lg:grid-cols-2 gap-12 items-center ${
-                  i % 2 === 1 ? "lg:direction-rtl" : ""
-                }`}
-              >
+              <div className="grid lg:grid-cols-2 gap-12 items-center">
                 <div className={`space-y-6 ${i % 2 === 1 ? "lg:order-2" : ""}`}>
                   <Badge variant="highlight">USP {i + 1}</Badge>
                   <h3 className="text-2xl sm:text-3xl font-bold text-white">
@@ -124,19 +200,19 @@ function CompetitivePositioning() {
       <Container>
         <AnimateOnScroll className="text-center mb-16">
           <h2 className="text-3xl sm:text-4xl font-bold text-white mb-4">
-            Not docs. Not search. Not support AI.
+            Three approaches exist. All optimize for retrieval.
           </h2>
           <p className="text-white/50 text-lg max-w-2xl mx-auto">
-            Cartograph creates an entirely new category between existing tools.
+            aiCartograph creates an entirely new category: resolution.
           </p>
         </AnimateOnScroll>
 
         <div className="grid sm:grid-cols-3 gap-8 max-w-4xl mx-auto">
-          {COMPETITORS.map((c, i) => (
+          {COMPETITOR_APPROACHES.map((c, i) => (
             <AnimateOnScroll key={i} delay={i * 0.1}>
               <Card className="text-center space-y-4">
-                <p className="text-white/70 font-semibold">{c.name}</p>
-                <p className="text-white/40 text-sm">{c.role}</p>
+                <p className="text-white/70 font-semibold">{c.approach}</p>
+                <p className="text-white/40 text-sm">{c.does}</p>
                 <div className="h-px bg-white/10" />
                 <p className="text-red-400/70 text-sm">{c.gap}</p>
               </Card>
@@ -146,9 +222,9 @@ function CompetitivePositioning() {
 
         <AnimateOnScroll className="mt-12 text-center">
           <div className="inline-block rounded-2xl border border-brand-500/30 bg-brand-500/5 p-8 sm:p-10">
-            <p className="text-brand-400 font-semibold text-lg mb-2">Cartograph</p>
+            <p className="text-brand-400 font-semibold text-lg mb-2">aiCartograph</p>
             <p className="text-white/60">
-              Resolves knowledge. Closes the feedback loop. Improves the source.
+              Resolves knowledge. Detects health issues. Closes the feedback loop.
             </p>
           </div>
         </AnimateOnScroll>
@@ -161,12 +237,14 @@ export default function ProductPage() {
   return (
     <>
       <ProductHero />
-      <CapabilityClusters />
+      <FourPillars />
+      <SarahStory />
+      <EighteenProblems />
       <USPDeepDive />
       <CompetitivePositioning />
       <CTABanner
-        headline="See Cartograph in action"
-        subheadline="Book a demo to see how knowledge resolution works for your team."
+        headline="See aiCartograph in action"
+        subheadline="Schedule a conversation to see how knowledge resolution works for your team."
       />
     </>
   );

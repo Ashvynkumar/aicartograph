@@ -14,7 +14,7 @@ const footerLinks = {
     { label: "Contact", href: "/contact" },
   ],
   Resources: [
-    { label: "Documentation", href: "#" },
+    { label: "Knowledge Base", href: "#" },
     { label: "Blog", href: "#" },
   ],
 };
@@ -26,14 +26,14 @@ export default function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-12">
           {/* Brand + email */}
           <div className="lg:col-span-2 space-y-6">
-            <Logo />
+            <Logo variant="dark" />
             <p className="text-white/50 text-sm max-w-xs leading-relaxed">
-              The Knowledge Resolution Platform for SaaS Companies. Making documentation actually work.
+              {SITE.tagline}. Making knowledge work, not just exist.
             </p>
             <EmailCapture
               variant="stacked"
               placeholder="Your email"
-              buttonText="Stay Updated"
+              buttonText="Request Early Access"
             />
           </div>
 
@@ -59,7 +59,7 @@ export default function Footer() {
 
         <div className="mt-16 pt-8 border-t border-white/5 flex flex-col sm:flex-row justify-between items-center gap-4">
           <p className="text-xs text-white/30">
-            &copy; {new Date().getFullYear()} Cartograph. All rights reserved.
+            &copy; {new Date().getFullYear()} aiCartograph. All rights reserved.
           </p>
           <a
             href={`mailto:${SITE.email}`}

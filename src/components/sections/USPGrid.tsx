@@ -15,7 +15,7 @@ export default function USPGrid() {
             Four things nobody else does
           </h2>
           <p className="text-white/50 text-lg max-w-2xl mx-auto">
-            Cartograph isn&apos;t another search tool or docs platform. We built four
+            aiCartograph isn&apos;t another search tool or knowledge base. We built four
             capabilities that don&apos;t exist anywhere else.
           </p>
         </AnimateOnScroll>

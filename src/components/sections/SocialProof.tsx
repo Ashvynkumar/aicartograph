@@ -42,9 +42,9 @@ function AnimatedCounter({ target, suffix = "" }: { target: number; suffix?: str
 
 export default function SocialProof() {
   const stats = [
-    { value: 42, suffix: "", label: "Documentation problems we solve" },
-    { value: 10, suffix: "", label: "Capability clusters" },
-    { value: 6, suffix: "", label: "Lifecycle stages covered" },
+    { value: 18, suffix: "", label: "Knowledge problems we diagnose" },
+    { value: 6, suffix: "", label: "Organizational verticals served" },
+    { value: 4, suffix: "", label: "Framework pillars" },
   ];
 
   return (
@@ -54,7 +54,7 @@ export default function SocialProof() {
         <AnimateOnScroll className="text-center mb-16">
           <p className="text-brand-400 font-medium mb-4">By the numbers</p>
           <h2 className="text-3xl sm:text-4xl font-bold text-white mb-4">
-            The full documentation lifecycle, resolved
+            The full knowledge lifecycle, resolved
           </h2>
         </AnimateOnScroll>
 
