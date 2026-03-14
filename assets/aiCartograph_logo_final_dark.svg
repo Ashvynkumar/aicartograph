@@ -1,0 +1,52 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 620 110">
+  <defs>
+    <linearGradient id="cGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#4597b0" />
+      <stop offset="100%" style="stop-color:#62acbb" />
+    </linearGradient>
+  </defs>
+  
+  <!-- ICON: Convergence mark - left side only -->
+  <g transform="translate(5, 5)">
+    <!-- Scattered source nodes -->
+    <circle cx="8" cy="15" r="4" fill="#97c1cc" opacity="0.5"/>
+    <circle cx="20" cy="6" r="3.5" fill="#62acbb" opacity="0.45"/>
+    <circle cx="5" cy="38" r="3" fill="#49818d" opacity="0.4"/>
+    <circle cx="22" cy="30" r="4.5" fill="#97c1cc" opacity="0.5"/>
+    <circle cx="10" cy="62" r="3.5" fill="#62acbb" opacity="0.45"/>
+    <circle cx="24" cy="54" r="3" fill="#4597b0" opacity="0.4"/>
+    <circle cx="8" cy="82" r="4" fill="#49818d" opacity="0.5"/>
+    <circle cx="20" cy="92" r="3.5" fill="#97c1cc" opacity="0.45"/>
+    <circle cx="26" cy="74" r="3" fill="#62acbb" opacity="0.4"/>
+    
+    <!-- Convergence paths -->
+    <path d="M10,15 Q35,30 50,50" stroke="#97c1cc" stroke-width="0.8" fill="none" opacity="0.3"/>
+    <path d="M22,30 Q38,38 50,50" stroke="#97c1cc" stroke-width="1" fill="none" opacity="0.35"/>
+    <path d="M24,54 Q38,52 50,50" stroke="#4597b0" stroke-width="1" fill="none" opacity="0.35"/>
+    <path d="M10,62 Q35,58 50,50" stroke="#62acbb" stroke-width="0.8" fill="none" opacity="0.3"/>
+    <path d="M20,92 Q38,72 50,50" stroke="#97c1cc" stroke-width="0.8" fill="none" opacity="0.3"/>
+    
+    <!-- Resolution point -->
+    <circle cx="50" cy="50" r="12" fill="none" stroke="#4597b0" stroke-width="0.8" opacity="0.25"/>
+    <circle cx="50" cy="50" r="7.5" fill="none" stroke="#62acbb" stroke-width="1.2" opacity="0.4"/>
+    <circle cx="50" cy="50" r="5" fill="url(#cGrad)"/>
+    
+    <!-- Output arrow -->
+    <line x1="58" y1="50" x2="80" y2="50" stroke="#4597b0" stroke-width="2" stroke-linecap="round"/>
+    <polygon points="83,50 76,46 76,54" fill="#4597b0"/>
+  </g>
+  
+  <!-- WORDMARK: "ai" with colored tittle, then "Cartograph" -->
+  <!-- "a" -->
+  <text x="100" y="78" font-family="Georgia, 'Times New Roman', serif" font-size="52" font-weight="bold" fill="#49818d">a</text>
+  
+  <!-- "i" body (stem only, no dot) rendered as rectangle -->
+  <rect x="131" y="38" width="7" height="42" fill="#49818d"/>
+  <!-- Serif foot for i -->
+  <rect x="126" y="76" width="17" height="4" rx="1" fill="#49818d"/>
+  <!-- THE TITTLE: accent colored dot -->
+  <circle cx="134.5" cy="28" r="5" fill="#4597b0"/>
+  
+  <!-- "Cartograph" -->
+  <text x="148" y="78" font-family="Georgia, 'Times New Roman', serif" font-size="52" font-weight="bold" fill="#fdffff" letter-spacing="-0.5">Cartograph</text>
+</svg>
