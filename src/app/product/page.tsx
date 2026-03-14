@@ -50,9 +50,9 @@ function ProductHero() {
 /* ─── Section 2: Four Pillars Full (LIGHT) ─── */
 function FourPillars() {
   return (
-    <section className="section-light py-16 lg:py-20">
+    <section className="section-light py-12 lg:py-16">
       <Container>
-        <AnimateOnScroll className="mb-12">
+        <AnimateOnScroll className="mb-8">
           <p className="section-label mb-4">The Framework</p>
           <h2 className="heading-h2 text-brand-900">
             Connect &rarr; Resolve &rarr; Detect &rarr; Close the Loop
@@ -95,9 +95,9 @@ const sourceTypes = [
 
 function KnowledgeSources() {
   return (
-    <section className="section-dark py-16 lg:py-20">
+    <section className="section-dark py-12 lg:py-16">
       <Container>
-        <AnimateOnScroll className="text-center mb-12">
+        <AnimateOnScroll className="text-center mb-8">
           <p className="section-label mb-4">Integrations</p>
           <h2 className="heading-h2 text-[#FDFFFF] mb-3">
             100+ sources. Zero migration.
@@ -127,19 +127,19 @@ const tileBgs = ["bg-brand-800", "bg-brand-800/70", "bg-[#223e49]"];
 
 function EighteenProblems() {
   return (
-    <section id="diagnostic" className="section-dark py-16 lg:py-20">
+    <section id="diagnostic" className="section-dark py-12 lg:py-16">
       <Container>
-        <AnimateOnScroll className="text-center mb-12">
+        <AnimateOnScroll className="text-center mb-8">
           <p className="section-label mb-4">The Knowledge Diagnostic</p>
           <h2 className="heading-h2 text-[#FDFFFF] mb-3">
             How many of these is your organization living with?
           </h2>
         </AnimateOnScroll>
 
-        <div className="grid grid-cols-3 sm:grid-cols-3 lg:grid-cols-3 gap-3 max-w-3xl mx-auto">
+        <div className="grid grid-cols-3 sm:grid-cols-3 lg:grid-cols-6 gap-2 max-w-4xl mx-auto">
           {EIGHTEEN_PROBLEMS.map((problem, i) => (
             <AnimateOnScroll key={problem.id} delay={i * 0.03}>
-              <div className={`${tileBgs[i % 3]} rounded-xl border border-brand-700/30 p-4 h-[80px] flex flex-col items-center justify-center text-center hover:border-brand-500/40 transition-all`}>
+              <div className={`${tileBgs[i % 3]} rounded-lg border border-brand-700/30 p-3 h-[70px] flex flex-col items-center justify-center text-center hover:border-brand-500/40 transition-all`}>
                 <span className="text-brand-500 font-mono text-xs font-bold mb-1">
                   {String(problem.id).padStart(2, "0")}
                 </span>
@@ -171,9 +171,9 @@ const uspBorders = [
 
 function USPDeepDive() {
   return (
-    <section className="section-light py-16 lg:py-20">
+    <section className="section-light py-12 lg:py-16">
       <Container>
-        <AnimateOnScroll className="mb-12 text-center">
+        <AnimateOnScroll className="mb-8 text-center">
           <p className="section-label mb-4">Differentiators</p>
           <h2 className="heading-h2 text-brand-900 mb-3">
             Four genuine differentiators
@@ -210,9 +210,9 @@ function USPDeepDive() {
 /* ─── Section 6: Competitor Positioning (DARK) ─── */
 function CompetitivePositioning() {
   return (
-    <section className="section-dark py-16 lg:py-20">
+    <section className="section-dark py-12 lg:py-16">
       <Container>
-        <AnimateOnScroll className="text-center mb-12">
+        <AnimateOnScroll className="text-center mb-8">
           <p className="section-label mb-4">Category Creation</p>
           <h2 className="heading-h2 text-[#FDFFFF] mb-3">
             Three approaches exist. All optimize for retrieval.

@@ -20,9 +20,9 @@ function FrameworkStrip() {
   ];
 
   return (
-    <section className="section-light py-16 lg:py-20">
+    <section className="section-light py-12 lg:py-16">
       <Container>
-        <AnimateOnScroll className="text-center mb-10">
+        <AnimateOnScroll className="text-center mb-8">
           <h2 className="heading-h2 text-brand-900">
             Connect &rarr; Resolve &rarr; Detect &rarr; Close the Loop
           </h2>
@@ -40,7 +40,7 @@ function FrameworkStrip() {
           ))}
         </div>
 
-        <AnimateOnScroll className="text-center mt-10">
+        <AnimateOnScroll className="text-center mt-8">
           <Button href="/product" variant="ghost" size="sm" className="text-brand-500 hover:text-brand-600 hover:bg-brand-500/10">
             See the full product &rarr;
           </Button>
@@ -55,9 +55,9 @@ function ProblemTeaser() {
   const previewProblems = EIGHTEEN_PROBLEMS.slice(0, 6);
 
   return (
-    <section className="section-dark py-16 lg:py-20">
+    <section className="section-dark py-12 lg:py-16">
       <Container>
-        <AnimateOnScroll className="text-center mb-10">
+        <AnimateOnScroll className="text-center mb-8">
           <p className="section-label mb-4">The Knowledge Diagnostic</p>
           <h2 className="heading-h2 text-[#FDFFFF] mb-3">
             We mapped 18 ways knowledge fails in organizations.
@@ -68,11 +68,11 @@ function ProblemTeaser() {
         <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3 max-w-4xl mx-auto">
           {previewProblems.map((problem, i) => (
             <AnimateOnScroll key={problem.id} delay={i * 0.05}>
-              <div className="rounded-xl bg-brand-800 border border-brand-700/30 p-4 text-center hover:border-brand-500/40 hover:bg-brand-800/80 transition-all">
+              <div className="rounded-xl bg-brand-800 border border-brand-700/30 p-4 h-[72px] flex flex-col items-center justify-center text-center hover:border-brand-500/40 hover:bg-brand-800/80 transition-all">
                 <span className="text-brand-500 font-mono text-xs block mb-1">
                   {String(problem.id).padStart(2, "0")}
                 </span>
-                <span className="text-[#FDFFFF] text-sm font-medium">
+                <span className="text-[#FDFFFF] text-sm font-medium leading-tight">
                   {problem.name}
                 </span>
               </div>
@@ -80,7 +80,7 @@ function ProblemTeaser() {
           ))}
         </div>
 
-        <AnimateOnScroll className="text-center mt-10">
+        <AnimateOnScroll className="text-center mt-8">
           <Button href="/product#diagnostic" variant="secondary" size="md">
             Take the Full Diagnostic &rarr;
           </Button>

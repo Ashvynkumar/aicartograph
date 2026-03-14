@@ -6,7 +6,7 @@ export const SITE = {
   mission:
     "Make knowledge work, not just exist — so what organizations know becomes what gets resolved, for everyone who depends on it.",
   brandOrigin:
-    "A cartographer maps territory so others can navigate. We map organizational knowledge so everyone can resolve.",
+    "A cartographer maps territory so others can navigate. We map organizational knowledge so every question finds its answer.",
   description:
     "Your organization's knowledge already has the answers. aiCartograph makes sure people actually find them.",
   calendlyUrl: "https://calendly.com/ai-cartograph/30min",
@@ -182,10 +182,10 @@ export const PRICING_TIERS = [
 
 export const SIX_VERTICALS = [
   { name: "Product & Engineering", description: "Ship faster with resolved technical knowledge." },
-  { name: "Customer Support & CS", description: "Resolve tickets with knowledge, not guesswork." },
+  { name: "Customer Support & Customer Success", description: "Resolve tickets with knowledge, not guesswork." },
   { name: "Sales & Marketing", description: "Arm every conversation with the right knowledge." },
   { name: "HR & Operations", description: "Onboard and enable with knowledge that resolves." },
-  { name: "Developer Relations", description: "Make every developer self-sufficient." },
+  { name: "Legal & Compliance", description: "Ensure regulatory and policy knowledge is always accessible and current." },
   { name: "Information Security", description: "Ensure compliance knowledge is always current." },
 ];
 

@@ -14,10 +14,10 @@ export const metadata: Metadata = {
 };
 
 const tierHeaderColors = [
-  "bg-brand-300 text-brand-900",     /* Free: #97c1cc */
-  "bg-brand-600 text-white",         /* Starter: #49818d */
-  "bg-brand-800 text-white",         /* Professional: #223e49 */
-  "bg-brand-900 text-white",         /* Enterprise: #0c2329 */
+  "bg-[#97c1cc] text-brand-900",     /* Free */
+  "bg-[#49818d] text-white",         /* Starter */
+  "bg-[#4597b0] text-white",         /* Professional — most prominent */
+  "bg-[#0c2329] text-white",         /* Enterprise */
 ];
 
 const faqs = [
@@ -51,7 +51,6 @@ export default function PricingPage() {
         <div className="absolute top-0 left-1/2 w-72 h-72 bg-brand-500/5 rounded-full blur-3xl -translate-x-1/2" />
         <Container className="relative text-center">
           <AnimateOnScroll className="space-y-5 max-w-3xl mx-auto">
-            <Badge variant="highlight">Pricing</Badge>
             <h1 className="heading-h1 text-[#FDFFFF]">
               Start free. Scale with value.
             </h1>
@@ -66,7 +65,7 @@ export default function PricingPage() {
       <SectionDivider variant="rich" />
 
       {/* Pricing Cards (LIGHT) */}
-      <section className="section-light py-16 lg:py-20">
+      <section className="section-light py-12 lg:py-16">
         <Container>
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 max-w-6xl mx-auto">
             {PRICING_TIERS.map((tier, i) => (
@@ -124,13 +123,25 @@ export default function PricingPage() {
               </AnimateOnScroll>
             ))}
           </div>
+
+          {/* Early Access Banner */}
+          <AnimateOnScroll className="mt-10">
+            <div className="max-w-2xl mx-auto text-center rounded-xl bg-gradient-to-r from-brand-500/10 to-brand-400/10 border border-brand-500/20 p-6">
+              <p className="text-brand-900 font-semibold text-lg mb-2">
+                Request Early Access and unlock founding member privileges
+              </p>
+              <Button href="#" variant="primary" size="md">
+                Request Early Access
+              </Button>
+            </div>
+          </AnimateOnScroll>
         </Container>
       </section>
 
       <SectionDivider variant="gradient" />
 
       {/* Usage-based Pricing (DARK) */}
-      <section className="section-dark py-16 lg:py-20">
+      <section className="section-dark py-12 lg:py-16">
         <Container>
           <div className="max-w-3xl mx-auto">
             <AnimateOnScroll className="text-center mb-10">
@@ -164,9 +175,9 @@ export default function PricingPage() {
       <SectionDivider variant="rich" />
 
       {/* FAQ (LIGHT) */}
-      <section className="section-light py-16 lg:py-20">
+      <section className="section-light py-12 lg:py-16">
         <Container className="relative">
-          <AnimateOnScroll className="text-center mb-12">
+          <AnimateOnScroll className="text-center mb-8">
             <Badge variant="highlight">FAQ</Badge>
             <h2 className="heading-h2 text-brand-900 mt-4 mb-3">
               Frequently asked questions
@@ -176,12 +187,12 @@ export default function PricingPage() {
             </p>
           </AnimateOnScroll>
 
-          <div className="max-w-2xl mx-auto space-y-3">
+          <div className="max-w-4xl mx-auto grid sm:grid-cols-2 gap-3">
             {faqs.map((faq, i) => (
               <AnimateOnScroll key={i} delay={i * 0.05}>
-                <div className="card-surface rounded-xl p-5 hover:-translate-y-0.5 hover:shadow-md transition-all duration-300">
-                  <h3 className="text-brand-900 font-medium mb-2 text-sm">{faq.q}</h3>
-                  <p className="text-brand-700 text-sm leading-relaxed">{faq.a}</p>
+                <div className="card-surface rounded-xl p-4 h-full">
+                  <h3 className="text-brand-900 font-medium mb-1 text-sm">{faq.q}</h3>
+                  <p className="text-brand-700 text-xs leading-relaxed">{faq.a}</p>
                 </div>
               </AnimateOnScroll>
             ))}

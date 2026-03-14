@@ -2,12 +2,14 @@
 
 import { useState, useEffect } from "react";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
 import Logo from "../graphics/Logo";
 import Button from "../ui/Button";
 import { NAV_LINKS, SITE } from "@/lib/constants";
 
 export default function Navbar() {
+  const pathname = usePathname();
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
 
@@ -46,7 +48,11 @@ export default function Navbar() {
                 <Link
                   key={link.href}
                   href={link.href}
-                  className="text-sm text-white/50 hover:text-white transition-colors duration-200"
+                  className={`text-sm transition-colors duration-200 ${
+                    pathname === link.href
+                      ? "text-white font-medium"
+                      : "text-white/50 hover:text-white"
+                  }`}
                 >
                   {link.label}
                 </Link>

@@ -14,28 +14,34 @@ export const metadata: Metadata = {
 
 const principles = [
   {
-    title: "Resolution over retrieval",
+    title: "Resolution over retrieval.",
     description:
-      "Finding knowledge isn't the same as resolving a question. We measure success by outcomes, not search results.",
+      "We don\u2019t celebrate finding information. We celebrate solving problems.",
     border: "border-l-4 border-accent-sky",
   },
   {
-    title: "Consumption-first thinking",
+    title: "Consumption defines quality.",
     description:
-      "Every feature starts with the person trying to get an answer — not the person who created the knowledge.",
+      "Knowledge isn\u2019t good because it was written well. It\u2019s good because it resolved something.",
     border: "border-l-4 border-accent-amber",
   },
   {
-    title: "Feedback is fuel",
+    title: "The loop must close.",
     description:
-      "Every unresolved question is a consumption signal. We turn resolution failures into creation priorities.",
+      "Every unanswered question is a signal. Every signal must reach someone who can act on it.",
     border: "border-l-4 border-accent-emerald",
   },
   {
-    title: "Integrate, don't replace",
+    title: "Knowledge neglected is knowledge lost.",
     description:
-      "Your knowledge stack exists for good reasons. We make it work better, not replace it.",
+      "We treat organizational knowledge as a living asset \u2014 monitored, maintained, and accountable.",
     border: "border-l-4 border-accent-lavender",
+  },
+  {
+    title: "Built for the one who needs the answer.",
+    description:
+      "Every decision prioritizes the consumer of knowledge, not the creator.",
+    border: "border-l-4 border-accent-coral",
   },
 ];
 
@@ -71,7 +77,7 @@ export default function AboutPage() {
       <SectionDivider variant="rich" />
 
       {/* Vision + Mission (LIGHT) — LARGE typography */}
-      <section className="section-light py-16 lg:py-20">
+      <section className="section-light py-12 lg:py-16">
         <Container>
           <div className="max-w-3xl mx-auto space-y-12">
             <AnimateOnScroll>
@@ -98,7 +104,7 @@ export default function AboutPage() {
       <SectionDivider variant="gradient" />
 
       {/* Brand Origin (DARK) */}
-      <section className="section-dark py-16 lg:py-20">
+      <section className="section-dark py-12 lg:py-16">
         <Container>
           <div className="max-w-3xl mx-auto space-y-10">
             <AnimateOnScroll>
@@ -141,9 +147,9 @@ export default function AboutPage() {
       <SectionDivider variant="rich" />
 
       {/* Foundational Layer — Six Verticals (LIGHT) */}
-      <section className="section-light py-16 lg:py-20">
+      <section className="section-light py-12 lg:py-16">
         <Container>
-          <AnimateOnScroll className="text-center mb-12">
+          <AnimateOnScroll className="text-center mb-8">
             <p className="section-label mb-4">Foundational Layer</p>
             <h2 className="heading-h2 text-brand-900 mb-3">
               Wherever knowledge flows
@@ -172,7 +178,7 @@ export default function AboutPage() {
       <SectionDivider variant="gradient" />
 
       {/* Team (DARK) */}
-      <section className="section-dark py-16 lg:py-20">
+      <section className="section-dark py-12 lg:py-16">
         <Container>
           <div className="max-w-3xl mx-auto">
             <AnimateOnScroll className="space-y-6">
@@ -204,9 +210,9 @@ export default function AboutPage() {
       <SectionDivider variant="rich" />
 
       {/* Operating Principles (LIGHT) — renamed from "What we believe" */}
-      <section className="section-light py-16 lg:py-20">
+      <section className="section-light py-12 lg:py-16">
         <Container>
-          <AnimateOnScroll className="text-center mb-12">
+          <AnimateOnScroll className="text-center mb-8">
             <p className="section-label mb-4">How We Think</p>
             <h2 className="heading-h2 text-brand-900">
               Operating principles

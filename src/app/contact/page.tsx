@@ -73,9 +73,9 @@ export default function ContactPage() {
       <SectionDivider variant="rich" />
 
       {/* Form + Calendly (LIGHT) */}
-      <section className="section-light py-16 lg:py-20">
+      <section className="section-light py-12 lg:py-16">
         <Container>
-          <div className="grid lg:grid-cols-2 gap-12 max-w-5xl mx-auto">
+          <div className="grid lg:grid-cols-2 gap-8 max-w-5xl mx-auto">
             {/* Form */}
             <AnimateOnScroll>
               <div className="space-y-6">
@@ -91,7 +91,7 @@ export default function ContactPage() {
                     </p>
                   </div>
                 ) : (
-                  <form onSubmit={handleSubmit} className="space-y-4">
+                  <form onSubmit={handleSubmit} className="space-y-3">
                     <div>
                       <label htmlFor="name" className="block text-sm text-brand-700 mb-1.5">Name</label>
                       <input
@@ -125,7 +125,7 @@ export default function ContactPage() {
                     <div>
                       <label htmlFor="message" className="block text-sm text-brand-700 mb-1.5">Message</label>
                       <textarea
-                        id="message" rows={5}
+                        id="message" rows={3}
                         className="w-full rounded-xl border border-brand-700/20 bg-white px-5 py-3 text-brand-900 placeholder:text-brand-700/40 outline-none focus:border-brand-500/50 focus:ring-1 focus:ring-brand-500/25 transition-all resize-none"
                         placeholder="Tell us about your knowledge challenges..."
                         value={formState.message}
@@ -149,19 +149,18 @@ export default function ContactPage() {
             <AnimateOnScroll delay={0.2}>
               <div className="space-y-6">
                 <h2 className="heading-h2 text-brand-900">Schedule a conversation</h2>
-                <p className="text-brand-700 leading-relaxed">
-                  Prefer a conversation? Book a 30-minute call and we&apos;ll walk you
-                  through how aiCartograph can work for your organization.
+                <p className="text-brand-700 leading-relaxed text-sm">
+                  Prefer a conversation? We&apos;ll walk you through how aiCartograph can work for your organization.
                 </p>
 
-                <div className="card-surface rounded-xl p-6 space-y-5">
+                <div className="card-surface rounded-xl p-5 space-y-4">
                   <Button href={SITE.calendlyUrl} variant="primary" className="w-full" external>
-                    Schedule a 30-minute call
+                    Schedule a Conversation
                   </Button>
 
-                  <div className="space-y-3 pt-4 border-t border-brand-700/10">
+                  <div className="space-y-2.5 pt-3 border-t border-brand-700/10">
                     <div className="flex items-center gap-3">
-                      <svg className="w-5 h-5 text-brand-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
+                      <svg className="w-4 h-4 text-brand-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
                         <path strokeLinecap="round" strokeLinejoin="round" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
                       </svg>
                       <a href={`mailto:${SITE.email}`} className="text-brand-700 hover:text-brand-500 transition-colors text-sm">
@@ -169,30 +168,18 @@ export default function ContactPage() {
                       </a>
                     </div>
                     <div className="flex items-center gap-3">
-                      <svg className="w-5 h-5 text-brand-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
+                      <svg className="w-4 h-4 text-brand-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
                         <path strokeLinecap="round" strokeLinejoin="round" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
                       </svg>
                       <span className="text-brand-700 text-sm">Response within 24 hours</span>
                     </div>
                     <div className="flex items-center gap-3">
-                      <svg className="w-5 h-5 text-brand-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
+                      <svg className="w-4 h-4 text-brand-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
                         <path strokeLinecap="round" strokeLinejoin="round" d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
                       </svg>
                       <span className="text-brand-700 text-sm">Based in the UK, serving globally</span>
                     </div>
                   </div>
-                </div>
-
-                {/* Calendly embed */}
-                <div className="card-surface rounded-xl overflow-hidden">
-                  <iframe
-                    src="https://calendly.com/ai-cartograph/30min"
-                    width="100%"
-                    height="550"
-                    frameBorder="0"
-                    title="Schedule a call with aiCartograph"
-                    className="rounded-xl"
-                  />
                 </div>
               </div>
             </AnimateOnScroll>
