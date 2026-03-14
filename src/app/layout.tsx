@@ -10,7 +10,7 @@ export const metadata: Metadata = {
     template: "%s | aiCartograph",
   },
   description:
-    "Every answer. Everywhere. The moment it matters. aiCartograph makes organizational knowledge work, not just exist.",
+    "Every answer. Everywhere. The moment it matters. aiCartograph makes organizational knowledge resolve problems for everyone who depends on it.",
   metadataBase: new URL("https://aicartograph.com"),
   openGraph: {
     type: "website",
@@ -20,7 +20,7 @@ export const metadata: Metadata = {
     title: "aiCartograph — Knowledge Resolution Platform for SaaS Companies",
     description:
       "Every answer. Everywhere. The moment it matters. Make knowledge work, not just exist.",
-    images: [{ url: "/og-image.png", width: 1200, height: 630 }],
+    images: [{ url: "/aiCartograph_icon_final.svg", width: 1200, height: 630 }],
   },
   twitter: {
     card: "summary_large_image",

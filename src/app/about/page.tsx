@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import AnimateOnScroll from "@/components/AnimateOnScroll";
 import Container from "@/components/ui/Container";
 import Badge from "@/components/ui/Badge";
-import Card from "@/components/ui/Card";
 import SectionDivider from "@/components/ui/SectionDivider";
 import CTABanner from "@/components/sections/CTABanner";
 import { SITE, SIX_VERTICALS } from "@/lib/constants";
@@ -13,55 +12,55 @@ export const metadata: Metadata = {
     "aiCartograph is building the Knowledge Resolution category. Every answer. Everywhere. The moment it matters.",
 };
 
-const values = [
+const principles = [
   {
     title: "Resolution over retrieval",
     description:
       "Finding knowledge isn't the same as resolving a question. We measure success by outcomes, not search results.",
-    color: "border-accent-sky/15",
+    border: "border-l-4 border-accent-sky",
   },
   {
     title: "Consumption-first thinking",
     description:
       "Every feature starts with the person trying to get an answer — not the person who created the knowledge.",
-    color: "border-accent-amber/15",
+    border: "border-l-4 border-accent-amber",
   },
   {
     title: "Feedback is fuel",
     description:
       "Every unresolved question is a consumption signal. We turn resolution failures into creation priorities.",
-    color: "border-accent-emerald/15",
+    border: "border-l-4 border-accent-emerald",
   },
   {
     title: "Integrate, don't replace",
     description:
       "Your knowledge stack exists for good reasons. We make it work better, not replace it.",
-    color: "border-accent-lavender/15",
+    border: "border-l-4 border-accent-lavender",
   },
 ];
 
 const verticalColors = [
-  "border-accent-sky/15 hover:border-accent-sky/30",
-  "border-accent-coral/15 hover:border-accent-coral/30",
-  "border-accent-amber/15 hover:border-accent-amber/30",
-  "border-accent-emerald/15 hover:border-accent-emerald/30",
-  "border-accent-lavender/15 hover:border-accent-lavender/30",
-  "border-accent-copper/15 hover:border-accent-copper/30",
+  "border-l-4 border-accent-sky",
+  "border-l-4 border-accent-coral",
+  "border-l-4 border-accent-amber",
+  "border-l-4 border-accent-emerald",
+  "border-l-4 border-accent-lavender",
+  "border-l-4 border-accent-copper",
 ];
 
 export default function AboutPage() {
   return (
     <>
-      {/* Hero */}
-      <section className="pt-28 pb-16 relative">
+      {/* Hero (DARK) */}
+      <section className="pt-28 pb-16 section-dark relative">
         <div className="absolute top-0 right-1/3 w-72 h-72 bg-brand-500/5 rounded-full blur-3xl" />
         <Container className="relative">
           <AnimateOnScroll className="max-w-3xl space-y-5">
             <Badge variant="highlight">About</Badge>
-            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-white leading-[1.1]">
+            <h1 className="heading-h1 text-[#FDFFFF]">
               Building the Knowledge
               <br />
-              <span className="bg-gradient-to-r from-brand-400 to-brand-300 bg-clip-text text-transparent">
+              <span className="bg-gradient-to-r from-brand-500 to-brand-400 bg-clip-text text-transparent">
                 Resolution category
               </span>
             </h1>
@@ -71,14 +70,14 @@ export default function AboutPage() {
 
       <SectionDivider variant="rich" />
 
-      {/* Vision + Mission */}
-      <section className="py-16 lg:py-20">
+      {/* Vision + Mission (LIGHT) — LARGE typography */}
+      <section className="section-light py-16 lg:py-20">
         <Container>
           <div className="max-w-3xl mx-auto space-y-12">
             <AnimateOnScroll>
               <div className="space-y-3">
-                <p className="text-brand-400 font-medium text-sm tracking-wide uppercase">Vision</p>
-                <h2 className="text-3xl sm:text-4xl font-bold text-white">
+                <p className="section-label">Vision</p>
+                <h2 className="heading-h2 text-brand-900" style={{ fontSize: "clamp(2rem, 4vw, 2.5rem)" }}>
                   {SITE.vision}
                 </h2>
               </div>
@@ -86,8 +85,8 @@ export default function AboutPage() {
 
             <AnimateOnScroll>
               <div className="space-y-3">
-                <p className="text-brand-400 font-medium text-sm tracking-wide uppercase">Mission</p>
-                <blockquote className="text-xl sm:text-2xl text-white/75 leading-relaxed border-l-2 border-brand-500 pl-6">
+                <p className="section-label">Mission</p>
+                <blockquote className="text-xl sm:text-2xl text-brand-700 leading-relaxed border-l-4 border-brand-500 pl-6" style={{ fontFamily: "var(--font-serif)" }}>
                   {SITE.mission}
                 </blockquote>
               </div>
@@ -98,21 +97,21 @@ export default function AboutPage() {
 
       <SectionDivider variant="gradient" />
 
-      {/* Brand Origin */}
-      <section className="py-16 lg:py-20">
+      {/* Brand Origin (DARK) */}
+      <section className="section-dark py-16 lg:py-20">
         <Container>
           <div className="max-w-3xl mx-auto space-y-10">
             <AnimateOnScroll>
-              <h2 className="text-3xl sm:text-4xl font-bold text-white mb-5">
+              <h2 className="heading-h2 text-[#FDFFFF] mb-5">
                 Why &ldquo;aiCartograph&rdquo;?
               </h2>
-              <blockquote className="text-xl text-white/55 leading-relaxed border-l-2 border-accent-amber pl-6">
+              <blockquote className="text-xl text-brand-300 leading-relaxed border-l-4 border-accent-amber pl-6" style={{ fontFamily: "var(--font-serif)" }}>
                 {SITE.brandOrigin}
               </blockquote>
             </AnimateOnScroll>
 
             <AnimateOnScroll>
-              <div className="space-y-5 text-white/55 leading-relaxed text-lg">
+              <div className="space-y-5 text-brand-300 leading-relaxed text-lg">
                 <p>
                   Every organization has knowledge. Help articles, internal wikis,
                   product guides, runbooks, training materials, tribal expertise captured
@@ -120,7 +119,7 @@ export default function AboutPage() {
                 </p>
                 <p>
                   But knowledge is broken. Not because it isn&apos;t created — because it
-                  doesn&apos;t <span className="text-white font-medium">resolve</span>. People
+                  doesn&apos;t <span className="text-[#FDFFFF] font-medium">resolve</span>. People
                   can&apos;t find what they need. Support load keeps climbing. Engineers get interrupted.
                   New hires hit walls. The same questions get asked again and again.
                 </p>
@@ -129,7 +128,7 @@ export default function AboutPage() {
                   searching it. But nobody has built the layer that makes
                   knowledge actually work at the point of need.
                 </p>
-                <p className="text-white font-medium">
+                <p className="text-[#FDFFFF] font-medium">
                   That&apos;s what aiCartograph does. We&apos;re building the Knowledge Resolution
                   Platform.
                 </p>
@@ -141,28 +140,29 @@ export default function AboutPage() {
 
       <SectionDivider variant="rich" />
 
-      {/* Six Verticals */}
-      <section className="py-16 lg:py-20">
+      {/* Foundational Layer — Six Verticals (LIGHT) */}
+      <section className="section-light py-16 lg:py-20">
         <Container>
           <AnimateOnScroll className="text-center mb-12">
-            <h2 className="text-3xl sm:text-4xl font-bold text-white mb-3">
+            <p className="section-label mb-4">Foundational Layer</p>
+            <h2 className="heading-h2 text-brand-900 mb-3">
               Wherever knowledge flows
             </h2>
-            <p className="text-white/45 text-lg max-w-2xl mx-auto">
+            <p className="text-brand-700 text-lg max-w-2xl mx-auto">
               Wherever teams create knowledge and others consume it, aiCartograph
               ensures it resolves.
             </p>
           </AnimateOnScroll>
 
-          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5 max-w-4xl mx-auto">
+          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 max-w-4xl mx-auto">
             {SIX_VERTICALS.map((vertical, i) => (
               <AnimateOnScroll key={vertical.name} delay={i * 0.08}>
-                <Card className={`h-full transition-all ${verticalColors[i]}`}>
-                  <h3 className="text-white font-semibold mb-2 text-sm">{vertical.name}</h3>
-                  <p className="text-white/40 text-sm leading-relaxed">
+                <div className={`card-surface rounded-xl p-6 h-full ${verticalColors[i]} hover:-translate-y-0.5 hover:shadow-lg transition-all duration-300`}>
+                  <h3 className="heading-h3 text-brand-900 mb-2 text-base">{vertical.name}</h3>
+                  <p className="text-brand-700 text-sm leading-relaxed">
                     {vertical.description}
                   </p>
-                </Card>
+                </div>
               </AnimateOnScroll>
             ))}
           </div>
@@ -171,32 +171,30 @@ export default function AboutPage() {
 
       <SectionDivider variant="gradient" />
 
-      {/* Founder */}
-      <section className="py-16 lg:py-20">
+      {/* Team (DARK) */}
+      <section className="section-dark py-16 lg:py-20">
         <Container>
           <div className="max-w-3xl mx-auto">
             <AnimateOnScroll className="space-y-6">
-              <h2 className="text-3xl sm:text-4xl font-bold text-white">
-                The team
-              </h2>
+              <h2 className="heading-h2 text-[#FDFFFF]">The team</h2>
               <div className="grid sm:grid-cols-2 gap-6">
-                <Card className="border-accent-amber/15">
-                  <h3 className="text-white font-semibold text-lg mb-1">Atlas</h3>
+                <div className="rounded-xl bg-brand-800 border border-brand-700/30 p-6 border-l-4 border-l-accent-amber">
+                  <h3 className="text-[#FDFFFF] font-semibold text-lg mb-1">Atlas</h3>
                   <p className="text-accent-amber text-sm mb-3">Founder & CEO</p>
-                  <p className="text-white/40 text-sm leading-relaxed">
+                  <p className="text-brand-300 text-sm leading-relaxed">
                     Founded aiCartograph after seeing the same pattern across SaaS companies:
                     organizations invest in creating knowledge, but the people who need it
                     most still can&apos;t get answers.
                   </p>
-                </Card>
-                <Card className="border-accent-sky/15">
-                  <h3 className="text-white font-semibold text-lg mb-1">Compass</h3>
+                </div>
+                <div className="rounded-xl bg-brand-800 border border-brand-700/30 p-6 border-l-4 border-l-accent-sky">
+                  <h3 className="text-[#FDFFFF] font-semibold text-lg mb-1">Compass</h3>
                   <p className="text-accent-sky text-sm mb-3">AI Co-founder</p>
-                  <p className="text-white/40 text-sm leading-relaxed">
+                  <p className="text-brand-300 text-sm leading-relaxed">
                     AI partner in strategy, architecture, and execution — helping build
                     aiCartograph from founding blueprint to production platform.
                   </p>
-                </Card>
+                </div>
               </div>
             </AnimateOnScroll>
           </div>
@@ -205,27 +203,30 @@ export default function AboutPage() {
 
       <SectionDivider variant="rich" />
 
-      {/* Values */}
-      <section className="py-16 lg:py-20">
+      {/* Operating Principles (LIGHT) — renamed from "What we believe" */}
+      <section className="section-light py-16 lg:py-20">
         <Container>
           <AnimateOnScroll className="text-center mb-12">
-            <h2 className="text-3xl sm:text-4xl font-bold text-white mb-3">
-              What we believe
+            <p className="section-label mb-4">How We Think</p>
+            <h2 className="heading-h2 text-brand-900">
+              Operating principles
             </h2>
           </AnimateOnScroll>
 
           <div className="grid sm:grid-cols-2 gap-6 max-w-4xl mx-auto">
-            {values.map((value, i) => (
-              <AnimateOnScroll key={value.title} delay={i * 0.1}>
-                <Card className={`space-y-2 ${value.color}`}>
-                  <h3 className="text-white font-semibold text-base">{value.title}</h3>
-                  <p className="text-white/40 leading-relaxed text-sm">{value.description}</p>
-                </Card>
+            {principles.map((p, i) => (
+              <AnimateOnScroll key={p.title} delay={i * 0.1}>
+                <div className={`card-surface rounded-xl p-6 ${p.border} hover:-translate-y-0.5 hover:shadow-lg transition-all duration-300`}>
+                  <h3 className="heading-h3 text-brand-900 mb-2 text-base">{p.title}</h3>
+                  <p className="text-brand-700 text-sm leading-relaxed">{p.description}</p>
+                </div>
               </AnimateOnScroll>
             ))}
           </div>
         </Container>
       </section>
+
+      <SectionDivider variant="gradient" />
 
       <CTABanner
         headline="Join us in building this category"

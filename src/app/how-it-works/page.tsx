@@ -2,235 +2,236 @@ import type { Metadata } from "next";
 import AnimateOnScroll from "@/components/AnimateOnScroll";
 import Container from "@/components/ui/Container";
 import Badge from "@/components/ui/Badge";
-import Card from "@/components/ui/Card";
 import SectionDivider from "@/components/ui/SectionDivider";
 import FlowDiagram from "@/components/graphics/FlowDiagram";
-import { PillarIcon, SourceIcon } from "@/components/graphics/FancyIcons";
 import CTABanner from "@/components/sections/CTABanner";
-import { FRAMEWORK_PILLARS } from "@/lib/constants";
 
 export const metadata: Metadata = {
   title: "How It Works",
   description:
-    "Connect your knowledge sources, resolve questions with intelligence, detect health issues, and close the feedback loop — continuously.",
+    "See how aiCartograph resolves knowledge in practice — from question to resolution in seconds.",
 };
 
-const stepDetails = [
-  {
-    details: [
-      "Integrate wikis, help centers, knowledge bases, shared drives, and more",
-      "Automatic content indexing and semantic embedding",
-      "Real-time sync as knowledge is updated",
-      "Respects existing access controls and permissions",
-    ],
-  },
-  {
-    details: [
-      "Semantic understanding of intent, not just keywords",
-      "Cross-source contextual synthesis",
-      "Role and context awareness for personalized answers",
-      "Confidence scoring and source attribution",
-    ],
-  },
-  {
-    details: [
-      "Proactive staleness scoring tied to product changes",
-      "Semantic contradiction analysis across sources",
-      "Coverage gap identification",
-      "Knowledge drift monitoring over time",
-    ],
-  },
-  {
-    details: [
-      "Consumption failure tracking and routing",
-      "Priority scoring for knowledge owners",
-      "Content creation recommendations based on resolution data",
-      "Continuous improvement of resolution rates",
-    ],
-  },
-];
+/* ─── Section 1: Hero (DARK) ─── */
+function HIWHero() {
+  return (
+    <section className="pt-28 pb-16 section-dark relative">
+      <div className="absolute top-0 right-1/4 w-72 h-72 bg-brand-500/5 rounded-full blur-3xl" />
+      <Container className="relative">
+        <AnimateOnScroll className="max-w-3xl space-y-5">
+          <Badge variant="highlight">How It Works</Badge>
+          <h1 className="heading-h1 text-[#FDFFFF]">
+            From question to resolution
+            <br />
+            <span className="bg-gradient-to-r from-brand-500 to-brand-400 bg-clip-text text-transparent">
+              in seconds.
+            </span>
+          </h1>
+          <p className="text-xl text-brand-300 max-w-2xl leading-relaxed">
+            See how aiCartograph works in practice — step by step.
+          </p>
+        </AnimateOnScroll>
+      </Container>
+    </section>
+  );
+}
 
-const sourceTypes = [
-  "Wikis",
-  "Help Centers",
-  "Knowledge Bases",
-  "Shared Drives",
-  "Project Tools",
-  "Communication Platforms",
-  "Code Repositories",
-  "CRM Systems",
-  "Support Platforms",
-];
+/* ─── Section 2: Sarah's Story (LIGHT) ─── */
+function SarahStory() {
+  const without = [
+    "Sarah, a CS manager, gets asked about SSO config for Enterprise v3.2.",
+    "She searches the help center — finds 4 articles, none specific to v3.2.",
+    "She Slacks an engineer. Waits 2 hours.",
+    "Customer waits. Gets a half-right answer a day late.",
+    "Nobody knows this happened. Nobody fixes the knowledge.",
+  ];
 
-const techHighlights = [
-  {
-    title: "Semantic Search",
-    description: "Vector embeddings for meaning-based retrieval across your entire knowledge corpus.",
-    color: "border-accent-sky/20",
-  },
-  {
-    title: "RAG Pipeline",
-    description: "Retrieval-augmented generation for accurate, grounded answers with source attribution.",
-    color: "border-accent-lavender/20",
-  },
-  {
-    title: "Consumption Signals",
-    description: "ML-driven signal processing to turn resolution patterns into actionable knowledge priorities.",
-    color: "border-accent-amber/20",
-  },
-  {
-    title: "Real-time Sync",
-    description: "Event-driven knowledge updates so your resolution layer is always current.",
-    color: "border-accent-emerald/20",
-  },
-];
+  const withAC = [
+    "Sarah asks aiCartograph the same question.",
+    "System pulls from SSO guide, v3.2 release notes, Enterprise config spec.",
+    "Assembles precise, step-by-step answer in seconds.",
+    "Sarah resolves the ticket in 3 minutes.",
+    "aiCartograph detects this was asked 12 times. Signals the knowledge team.",
+  ];
 
-const pillarAccentColors = ["text-accent-amber", "text-accent-sky", "text-accent-coral", "text-accent-emerald"];
+  return (
+    <section className="section-light py-16 lg:py-20">
+      <Container>
+        <AnimateOnScroll className="text-center mb-12">
+          <p className="section-label mb-4">Scenario 1: Customer Success</p>
+          <h2 className="heading-h2 text-brand-900">
+            Sarah&apos;s SSO question
+          </h2>
+        </AnimateOnScroll>
+
+        <div className="grid md:grid-cols-2 gap-6 max-w-5xl mx-auto">
+          {/* Without */}
+          <AnimateOnScroll>
+            <div className="card-surface rounded-xl p-6 h-full border-l-4 border-accent-coral">
+              <Badge>Without aiCartograph</Badge>
+              <div className="mt-4 space-y-3">
+                {without.map((step, i) => (
+                  <div key={i} className="flex items-start gap-3">
+                    <span className="text-accent-coral font-mono text-xs font-bold mt-1 shrink-0">{i + 1}.</span>
+                    <p className={`text-sm leading-relaxed ${i === without.length - 1 ? "text-accent-coral font-medium" : "text-brand-700"}`}>
+                      {step}
+                    </p>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </AnimateOnScroll>
+
+          {/* With */}
+          <AnimateOnScroll delay={0.15}>
+            <div className="card-surface rounded-xl p-6 h-full border-l-4 border-brand-500 shadow-lg shadow-brand-500/5">
+              <Badge variant="highlight">With aiCartograph</Badge>
+              <div className="mt-4 space-y-3">
+                {withAC.map((step, i) => (
+                  <div key={i} className="flex items-start gap-3">
+                    <span className="text-brand-500 font-mono text-xs font-bold mt-1 shrink-0">{i + 1}.</span>
+                    <p className={`text-sm leading-relaxed ${i === withAC.length - 1 ? "text-brand-500 font-medium" : "text-brand-700"}`}>
+                      {step}
+                    </p>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </AnimateOnScroll>
+        </div>
+
+        <AnimateOnScroll className="text-center mt-10">
+          <p className="text-brand-600 font-medium text-lg">
+            This is the difference between retrieval and resolution.
+          </p>
+        </AnimateOnScroll>
+      </Container>
+    </section>
+  );
+}
+
+/* ─── Section 3: Second Persona (DARK) ─── */
+function DevStory() {
+  const without = [
+    "Priya, a new engineer, needs to set up the local dev environment.",
+    "The internal wiki has a 2-year-old setup guide for a different stack.",
+    "She asks in #engineering — gets 3 partial answers and 2 broken links.",
+    "Two senior engineers spend 45 minutes helping her debug config.",
+    "The team loses half a day. The wiki never gets updated.",
+  ];
+
+  const withAC = [
+    "Priya asks aiCartograph how to set up the local dev environment.",
+    "It synthesizes from the current README, recent Slack threads, and CI config.",
+    "She gets a step-by-step guide for the actual current stack — in 30 seconds.",
+    "Priya is productive by lunch. No engineers interrupted.",
+    "aiCartograph flags the outdated wiki page and routes it to the DevEx team.",
+  ];
+
+  return (
+    <section className="section-dark py-16 lg:py-20">
+      <Container>
+        <AnimateOnScroll className="text-center mb-12">
+          <p className="section-label mb-4">Scenario 2: Engineering Onboarding</p>
+          <h2 className="heading-h2 text-[#FDFFFF]">
+            Priya&apos;s first day
+          </h2>
+        </AnimateOnScroll>
+
+        <div className="grid md:grid-cols-2 gap-6 max-w-5xl mx-auto">
+          <AnimateOnScroll>
+            <div className="rounded-xl bg-brand-800 border border-brand-700/30 p-6 h-full border-l-4 border-l-accent-coral">
+              <Badge>Without aiCartograph</Badge>
+              <div className="mt-4 space-y-3">
+                {without.map((step, i) => (
+                  <div key={i} className="flex items-start gap-3">
+                    <span className="text-accent-coral font-mono text-xs font-bold mt-1 shrink-0">{i + 1}.</span>
+                    <p className={`text-sm leading-relaxed ${i === without.length - 1 ? "text-accent-coral font-medium" : "text-brand-300"}`}>
+                      {step}
+                    </p>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </AnimateOnScroll>
+
+          <AnimateOnScroll delay={0.15}>
+            <div className="rounded-xl bg-brand-800 border border-brand-500/30 p-6 h-full border-l-4 border-l-brand-500 shadow-lg shadow-brand-500/10">
+              <Badge variant="highlight">With aiCartograph</Badge>
+              <div className="mt-4 space-y-3">
+                {withAC.map((step, i) => (
+                  <div key={i} className="flex items-start gap-3">
+                    <span className="text-brand-500 font-mono text-xs font-bold mt-1 shrink-0">{i + 1}.</span>
+                    <p className={`text-sm leading-relaxed ${i === withAC.length - 1 ? "text-brand-400 font-medium" : "text-brand-300"}`}>
+                      {step}
+                    </p>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </AnimateOnScroll>
+        </div>
+
+        <AnimateOnScroll className="text-center mt-10">
+          <p className="text-brand-400 font-medium text-lg">
+            Knowledge resolution isn&apos;t just for support — it&apos;s for every team.
+          </p>
+        </AnimateOnScroll>
+      </Container>
+    </section>
+  );
+}
+
+/* ─── Section 4: Behind the Scenes (LIGHT) ─── */
+function BehindTheScenes() {
+  return (
+    <section className="section-light py-16 lg:py-20">
+      <Container>
+        <AnimateOnScroll className="text-center mb-12">
+          <p className="section-label mb-4">Under the Hood</p>
+          <h2 className="heading-h2 text-brand-900">
+            What happens behind the scenes
+          </h2>
+          <p className="text-brand-700 text-lg max-w-2xl mx-auto mt-3">
+            When someone asks a question, here&apos;s what aiCartograph does — in real time.
+          </p>
+        </AnimateOnScroll>
+
+        <AnimateOnScroll>
+          <FlowDiagram className="max-w-4xl mx-auto" />
+        </AnimateOnScroll>
+
+        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6 max-w-4xl mx-auto mt-12">
+          {[
+            { title: "Semantic Search", desc: "Vector embeddings for meaning-based retrieval across your entire corpus." },
+            { title: "RAG Pipeline", desc: "Retrieval-augmented generation for grounded answers with source attribution." },
+            { title: "Consumption Signals", desc: "ML-driven signal processing to turn patterns into actionable priorities." },
+            { title: "Real-time Sync", desc: "Event-driven updates so your resolution layer is always current." },
+          ].map((tech, i) => (
+            <AnimateOnScroll key={tech.title} delay={i * 0.1}>
+              <div className="card-surface rounded-xl p-5 h-full hover:-translate-y-0.5 hover:shadow-lg transition-all duration-300">
+                <h3 className="heading-h3 text-brand-900 mb-2 text-base">{tech.title}</h3>
+                <p className="text-brand-700 text-sm leading-relaxed">{tech.desc}</p>
+              </div>
+            </AnimateOnScroll>
+          ))}
+        </div>
+      </Container>
+    </section>
+  );
+}
 
 export default function HowItWorksPage() {
   return (
     <>
-      {/* Hero */}
-      <section className="pt-28 pb-16 relative">
-        <div className="absolute top-0 right-1/4 w-72 h-72 bg-brand-500/5 rounded-full blur-3xl" />
-        <Container className="relative">
-          <AnimateOnScroll className="max-w-3xl space-y-5">
-            <Badge variant="highlight">How It Works</Badge>
-            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-white leading-[1.1]">
-              Four pillars.
-              <br />
-              <span className="bg-gradient-to-r from-brand-400 to-brand-300 bg-clip-text text-transparent">
-                One continuous cycle.
-              </span>
-            </h1>
-            <p className="text-xl text-white/55 max-w-2xl leading-relaxed">
-              Connect &rarr; Resolve &rarr; Detect &rarr; Close the Loop.
-              Knowledge that improves every day.
-            </p>
-          </AnimateOnScroll>
-        </Container>
-      </section>
-
+      <HIWHero />
       <SectionDivider variant="rich" />
-
-      {/* Flow Diagram */}
-      <section className="py-10">
-        <Container>
-          <AnimateOnScroll>
-            <FlowDiagram className="max-w-4xl mx-auto" />
-          </AnimateOnScroll>
-        </Container>
-      </section>
-
+      <SarahStory />
       <SectionDivider variant="gradient" />
-
-      {/* Detailed Steps */}
-      <section className="py-16 lg:py-20">
-        <Container>
-          <div className="space-y-16">
-            {FRAMEWORK_PILLARS.map((pillar, i) => (
-              <AnimateOnScroll key={pillar.id} delay={i * 0.1}>
-                <div className="grid lg:grid-cols-2 gap-10 items-start">
-                  <div className="space-y-4">
-                    <div className="flex items-center gap-3">
-                      <PillarIcon id={pillar.id} className="w-8 h-8" />
-                      <span className={`font-mono text-sm font-bold ${pillarAccentColors[i]}`}>
-                        Pillar {String(i + 1).padStart(2, "0")}
-                      </span>
-                    </div>
-                    <h3 className="text-2xl sm:text-3xl font-bold text-white">
-                      {pillar.title}
-                    </h3>
-                    <p className="text-white/55 leading-relaxed text-lg">
-                      {pillar.description}
-                    </p>
-                  </div>
-                  <div className="space-y-3">
-                    {stepDetails[i].details.map((detail) => (
-                      <div
-                        key={detail}
-                        className="flex items-start gap-3 rounded-xl border border-white/5 bg-white/[0.02] p-4 hover:border-white/10 transition-colors"
-                      >
-                        <svg
-                          className="w-5 h-5 text-brand-500 mt-0.5 shrink-0"
-                          fill="none"
-                          viewBox="0 0 20 20"
-                        >
-                          <path
-                            d="M6 10l3 3 5-6"
-                            stroke="currentColor"
-                            strokeWidth="2"
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                          />
-                        </svg>
-                        <span className="text-white/60 text-sm">{detail}</span>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-              </AnimateOnScroll>
-            ))}
-          </div>
-        </Container>
-      </section>
-
+      <DevStory />
       <SectionDivider variant="rich" />
-
-      {/* Source Types */}
-      <section className="py-16 lg:py-20">
-        <Container>
-          <AnimateOnScroll className="text-center mb-12">
-            <h2 className="text-3xl sm:text-4xl font-bold text-white mb-3">
-              Connects to your entire knowledge stack
-            </h2>
-            <p className="text-white/45 text-lg">
-              No migration. No lock-in. Your knowledge stays where it is.
-            </p>
-          </AnimateOnScroll>
-
-          <div className="flex flex-wrap justify-center gap-3 max-w-3xl mx-auto">
-            {sourceTypes.map((name, i) => (
-              <AnimateOnScroll key={name} delay={i * 0.05}>
-                <div className="group rounded-full border border-white/10 bg-white/[0.02] px-5 py-2.5 flex items-center gap-2.5 hover:border-brand-500/30 hover:bg-brand-500/5 transition-all cursor-default">
-                  <SourceIcon name={name} className="w-4 h-4 opacity-70 group-hover:opacity-100 transition-opacity" />
-                  <span className="text-white/55 text-sm group-hover:text-white/80 transition-colors">{name}</span>
-                </div>
-              </AnimateOnScroll>
-            ))}
-          </div>
-        </Container>
-      </section>
-
+      <BehindTheScenes />
       <SectionDivider variant="gradient" />
-
-      {/* Technical Credibility */}
-      <section className="py-16 lg:py-20">
-        <Container>
-          <AnimateOnScroll className="text-center mb-12">
-            <h2 className="text-3xl sm:text-4xl font-bold text-white mb-3">
-              Built on serious technology
-            </h2>
-            <p className="text-white/45 text-lg max-w-2xl mx-auto">
-              Modern AI infrastructure designed for accuracy, speed, and scale.
-            </p>
-          </AnimateOnScroll>
-
-          <div className="grid sm:grid-cols-2 gap-5 max-w-3xl mx-auto">
-            {techHighlights.map((tech, i) => (
-              <AnimateOnScroll key={tech.title} delay={i * 0.1}>
-                <Card className={`${tech.color}`}>
-                  <h3 className="text-white font-semibold mb-2">{tech.title}</h3>
-                  <p className="text-white/40 text-sm leading-relaxed">
-                    {tech.description}
-                  </p>
-                </Card>
-              </AnimateOnScroll>
-            ))}
-          </div>
-        </Container>
-      </section>
-
       <CTABanner
         headline="See resolution in action"
         subheadline="Schedule a 30-minute conversation and we'll show you what knowledge resolution looks like for your team."

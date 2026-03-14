@@ -2,10 +2,9 @@ import type { Metadata } from "next";
 import AnimateOnScroll from "@/components/AnimateOnScroll";
 import Container from "@/components/ui/Container";
 import Badge from "@/components/ui/Badge";
-import Card from "@/components/ui/Card";
 import SectionDivider from "@/components/ui/SectionDivider";
 import { USPIcon } from "@/components/graphics/USPIcons";
-import { PillarIcon } from "@/components/graphics/FancyIcons";
+import { PillarIcon, SourceIcon } from "@/components/graphics/FancyIcons";
 import CTABanner from "@/components/sections/CTABanner";
 import { FRAMEWORK_PILLARS, USPS, EIGHTEEN_PROBLEMS, COMPETITOR_APPROACHES } from "@/lib/constants";
 
@@ -15,23 +14,29 @@ export const metadata: Metadata = {
     "Discover how aiCartograph resolves organizational knowledge — Connect, Resolve, Detect, Close the Loop.",
 };
 
-const pillarColors = ["text-accent-amber", "text-accent-sky", "text-accent-coral", "text-accent-emerald"];
+const pillarColors = [
+  { accent: "text-accent-amber", border: "border-l-4 border-accent-amber" },
+  { accent: "text-accent-sky", border: "border-l-4 border-accent-sky" },
+  { accent: "text-accent-coral", border: "border-l-4 border-accent-coral" },
+  { accent: "text-accent-emerald", border: "border-l-4 border-accent-emerald" },
+];
 
+/* ─── Section 1: Hero (DARK) ─── */
 function ProductHero() {
   return (
-    <section className="pt-28 pb-16 relative">
+    <section className="pt-28 pb-16 section-dark relative">
       <div className="absolute top-0 left-1/3 w-72 h-72 bg-brand-500/5 rounded-full blur-3xl" />
       <Container className="relative">
         <AnimateOnScroll className="max-w-3xl space-y-5">
           <Badge variant="highlight">Product</Badge>
-          <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-white leading-[1.1]">
+          <h1 className="heading-h1 text-[#FDFFFF]">
             Knowledge Resolution,
             <br />
-            <span className="bg-gradient-to-r from-brand-400 to-brand-300 bg-clip-text text-transparent">
+            <span className="bg-gradient-to-r from-brand-500 to-brand-400 bg-clip-text text-transparent">
               not knowledge management
             </span>
           </h1>
-          <p className="text-xl text-white/55 max-w-2xl leading-relaxed">
+          <p className="text-xl text-brand-300 max-w-2xl leading-relaxed">
             aiCartograph doesn&apos;t replace your knowledge tools. It makes all of them
             actually work — resolving questions, detecting health issues, and closing
             the loop back to knowledge owners.
@@ -42,36 +47,36 @@ function ProductHero() {
   );
 }
 
+/* ─── Section 2: Four Pillars Full (LIGHT) ─── */
 function FourPillars() {
   return (
-    <section className="py-16 lg:py-20">
+    <section className="section-light py-16 lg:py-20">
       <Container>
         <AnimateOnScroll className="mb-12">
-          <h2 className="text-3xl sm:text-4xl font-bold text-white mb-3">
+          <p className="section-label mb-4">The Framework</p>
+          <h2 className="heading-h2 text-brand-900">
             Connect &rarr; Resolve &rarr; Detect &rarr; Close the Loop
           </h2>
-          <p className="text-white/45 text-lg max-w-2xl">
+          <p className="text-brand-700 text-lg max-w-2xl mt-3">
             Four pillars that form a continuous cycle of knowledge resolution.
           </p>
         </AnimateOnScroll>
 
-        <div className="space-y-12">
+        <div className="space-y-6">
           {FRAMEWORK_PILLARS.map((pillar, i) => (
-            <AnimateOnScroll key={pillar.id} direction={i % 2 === 0 ? "left" : "right"}>
-              <div className="grid lg:grid-cols-3 gap-6 items-start">
-                <div className="space-y-3">
-                  <div className="flex items-center gap-3">
-                    <PillarIcon id={pillar.id} className="w-8 h-8" />
-                    <span className={`font-mono text-sm font-bold ${pillarColors[i]}`}>
-                      Pillar {String(i + 1).padStart(2, "0")}
-                    </span>
+            <AnimateOnScroll key={pillar.id} delay={i * 0.1}>
+              <div className={`card-surface rounded-xl p-8 ${pillarColors[i].border} hover:-translate-y-0.5 hover:shadow-lg transition-all duration-300`}>
+                <div className="flex items-start gap-5">
+                  <PillarIcon id={pillar.id} className="w-10 h-10 shrink-0 mt-1" />
+                  <div>
+                    <div className="flex items-center gap-3 mb-2">
+                      <span className={`font-mono text-sm font-bold ${pillarColors[i].accent}`}>
+                        Pillar {String(i + 1).padStart(2, "0")}
+                      </span>
+                    </div>
+                    <h3 className="heading-h3 text-brand-900 mb-2">{pillar.verb}</h3>
+                    <p className="text-brand-700 leading-relaxed">{pillar.description}</p>
                   </div>
-                  <h3 className="text-2xl font-bold text-white">{pillar.verb}</h3>
-                </div>
-                <div className="lg:col-span-2">
-                  <p className="text-white/55 leading-relaxed text-lg">
-                    {pillar.description}
-                  </p>
                 </div>
               </div>
             </AnimateOnScroll>
@@ -82,74 +87,63 @@ function FourPillars() {
   );
 }
 
-function SarahStory() {
+/* ─── Section 3: Knowledge Sources (DARK) ─── */
+const sourceTypes = [
+  "Wikis", "Help Centers", "Knowledge Bases", "Shared Drives", "Project Tools",
+  "Communication Platforms", "Code Repositories", "CRM Systems", "Support Platforms",
+];
+
+function KnowledgeSources() {
   return (
-    <section className="py-16 lg:py-20">
+    <section className="section-dark py-16 lg:py-20">
       <Container>
-        <AnimateOnScroll className="max-w-4xl mx-auto">
-          <h2 className="text-3xl sm:text-4xl font-bold text-white mb-10 text-center">
-            How It Works in Practice
+        <AnimateOnScroll className="text-center mb-12">
+          <p className="section-label mb-4">Integrations</p>
+          <h2 className="heading-h2 text-[#FDFFFF] mb-3">
+            100+ sources. Zero migration.
           </h2>
-
-          <div className="grid md:grid-cols-2 gap-6">
-            <Card className="space-y-4 border-accent-coral/15">
-              <Badge>Without aiCartograph</Badge>
-              <div className="space-y-2.5 text-white/45 text-sm leading-relaxed mt-4">
-                <p>Sarah, a customer success manager, gets asked about a feature change.</p>
-                <p>She searches the wiki — finds three articles, two outdated, one contradicting the other.</p>
-                <p>She messages the product team. Waits 4 hours. Gets a partial answer.</p>
-                <p>She stitches together a response. The customer gets a half-right answer, a day late.</p>
-                <p className="text-accent-coral font-medium">Nobody knows this happened. Nobody fixes the knowledge.</p>
-              </div>
-            </Card>
-
-            <Card highlighted className="space-y-4">
-              <Badge variant="highlight">With aiCartograph</Badge>
-              <div className="space-y-2.5 text-white/55 text-sm leading-relaxed mt-4">
-                <p>Sarah asks aiCartograph. It synthesizes across the wiki, release notes, and support history.</p>
-                <p>She gets a contextual, role-relevant answer in seconds — with sources cited.</p>
-                <p>aiCartograph has already flagged the contradicting articles to the knowledge owner.</p>
-                <p>The staleness score triggered an update request last week.</p>
-                <p className="text-brand-400 font-medium">The loop is closed. Knowledge improves. Everyone benefits.</p>
-              </div>
-            </Card>
-          </div>
+          <p className="text-brand-300 text-lg">
+            Your knowledge stays where it is. We make it work.
+          </p>
         </AnimateOnScroll>
+
+        <div className="flex flex-wrap justify-center gap-4 max-w-3xl mx-auto">
+          {sourceTypes.map((name, i) => (
+            <AnimateOnScroll key={name} delay={i * 0.05}>
+              <div className="group rounded-full border border-brand-700/40 bg-brand-800/60 px-5 py-3 flex items-center gap-2.5 hover:border-brand-500/50 hover:bg-brand-800 transition-all cursor-default">
+                <SourceIcon name={name} className="w-5 h-5 opacity-70 group-hover:opacity-100 transition-opacity" />
+                <span className="text-brand-300 text-sm group-hover:text-[#FDFFFF] transition-colors">{name}</span>
+              </div>
+            </AnimateOnScroll>
+          ))}
+        </div>
       </Container>
     </section>
   );
 }
 
-function EighteenProblems() {
-  const problemColors = [
-    "hover:border-accent-coral/40 hover:bg-accent-coral/5",
-    "hover:border-accent-amber/40 hover:bg-accent-amber/5",
-    "hover:border-accent-sky/40 hover:bg-accent-sky/5",
-    "hover:border-accent-lavender/40 hover:bg-accent-lavender/5",
-    "hover:border-accent-emerald/40 hover:bg-accent-emerald/5",
-    "hover:border-brand-500/40 hover:bg-brand-500/5",
-  ];
+/* ─── Section 4: 18 Problems Diagnostic (DARK) ─── */
+const tileBgs = ["bg-brand-800", "bg-brand-800/70", "bg-[#223e49]"];
 
+function EighteenProblems() {
   return (
-    <section className="py-16 lg:py-20">
+    <section id="diagnostic" className="section-dark py-16 lg:py-20">
       <Container>
         <AnimateOnScroll className="text-center mb-12">
-          <h2 className="text-3xl sm:text-4xl font-bold text-white mb-3">
-            The 18 Problems Diagnostic
+          <p className="section-label mb-4">The Knowledge Diagnostic</p>
+          <h2 className="heading-h2 text-[#FDFFFF] mb-3">
+            How many of these is your organization living with?
           </h2>
-          <p className="text-white/45 text-lg max-w-2xl mx-auto">
-            We mapped every way knowledge fails in organizations. How many do you recognize?
-          </p>
         </AnimateOnScroll>
 
-        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3 max-w-5xl mx-auto">
+        <div className="grid grid-cols-3 sm:grid-cols-3 lg:grid-cols-3 gap-3 max-w-3xl mx-auto">
           {EIGHTEEN_PROBLEMS.map((problem, i) => (
             <AnimateOnScroll key={problem.id} delay={i * 0.03}>
-              <div className={`rounded-xl border border-white/10 bg-white/[0.02] p-3 text-center transition-all cursor-default ${problemColors[i % 6]}`}>
-                <span className="text-brand-400 font-mono text-xs block mb-1">
+              <div className={`${tileBgs[i % 3]} rounded-xl border border-brand-700/30 p-4 h-[80px] flex flex-col items-center justify-center text-center hover:border-brand-500/40 transition-all`}>
+                <span className="text-brand-500 font-mono text-xs font-bold mb-1">
                   {String(problem.id).padStart(2, "0")}
                 </span>
-                <span className="text-white/65 text-sm font-medium">
+                <span className="text-[#FDFFFF] text-sm font-semibold leading-tight">
                   {problem.name}
                 </span>
               </div>
@@ -167,38 +161,41 @@ function EighteenProblems() {
   );
 }
 
-function USPDeepDive() {
-  const uspAccents = ["border-accent-emerald/15", "border-accent-coral/15", "border-accent-sky/15", "border-accent-lavender/15"];
+/* ─── Section 5: Four USPs (LIGHT) ─── */
+const uspBorders = [
+  "border-l-4 border-accent-emerald",
+  "border-l-4 border-accent-coral",
+  "border-l-4 border-accent-sky",
+  "border-l-4 border-accent-lavender",
+];
 
+function USPDeepDive() {
   return (
-    <section className="py-16 lg:py-20">
+    <section className="section-light py-16 lg:py-20">
       <Container>
         <AnimateOnScroll className="mb-12 text-center">
-          <h2 className="text-3xl sm:text-4xl font-bold text-white mb-3">
+          <p className="section-label mb-4">Differentiators</p>
+          <h2 className="heading-h2 text-brand-900 mb-3">
             Four genuine differentiators
           </h2>
-          <p className="text-white/45 text-lg max-w-2xl mx-auto">
+          <p className="text-brand-700 text-lg max-w-2xl mx-auto">
             These aren&apos;t incremental features. They&apos;re fundamental capabilities
             that define Knowledge Resolution as a category.
           </p>
         </AnimateOnScroll>
 
-        <div className="space-y-16">
+        <div className="grid sm:grid-cols-2 gap-6">
           {USPS.map((usp, i) => (
-            <AnimateOnScroll key={usp.id} direction={i % 2 === 0 ? "left" : "right"}>
-              <div className="grid lg:grid-cols-2 gap-10 items-center">
-                <div className={`space-y-5 ${i % 2 === 1 ? "lg:order-2" : ""}`}>
-                  <Badge variant="highlight">USP {i + 1}</Badge>
-                  <h3 className="text-2xl sm:text-3xl font-bold text-white">
-                    {usp.title}
-                  </h3>
-                  <p className="text-white/55 leading-relaxed text-lg">
-                    {usp.longDescription}
-                  </p>
-                </div>
-                <div className={`flex justify-center ${i % 2 === 1 ? "lg:order-1" : ""}`}>
-                  <div className={`w-52 h-52 rounded-3xl border bg-white/[0.02] flex items-center justify-center ${uspAccents[i]}`}>
-                    <USPIcon icon={usp.icon} className="w-28 h-28" />
+            <AnimateOnScroll key={usp.id} delay={i * 0.1}>
+              <div className={`card-surface rounded-xl p-6 h-full ${uspBorders[i]} hover:-translate-y-0.5 hover:shadow-lg transition-all duration-300`}>
+                <div className="flex items-start gap-4">
+                  <div className="shrink-0">
+                    <USPIcon icon={usp.icon} className="w-12 h-12" />
+                  </div>
+                  <div>
+                    <Badge variant="highlight">USP {i + 1}</Badge>
+                    <h3 className="heading-h3 text-brand-900 mt-2 mb-2">{usp.title}</h3>
+                    <p className="text-brand-700 text-sm leading-relaxed">{usp.longDescription}</p>
                   </div>
                 </div>
               </div>
@@ -210,39 +207,35 @@ function USPDeepDive() {
   );
 }
 
+/* ─── Section 6: Competitor Positioning (DARK) ─── */
 function CompetitivePositioning() {
-  const approachColors = ["border-accent-coral/15", "border-accent-amber/15", "border-accent-sky/15"];
-  const gapColors = ["text-accent-coral", "text-accent-amber", "text-accent-sky"];
-
   return (
-    <section className="py-16 lg:py-20">
+    <section className="section-dark py-16 lg:py-20">
       <Container>
         <AnimateOnScroll className="text-center mb-12">
-          <h2 className="text-3xl sm:text-4xl font-bold text-white mb-3">
+          <p className="section-label mb-4">Category Creation</p>
+          <h2 className="heading-h2 text-[#FDFFFF] mb-3">
             Three approaches exist. All optimize for retrieval.
           </h2>
-          <p className="text-white/45 text-lg max-w-2xl mx-auto">
-            aiCartograph creates an entirely new category: resolution.
-          </p>
         </AnimateOnScroll>
 
         <div className="grid sm:grid-cols-3 gap-6 max-w-4xl mx-auto">
           {COMPETITOR_APPROACHES.map((c, i) => (
             <AnimateOnScroll key={i} delay={i * 0.1}>
-              <Card className={`text-center space-y-3 ${approachColors[i]}`}>
-                <p className="text-white/65 font-semibold text-sm">{c.approach}</p>
-                <p className="text-white/35 text-sm">{c.does}</p>
-                <div className="h-px bg-white/10" />
-                <p className={`text-sm font-medium ${gapColors[i]}`}>{c.gap}</p>
-              </Card>
+              <div className="rounded-xl border border-brand-700/30 bg-brand-800 p-6 text-center space-y-3 h-full">
+                <p className="text-[#FDFFFF] font-semibold text-sm">{c.approach}</p>
+                <p className="text-accent-emerald text-sm">{c.does}</p>
+                <div className="h-px bg-brand-700/30" />
+                <p className="text-accent-coral text-sm font-medium">{c.gap}</p>
+              </div>
             </AnimateOnScroll>
           ))}
         </div>
 
         <AnimateOnScroll className="mt-10 text-center">
-          <div className="inline-block rounded-2xl border border-brand-500/25 bg-brand-500/5 p-6 sm:p-8">
-            <p className="text-brand-400 font-semibold text-lg mb-2">aiCartograph</p>
-            <p className="text-white/55 text-sm">
+          <div className="inline-block rounded-xl border border-brand-500/30 bg-brand-500/10 p-6 sm:p-8">
+            <p className="text-brand-400 font-semibold text-lg mb-1">aiCartograph</p>
+            <p className="text-brand-300 text-sm">
               Resolves knowledge. Detects health issues. Closes the feedback loop.
             </p>
           </div>
@@ -259,13 +252,14 @@ export default function ProductPage() {
       <SectionDivider variant="rich" />
       <FourPillars />
       <SectionDivider variant="gradient" />
-      <SarahStory />
-      <SectionDivider variant="subtle" />
+      <KnowledgeSources />
+      <SectionDivider variant="rich" />
       <EighteenProblems />
       <SectionDivider variant="gradient" />
       <USPDeepDive />
       <SectionDivider variant="rich" />
       <CompetitivePositioning />
+      <SectionDivider variant="gradient" />
       <CTABanner
         headline="See aiCartograph in action"
         subheadline="Schedule a conversation to see how knowledge resolution works for your team."

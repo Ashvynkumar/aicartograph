@@ -34,13 +34,11 @@ function AnimatedCounter({ target, suffix = "" }: { target: number; suffix?: str
   }, [target]);
 
   return (
-    <div ref={ref} className="text-4xl sm:text-5xl font-bold tabular-nums bg-gradient-to-r from-brand-400 to-brand-300 bg-clip-text text-transparent">
+    <div ref={ref} className="text-5xl sm:text-6xl font-bold tabular-nums text-brand-500">
       {count.toLocaleString()}{suffix}
     </div>
   );
 }
-
-const statColors = ["border-accent-coral/15", "border-accent-amber/15", "border-accent-emerald/15"];
 
 export default function SocialProof() {
   const stats = [
@@ -50,12 +48,11 @@ export default function SocialProof() {
   ];
 
   return (
-    <section className="py-16 lg:py-20 relative">
-      <div className="absolute inset-0 bg-gradient-to-b from-transparent via-brand-500/[0.02] to-transparent" />
+    <section className="section-light py-16 lg:py-20 relative">
       <Container className="relative">
         <AnimateOnScroll className="text-center mb-12">
-          <p className="text-brand-400 font-medium mb-3 text-sm tracking-wide uppercase">By the numbers</p>
-          <h2 className="text-3xl sm:text-4xl font-bold text-white mb-3">
+          <p className="section-label mb-4">By the numbers</p>
+          <h2 className="heading-h2 text-brand-900">
             The full knowledge lifecycle, resolved
           </h2>
         </AnimateOnScroll>
@@ -63,9 +60,9 @@ export default function SocialProof() {
         <div className="grid sm:grid-cols-3 gap-6 text-center max-w-3xl mx-auto">
           {stats.map((stat, i) => (
             <AnimateOnScroll key={i} delay={i * 0.15}>
-              <div className={`rounded-2xl border bg-white/[0.02] p-6 ${statColors[i]}`}>
+              <div className="card-surface rounded-xl p-8 hover:-translate-y-0.5 hover:shadow-lg transition-all duration-300">
                 <AnimatedCounter target={stat.value} suffix={stat.suffix} />
-                <p className="text-white/40 mt-2 text-sm">{stat.label}</p>
+                <p className="text-brand-700 mt-2 text-sm">{stat.label}</p>
               </div>
             </AnimateOnScroll>
           ))}
