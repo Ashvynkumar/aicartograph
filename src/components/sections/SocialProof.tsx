@@ -20,13 +20,13 @@ function AnimatedCounter({ target, suffix = "" }: { target: number; suffix?: str
             const elapsed = now - start;
             const progress = Math.min(elapsed / duration, 1);
             const eased = 1 - Math.pow(1 - progress, 3);
-            setCount(Math.floor(eased * target));
+            setCount(progress >= 1 ? target : Math.floor(eased * target));
             if (progress < 1) requestAnimationFrame(animate);
           };
           requestAnimationFrame(animate);
         }
       },
-      { threshold: 0.5 }
+      { threshold: 0.2 }
     );
 
     if (ref.current) observer.observe(ref.current);
@@ -48,9 +48,9 @@ export default function SocialProof() {
   ];
 
   return (
-    <section className="section-light py-16 lg:py-20 relative">
+    <section className="section-light py-12 lg:py-16 relative">
       <Container className="relative">
-        <AnimateOnScroll className="text-center mb-12">
+        <AnimateOnScroll className="text-center mb-8">
           <p className="section-label mb-4">By the numbers</p>
           <h2 className="heading-h2 text-brand-900">
             The full knowledge lifecycle, resolved

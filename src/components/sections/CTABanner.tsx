@@ -28,10 +28,10 @@ export default function CTABanner({
               {subheadline}
             </p>
             <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-              <div className="w-full sm:w-auto max-w-xs">
+              <div className="w-full sm:w-auto sm:min-w-[360px]">
                 <EmailCapture variant="inline" buttonText="Request Early Access" />
               </div>
-              <Button href={SITE.calendlyUrl} variant="secondary" size="md" external>
+              <Button href={SITE.calendlyUrl} variant="secondary" size="md" className="h-12 whitespace-nowrap" external>
                 Schedule a Conversation &rarr;
               </Button>
             </div>

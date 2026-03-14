@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { motion } from "framer-motion";
 import Logo from "../graphics/Logo";
-import EmailCapture from "../EmailCapture";
+import Button from "../ui/Button";
 import { CompassIcon } from "../graphics/FancyIcons";
 import { SITE } from "@/lib/constants";
 
@@ -41,15 +41,15 @@ export default function Footer() {
               </motion.div>
             </div>
             <p className="text-brand-300 text-sm max-w-xs leading-relaxed">
-              Knowledge Resolution Platform for SaaS Companies.
-              <br />
-              Making knowledge work, not just exist.
+              Knowledge Resolution Platform for SaaS Companies. Making knowledge work, not just exist.
             </p>
-            <EmailCapture
-              variant="stacked"
-              placeholder="Your email"
-              buttonText="Request Early Access"
-            />
+            <Button
+              variant="primary"
+              size="sm"
+              onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
+            >
+              Request Early Access
+            </Button>
           </div>
 
           {/* Link columns — Product and Company only */}
