@@ -160,7 +160,7 @@ export default function AboutPage() {
               <div className="grid sm:grid-cols-2 gap-8">
                 <Card>
                   <h3 className="text-white font-semibold text-lg mb-1">Atlas</h3>
-                  <p className="text-brand-400 text-sm mb-4">Ashvyn Kumar &middot; Founder & CEO</p>
+                  <p className="text-brand-400 text-sm mb-4">Founder & CEO</p>
                   <p className="text-white/40 text-sm leading-relaxed">
                     Founded aiCartograph after seeing the same pattern across SaaS companies:
                     organizations invest in creating knowledge, but the people who need it

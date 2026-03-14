@@ -45,7 +45,7 @@ export default function PricingPage() {
         <Container className="relative text-center">
           <AnimateOnScroll className="space-y-6 max-w-3xl mx-auto">
             <Badge variant="highlight">Pricing</Badge>
-            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-white leading-[1.1]">
+            <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-white leading-[1.1] whitespace-nowrap">
               Start free. Scale with value.
             </h1>
             <p className="text-xl text-white/60 leading-relaxed">
@@ -166,19 +166,24 @@ export default function PricingPage() {
       </section>
 
       {/* FAQ */}
-      <section className="py-24 border-t border-white/5">
-        <Container>
+      <section className="py-24 mt-8 relative">
+        <div className="absolute inset-0 bg-gradient-to-b from-white/[0.02] to-transparent border-t border-white/10" />
+        <Container className="relative">
           <AnimateOnScroll className="text-center mb-16">
-            <h2 className="text-3xl font-bold text-white mb-4">
+            <Badge variant="highlight">FAQ</Badge>
+            <h2 className="text-3xl font-bold text-white mt-4 mb-4">
               Frequently asked questions
             </h2>
+            <p className="text-white/50 text-lg max-w-xl mx-auto">
+              Everything you need to know about pricing and plans.
+            </p>
           </AnimateOnScroll>
 
-          <div className="max-w-2xl mx-auto space-y-6">
+          <div className="max-w-2xl mx-auto space-y-4">
             {faqs.map((faq, i) => (
               <AnimateOnScroll key={i} delay={i * 0.05}>
-                <div className="border-b border-white/5 pb-6">
-                  <h3 className="text-white font-medium mb-2">{faq.q}</h3>
+                <div className="rounded-2xl border border-white/10 bg-white/[0.02] p-6 hover:border-white/20 transition-colors">
+                  <h3 className="text-white font-medium mb-3">{faq.q}</h3>
                   <p className="text-white/40 text-sm leading-relaxed">{faq.a}</p>
                 </div>
               </AnimateOnScroll>

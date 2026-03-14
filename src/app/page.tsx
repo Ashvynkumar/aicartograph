@@ -13,10 +13,13 @@ function FrameworkPillars() {
       <Container>
         <AnimateOnScroll className="text-center mb-16">
           <h2 className="text-3xl sm:text-4xl font-bold text-white mb-4">
-            Connect &rarr; Resolve &rarr; Detect &rarr; Close the Loop
+            Four pillars.{" "}
+            <span className="bg-gradient-to-r from-brand-400 to-brand-300 bg-clip-text text-transparent">
+              One continuous cycle.
+            </span>
           </h2>
           <p className="text-white/50 text-lg max-w-2xl mx-auto">
-            Four pillars. One continuous cycle. Knowledge that improves every day.
+            Knowledge that improves every day.
           </p>
         </AnimateOnScroll>
 
@@ -58,11 +61,11 @@ function ProblemsDiagnostic() {
         <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3 max-w-5xl mx-auto">
           {EIGHTEEN_PROBLEMS.map((problem, i) => (
             <AnimateOnScroll key={problem.id} delay={i * 0.03}>
-              <div className="rounded-xl border border-white/10 bg-white/[0.02] p-4 text-center hover:border-brand-500/30 hover:bg-brand-500/5 transition-all cursor-default">
-                <span className="text-brand-500 font-mono text-xs block mb-1">
+              <div className="aspect-square rounded-xl border border-white/10 bg-white/[0.02] p-4 flex flex-col items-center justify-center text-center hover:border-brand-500/30 hover:bg-brand-500/5 transition-all cursor-default">
+                <span className="text-brand-500 font-mono text-xs mb-2">
                   {String(problem.id).padStart(2, "0")}
                 </span>
-                <span className="text-white/70 text-sm font-medium">
+                <span className="text-white/70 text-sm font-medium leading-tight">
                   {problem.name}
                 </span>
               </div>
