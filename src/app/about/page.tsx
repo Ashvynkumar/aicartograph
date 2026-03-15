@@ -102,7 +102,7 @@ export default function AboutPage() {
       <div className="glow-divider" />
 
       {/* Brand Origin */}
-      <section className="py-12 lg:py-16" style={{ background: "#071319" }}>
+      <section className="py-12 lg:py-16" style={{ background: "#0a1a22" }}>
         <Container>
           <div className="max-w-3xl mx-auto space-y-10">
             <AnimateOnScroll>
@@ -145,7 +145,7 @@ export default function AboutPage() {
       <div className="glow-divider" />
 
       {/* Foundational Layer — Six Verticals */}
-      <section className="py-12 lg:py-16 relative" style={{ background: "#091e26" }}>
+      <section className="py-12 lg:py-16 relative" style={{ background: "#050d12" }}>
         <div className="absolute inset-0 pointer-events-none" style={{ background: "radial-gradient(circle at 50% 50%, rgba(69,151,176,0.06) 0%, transparent 50%)" }} />
         <Container className="relative">
           <AnimateOnScroll className="text-center mb-10">
@@ -188,7 +188,7 @@ export default function AboutPage() {
       <div className="glow-divider" />
 
       {/* Team */}
-      <section className="py-12 lg:py-16" style={{ background: "#071319" }}>
+      <section className="py-12 lg:py-16" style={{ background: "#081520" }}>
         <Container>
           <div className="max-w-4xl mx-auto">
             <AnimateOnScroll className="space-y-8">
@@ -213,7 +213,7 @@ export default function AboutPage() {
       <div className="glow-divider" />
 
       {/* Operating Principles */}
-      <section className="py-12 lg:py-16 relative" style={{ background: "#091e26" }}>
+      <section className="py-12 lg:py-16 relative" style={{ background: "#0c1f2a" }}>
         <div className="absolute inset-0 pointer-events-none" style={{ background: "radial-gradient(ellipse at 30% 20%, rgba(240,180,41,0.03) 0%, transparent 50%), radial-gradient(ellipse at 70% 80%, rgba(155,140,232,0.03) 0%, transparent 50%)" }} />
         <Container className="relative">
           <AnimateOnScroll className="text-center mb-10">

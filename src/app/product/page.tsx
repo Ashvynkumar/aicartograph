@@ -115,7 +115,7 @@ const sourceTypes = [
 
 function KnowledgeSources() {
   return (
-    <section id="integrations" className="py-12 lg:py-16" style={{ background: "#071319" }}>
+    <section id="integrations" className="py-12 lg:py-16" style={{ background: "#0a1a22" }}>
       <Container>
         <AnimateOnScroll className="text-center mb-8">
           <p className="section-label mb-4">Integrations</p>
@@ -191,7 +191,7 @@ const diffAccents = ["#36c08e", "#f06565", "#56b3f5", "#9b8ce8", "#f0b429", "#45
 
 function DifferentiatorsSection() {
   return (
-    <section id="differentiators" className="py-12 lg:py-16" style={{ background: "#091e26" }}>
+    <section id="differentiators" className="py-12 lg:py-16" style={{ background: "#0c1f2a" }}>
       <Container>
         <AnimateOnScroll className="mb-10 text-center">
           <p className="section-label mb-4">What Sets Us Apart</p>
@@ -233,7 +233,7 @@ function DifferentiatorsSection() {
 /* ─── Section 6: Competitor Positioning ─── */
 function CompetitivePositioning() {
   return (
-    <section id="competitive" className="py-12 lg:py-16" style={{ background: "#071319" }}>
+    <section id="competitive" className="py-12 lg:py-16" style={{ background: "#081520" }}>
       <Container>
         <AnimateOnScroll className="text-center mb-8">
           <p className="section-label mb-4">Category Creation</p>
@@ -286,7 +286,7 @@ const marketplaceAgents = [
 
 function AgentMarketplacePreview() {
   return (
-    <section id="agents" className="py-12 lg:py-16" style={{ background: "#050d12" }}>
+    <section id="agents" className="py-12 lg:py-16" style={{ background: "#060f15" }}>
       <Container>
         <AnimateOnScroll className="text-center mb-8">
           <p className="section-label mb-4">Agent Marketplace</p>
