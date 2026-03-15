@@ -5,6 +5,7 @@ import Button from "@/components/ui/Button";
 import { USPIcon } from "@/components/graphics/USPIcons";
 import { PillarIcon, SourceIcon } from "@/components/graphics/FancyIcons";
 import CTABanner from "@/components/sections/CTABanner";
+import ProductSectionNav from "@/components/ProductSectionNav";
 import MockupDashboard from "@/components/graphics/MockupDashboard";
 import MockupResolve from "@/components/graphics/MockupResolve";
 import MockupHealth from "@/components/graphics/MockupHealth";
@@ -27,14 +28,14 @@ const pillarAccents = [
 /* ─── Section 1: Hero ─── */
 function ProductHero() {
   return (
-    <section className="pt-28 pb-16 relative" style={{ background: "#071319" }}>
+    <section id="overview" className="pt-28 pb-16 relative" style={{ background: "#071319" }}>
       <div className="absolute top-0 left-1/3 w-72 h-72 bg-brand-500/5 rounded-full blur-3xl" />
       <Container className="relative">
         <AnimateOnScroll className="max-w-3xl space-y-5">
           <h1 className="heading-h1 text-[#FDFFFF]">
             Knowledge Resolution,
             <br />
-            <span className="bg-gradient-to-r from-brand-500 to-brand-400 bg-clip-text text-transparent">
+            <span className="bg-gradient-to-r from-accent-amber to-accent-copper bg-clip-text text-transparent">
               not knowledge management
             </span>
           </h1>
@@ -52,7 +53,7 @@ function ProductHero() {
 /* ─── Section 2: Four Pillars Full ─── */
 function FourPillars() {
   return (
-    <section className="py-12 lg:py-16" style={{ background: "#091e26" }}>
+    <section id="framework" className="py-12 lg:py-16" style={{ background: "#091e26" }}>
       <Container>
         <AnimateOnScroll className="mb-8">
           <p className="section-label mb-4">The Framework</p>
@@ -114,7 +115,7 @@ const sourceTypes = [
 
 function KnowledgeSources() {
   return (
-    <section className="py-12 lg:py-16" style={{ background: "#071319" }}>
+    <section id="integrations" className="py-12 lg:py-16" style={{ background: "#071319" }}>
       <Container>
         <AnimateOnScroll className="text-center mb-8">
           <p className="section-label mb-4">Integrations</p>
@@ -190,7 +191,7 @@ const diffAccents = ["#36c08e", "#f06565", "#56b3f5", "#9b8ce8", "#f0b429", "#45
 
 function DifferentiatorsSection() {
   return (
-    <section className="py-12 lg:py-16" style={{ background: "#091e26" }}>
+    <section id="differentiators" className="py-12 lg:py-16" style={{ background: "#091e26" }}>
       <Container>
         <AnimateOnScroll className="mb-10 text-center">
           <p className="section-label mb-4">What Sets Us Apart</p>
@@ -232,7 +233,7 @@ function DifferentiatorsSection() {
 /* ─── Section 6: Competitor Positioning ─── */
 function CompetitivePositioning() {
   return (
-    <section className="py-12 lg:py-16" style={{ background: "#071319" }}>
+    <section id="competitive" className="py-12 lg:py-16" style={{ background: "#071319" }}>
       <Container>
         <AnimateOnScroll className="text-center mb-8">
           <p className="section-label mb-4">Category Creation</p>
@@ -269,19 +270,23 @@ function CompetitivePositioning() {
 
 /* ─── Section 7: Agent Marketplace Preview ─── */
 const marketplaceAgents = [
-  { name: "User Manual Agent", desc: "Turn any product manual into an interactive AI agent.", available: true },
-  { name: "Knowledge Search Agent", desc: "Semantic search across all connected knowledge sources.", available: true },
-  { name: "FAQ Bot", desc: "Auto-generate FAQ bots from your knowledge base.", available: true },
-  { name: "Onboarding Guide", desc: "Guide new employees through onboarding with AI.", available: false },
-  { name: "Sales Playbook Agent", desc: "Equip reps with real-time competitive intel.", available: false },
-  { name: "Support Triage Agent", desc: "Classify and route support tickets to the right knowledge.", available: false },
-  { name: "Compliance Checker", desc: "Verify policy adherence across all documentation.", available: false },
-  { name: "Release Notes Agent", desc: "Auto-generate release notes from engineering artifacts.", available: false },
+  { name: "User Manual Agent", desc: "Turn any product manual into an interactive AI agent.", icon: "📘", color: "#4597b0" },
+  { name: "Knowledge Search Agent", desc: "Semantic search across all connected knowledge sources.", icon: "🔍", color: "#9b8ce8" },
+  { name: "FAQ Bot", desc: "Auto-generate FAQ bots from your knowledge base.", icon: "💬", color: "#36c08e" },
+  { name: "Voice Support Agent", desc: "Handle inbound support calls with voice-powered knowledge resolution.", icon: "🎙️", color: "#f06565" },
+  { name: "Voice IVR Agent", desc: "Intelligent voice routing that resolves queries before transfer.", icon: "📞", color: "#e07c4f" },
+  { name: "Onboarding Guide", desc: "Guide new employees through onboarding with AI.", icon: "🎓", color: "#f0b429" },
+  { name: "Sales Playbook Agent", desc: "Equip reps with real-time competitive intel.", icon: "📊", color: "#56b3f5" },
+  { name: "Support Triage Agent", desc: "Classify and route support tickets to the right knowledge.", icon: "🎯", color: "#ffd644" },
+  { name: "Compliance Checker", desc: "Verify policy adherence across all documentation.", icon: "🛡️", color: "#4caf7d" },
+  { name: "Voice Meeting Agent", desc: "Real-time knowledge delivery during customer meetings and demos.", icon: "🗣️", color: "#9b8ce8" },
+  { name: "Release Notes Agent", desc: "Auto-generate release notes from engineering artifacts.", icon: "📝", color: "#4597b0" },
+  { name: "Customer Success Agent", desc: "Proactive health checks and renewal readiness from knowledge signals.", icon: "🤝", color: "#36c08e" },
 ];
 
 function AgentMarketplacePreview() {
   return (
-    <section className="py-12 lg:py-16" style={{ background: "#050d12" }}>
+    <section id="agents" className="py-12 lg:py-16" style={{ background: "#050d12" }}>
       <Container>
         <AnimateOnScroll className="text-center mb-8">
           <p className="section-label mb-4">Agent Marketplace</p>
@@ -294,13 +299,11 @@ function AgentMarketplacePreview() {
         </AnimateOnScroll>
 
         <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4 max-w-6xl mx-auto">
-          {marketplaceAgents.map((agent) => (
-            <AnimateOnScroll key={agent.name}>
-              <div className={`dark-card p-5 h-full ${agent.available ? "" : "opacity-50"}`}>
-                <div className="flex items-center gap-2 mb-2">
-                  <span className={`text-[10px] font-medium px-2 py-0.5 rounded-full ${agent.available ? "bg-accent-emerald/10 text-accent-emerald" : "bg-accent-amber/10 text-accent-amber"}`}>
-                    {agent.available ? "Available" : "Coming Soon"}
-                  </span>
+          {marketplaceAgents.map((agent, i) => (
+            <AnimateOnScroll key={agent.name} delay={i * 0.05}>
+              <div className="dark-card p-5 h-full">
+                <div className="w-9 h-9 rounded-lg flex items-center justify-center text-lg mb-3" style={{ background: `${agent.color}15`, border: `1px solid ${agent.color}25` }}>
+                  {agent.icon}
                 </div>
                 <h4 className="text-[#FDFFFF] font-semibold text-sm mb-1">{agent.name}</h4>
                 <p className="text-white/40 text-xs leading-relaxed">{agent.desc}</p>
@@ -322,6 +325,7 @@ function AgentMarketplacePreview() {
 export default function ProductPage() {
   return (
     <>
+      <ProductSectionNav />
       <ProductHero />
       <div className="glow-divider" />
       <FourPillars />

@@ -165,7 +165,7 @@ function ScenarioTabs() {
   const scenario = SCENARIOS[activeTab];
 
   return (
-    <section className="py-12 lg:py-16" style={{ background: "#091e26" }}>
+    <section id="scenarios" className="py-12 lg:py-16" style={{ background: "#091e26" }}>
       <Container>
         <AnimateOnScroll className="text-center mb-8">
           <p className="section-label mb-4">Real Scenarios</p>
