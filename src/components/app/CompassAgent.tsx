@@ -203,7 +203,7 @@ export default function CompassAgent() {
 
   // Hide on dashboard — the WelcomePrompt already acts as the agent there
   const isDashboard = pathname === "/app/dashboard" || pathname === "/app";
-  if (isDashboard) return null;
+
   const [messages, setMessages] = useState<Message[]>([]);
   const [input, setInput] = useState("");
   const [isTyping, setIsTyping] = useState(false);
@@ -217,6 +217,9 @@ export default function CompassAgent() {
   useEffect(() => {
     setMessages([]);
   }, [pathname]);
+
+  // Must be after all hooks
+  if (isDashboard) return null;
 
   const getPageContext = () => {
     return PAGE_CONTEXT[pathname] || {

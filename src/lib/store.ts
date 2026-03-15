@@ -109,7 +109,7 @@ export const useAppStore = create<AppState>((set) => ({
   setWelcomePromptDismissed: (v) => set({ welcomePromptDismissed: v }),
   logout: () => {
     if (typeof document !== "undefined") {
-      document.cookie = "auth=; path=/; expires=Thu, 01 Jan 1970 00:00:00 GMT";
+      document.cookie = "aicarto_auth=; path=/; expires=Thu, 01 Jan 1970 00:00:00 GMT";
     }
     if (typeof window !== "undefined") {
       window.location.href = "/auth/login";
