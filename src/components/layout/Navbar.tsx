@@ -60,6 +60,18 @@ export default function Navbar() {
             </div>
 
             <div className="hidden md:flex items-center gap-3">
+              <Link
+                href="/auth/login"
+                className="text-sm text-white/60 hover:text-white transition-colors"
+              >
+                Log In
+              </Link>
+              <Link
+                href="/auth/signup"
+                className="text-sm px-4 py-1.5 rounded-lg bg-white/10 border border-white/10 text-white hover:bg-white/15 transition-all"
+              >
+                Sign Up
+              </Link>
               <Button href={SITE.calendlyUrl} variant="primary" size="sm" external>
                 Schedule a Conversation
               </Button>
@@ -114,7 +126,21 @@ export default function Navbar() {
                   {link.label}
                 </Link>
               ))}
-              <div className="mt-4">
+              <div className="mt-4 flex flex-col items-center gap-3">
+                <Link
+                  href="/auth/login"
+                  onClick={() => setMobileOpen(false)}
+                  className="text-lg text-white/60 hover:text-white transition-colors"
+                >
+                  Log In
+                </Link>
+                <Link
+                  href="/auth/signup"
+                  onClick={() => setMobileOpen(false)}
+                  className="text-lg px-6 py-2 rounded-lg bg-white/10 border border-white/10 text-white"
+                >
+                  Sign Up
+                </Link>
                 <Button href={SITE.calendlyUrl} variant="primary" external>
                   Schedule a Conversation
                 </Button>
