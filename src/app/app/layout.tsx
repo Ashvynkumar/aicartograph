@@ -4,6 +4,7 @@ import Sidebar from "@/components/app/Sidebar";
 import TopBar from "@/components/app/TopBar";
 import CommandPalette from "@/components/app/CommandPalette";
 import OnboardingWizard from "@/components/app/OnboardingWizard";
+import CompassAgent from "@/components/app/CompassAgent";
 import { useAppStore } from "@/lib/store";
 import { useEffect } from "react";
 
@@ -28,6 +29,7 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
       </div>
       <CommandPalette />
       <OnboardingWizard />
+      <CompassAgent />
     </div>
   );
 }

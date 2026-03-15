@@ -200,6 +200,10 @@ export default function CompassAgent() {
   const pathname = usePathname();
   const router = useRouter();
   const { compassOpen, setCompassOpen, sources, healthIssues } = useAppStore();
+
+  // Hide on dashboard — the WelcomePrompt already acts as the agent there
+  const isDashboard = pathname === "/app/dashboard" || pathname === "/app";
+  if (isDashboard) return null;
   const [messages, setMessages] = useState<Message[]>([]);
   const [input, setInput] = useState("");
   const [isTyping, setIsTyping] = useState(false);
