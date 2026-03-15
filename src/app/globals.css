@@ -115,11 +115,16 @@ body {
 }
 
 .section-label {
-  font-size: 0.8rem;
+  display: inline-block;
+  font-size: 0.75rem;
   text-transform: uppercase;
   letter-spacing: 0.25em;
   color: var(--accent-primary);
-  font-weight: 500;
+  font-weight: 600;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  padding: 0.35rem 1rem;
+  border-radius: 9999px;
 }
 
 /* Unified dark canvas */
