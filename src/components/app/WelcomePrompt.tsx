@@ -5,7 +5,7 @@ import { useRouter } from "next/navigation";
 import {
   Send, Sparkles, Database, MessageSquare, HeartPulse,
   GitBranch, BarChart3, Plug, ArrowRight, Compass, Layout,
-  Lightbulb, Zap, ChevronRight,
+  Lightbulb, Zap, ChevronRight, Bot, BookOpen, Settings,
 } from "lucide-react";
 import { useAppStore } from "@/lib/store";
 
@@ -29,12 +29,12 @@ function generateResponse(query: string, userName: string, sourcesCount: number,
   if (q.includes("show me around") || q.includes("tour") || q.includes("explore") || q.includes("what can")) {
     return {
       role: "assistant",
-      content: `Great question! Here's a quick map of what you can do on aiCartograph:\n\n**Core Workflow:**\n1. **Sources** — Upload your knowledge (docs, URLs, CSVs)\n2. **Resolve** — Ask questions and get AI-synthesized answers with citations\n3. **Health** — Monitor your knowledge quality (staleness, contradictions, gaps)\n4. **Feedback** — Track unresolved questions and close the loop\n\n**Power Features:**\n- **Foundry** — Author new knowledge articles\n- **Workflows** — Automate alerts and tasks\n- **Analytics** — See ROI and resolution metrics\n- **Widget** — Embed resolution in your product\n\nWant me to walk you through any specific module?`,
+      content: `Great question! Here's a quick map of what you can do on aiCartograph:\n\n**Core Workflow:**\n1. **Sources & Docs** — Upload knowledge sources and author new documents\n2. **Resolve** — Ask questions and get AI-synthesized answers with citations\n3. **Health & Gaps** — Monitor quality (staleness, contradictions, coverage gaps)\n4. **Feedback Loop** — Track unresolved questions and close the loop\n\n**Platform Power:**\n- **Agent Studio** — Build WhatsApp, Slack, and web chat agents for YOUR end-users\n- **Analytics & Reports** — See ROI, resolution metrics, and automated reports\n- **API & Docs** — Developer docs with MkDocs-style reference, export to git\n- **Admin Control** — White-labelling, i18n, team management, favicons\n\nWant me to walk you through any specific module?`,
       actions: [
         { label: "Upload Sources", href: "/app/sources", icon: Database, color: "#4597b0" },
-        { label: "Try Resolve", href: "/app/resolve", icon: MessageSquare, color: "#62acbb" },
-        { label: "Check Health", href: "/app/health", icon: HeartPulse, color: "#36c08e" },
-        { label: "View Analytics", href: "/app/analytics", icon: BarChart3, color: "#f0b429" },
+        { label: "Try Resolve", href: "/app/resolve", icon: MessageSquare, color: "#56b3f5" },
+        { label: "Agent Studio", href: "/app/agents", icon: Bot, color: "#9b8ce8" },
+        { label: "API & Docs", href: "/app/docs", icon: BookOpen, color: "#36c08e" },
       ],
     };
   }
@@ -59,7 +59,7 @@ function generateResponse(query: string, userName: string, sourcesCount: number,
       actions: [
         { label: "Upload Sources", href: "/app/sources", icon: Database, color: "#4597b0" },
         { label: "Check Health", href: "/app/health", icon: HeartPulse, color: "#36c08e" },
-        { label: "Setup Workflows", href: "/app/workflows", icon: GitBranch, color: "#9b8ce8" },
+        { label: "Build an Agent", href: "/app/agents", icon: Bot, color: "#9b8ce8" },
       ],
     };
   }
@@ -108,6 +108,41 @@ function generateResponse(query: string, userName: string, sourcesCount: number,
       actions: [
         { label: "Build Workflows", href: "/app/workflows", icon: GitBranch, color: "#9b8ce8" },
         { label: "Connect Tools", href: "/app/integrations", icon: Plug, color: "#e07c4f" },
+      ],
+    };
+  }
+
+  // Agent builder
+  if (q.includes("agent") || q.includes("whatsapp") || q.includes("slack bot") || q.includes("chatbot") || q.includes("build")) {
+    return {
+      role: "assistant",
+      content: `**Agent Studio** is where you build AI agents for YOUR end-users.\n\nYou can create agents for:\n- **Web Widget** — Embed a chat agent on your website\n- **WhatsApp** — Connect via WhatsApp Business API\n- **Slack** — Resolution bot for team channels\n- **Email** — Auto-respond to support emails\n- **API** — Headless agent for custom integrations\n\n**Each agent gets:**\n- Its own persona and tone settings\n- Selected knowledge sources\n- Custom greeting and fallback behavior\n- Deployment controls and analytics\n\nThis is what makes aiCartograph a true **platform** — you're not just consuming AI, you're building AI-powered experiences for your users.`,
+      actions: [
+        { label: "Open Agent Studio", href: "/app/agents", icon: Bot, color: "#9b8ce8" },
+        { label: "Upload Sources First", href: "/app/sources", icon: Database, color: "#4597b0" },
+      ],
+    };
+  }
+
+  // API / Docs / Developer
+  if (q.includes("api") || q.includes("doc") || q.includes("developer") || q.includes("sdk") || q.includes("markdown") || q.includes("git") || q.includes("mkdocs")) {
+    return {
+      role: "assistant",
+      content: `**API & Docs** gives you a full MkDocs-style developer experience.\n\n**What's included:**\n- **API Reference** — REST endpoints for Sources, Resolution, Health, Webhooks\n- **SDKs** — JavaScript/TypeScript, Python, cURL examples\n- **Integration Guides** — WhatsApp, Slack, Widget embedding\n- **Export as Markdown** — Download all docs as .md files\n- **Push to Git** — Sync docs directly to your repository\n\n**For your team:**\nDevelopers can use these docs to integrate aiCartograph into their stack. The MD export lets you port docs to your own wiki or MkDocs site.`,
+      actions: [
+        { label: "View API Docs", href: "/app/docs", icon: BookOpen, color: "#36c08e" },
+        { label: "Manage Admin", href: "/app/admin", icon: Settings, color: "#f0b429" },
+      ],
+    };
+  }
+
+  // Admin / white-label
+  if (q.includes("admin") || q.includes("white") || q.includes("label") || q.includes("brand") || q.includes("favicon") || q.includes("translation") || q.includes("team")) {
+    return {
+      role: "assistant",
+      content: `**Admin Control** is your platform management hub.\n\n**What you can configure:**\n- **White-Labelling** — Custom logo, accent color, powered-by toggle\n- **Translations** — Support for 6+ languages with auto-translate\n- **Favicon & Branding** — Browser tab title, meta tags, OG images\n- **Team Management** — Invite members, assign roles (Admin/Editor/Viewer)\n- **API Keys** — Anthropic key, platform tokens, webhooks\n- **Platform Settings** — Defaults, chunk size, embedding model\n\nThis is where you make aiCartograph truly YOUR platform.`,
+      actions: [
+        { label: "Open Admin", href: "/app/admin", icon: Settings, color: "#f0b429" },
       ],
     };
   }
