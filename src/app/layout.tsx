@@ -36,14 +36,14 @@ export const metadata: Metadata = {
     title: "aiCartograph — Knowledge Resolution Platform for SaaS Companies",
     description:
       "Every answer. Everywhere. The moment it matters. Make knowledge work, not just exist. aiCartograph resolves organizational knowledge for every team.",
-    images: [{ url: "/og-image.svg", width: 1200, height: 630, alt: "aiCartograph - Knowledge Resolution Platform" }],
+    images: [{ url: "/opengraph-image", width: 1200, height: 630, alt: "aiCartograph - Knowledge Resolution Platform" }],
   },
   twitter: {
     card: "summary_large_image",
     title: "aiCartograph — Knowledge Resolution Platform",
     description:
       "Every answer. Everywhere. The moment it matters. Make knowledge work, not just exist.",
-    images: ["/og-image.svg"],
+    images: ["/opengraph-image"],
   },
   robots: {
     index: true,
@@ -58,6 +58,7 @@ export const metadata: Metadata = {
   },
   icons: {
     icon: [
+      { url: "/favicon.ico", sizes: "32x32", type: "image/x-icon" },
       { url: "/favicon.svg", type: "image/svg+xml" },
     ],
     apple: "/favicon.svg",
