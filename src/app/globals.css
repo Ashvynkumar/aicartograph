@@ -475,6 +475,7 @@ body {
 }
 
 .mockup-scaler-wrap {
+  height: 340px;
   overflow: hidden;
 }
 
@@ -482,5 +483,4 @@ body {
   width: 540px;
   transform: scale(0.778);
   transform-origin: top left;
-  margin-bottom: -22%;
 }
