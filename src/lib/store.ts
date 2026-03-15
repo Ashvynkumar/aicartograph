@@ -94,18 +94,26 @@ export const useAppStore = create<AppState>((set) => ({
   setActiveConversation: (id) => set({ activeConversationId: id }),
   setResolutionMode: (mode) => set({ activeResolutionMode: mode }),
   setTheme: (theme) => {
-    document.documentElement.setAttribute("data-theme", theme);
+    if (typeof document !== "undefined") {
+      document.documentElement.setAttribute("data-theme", theme);
+    }
     set({ theme });
   },
   toggleTheme: () => set((s) => {
     const newTheme = s.theme === "dark" ? "light" : "dark";
-    document.documentElement.setAttribute("data-theme", newTheme);
+    if (typeof document !== "undefined") {
+      document.documentElement.setAttribute("data-theme", newTheme);
+    }
     return { theme: newTheme };
   }),
   setWelcomePromptDismissed: (v) => set({ welcomePromptDismissed: v }),
   logout: () => {
-    document.cookie = "auth=; path=/; expires=Thu, 01 Jan 1970 00:00:00 GMT";
-    window.location.href = "/auth/login";
+    if (typeof document !== "undefined") {
+      document.cookie = "auth=; path=/; expires=Thu, 01 Jan 1970 00:00:00 GMT";
+    }
+    if (typeof window !== "undefined") {
+      window.location.href = "/auth/login";
+    }
   },
 
   addSource: (source) => set((s) => ({ sources: [...s.sources, source] })),
