@@ -38,41 +38,41 @@ export default function MockupAgents({ className = "" }: { className?: string })
       `}</style>
       <div className="rounded-xl overflow-hidden border border-white/[0.06] shadow-2xl shadow-black/40">
         {/* Chrome bar */}
-        <div className="h-8 bg-[#080604] flex items-center px-3 gap-1.5">
-          <div className="w-2.5 h-2.5 rounded-full bg-[#ff5f57]" />
-          <div className="w-2.5 h-2.5 rounded-full bg-[#febc2e]" />
-          <div className="w-2.5 h-2.5 rounded-full bg-[#28c840]" />
+        <div className="h-9 bg-[#080604] flex items-center px-4 gap-1.5">
+          <div className="w-3 h-3 rounded-full bg-[#ff5f57]" />
+          <div className="w-3 h-3 rounded-full bg-[#febc2e]" />
+          <div className="w-3 h-3 rounded-full bg-[#28c840]" />
           <div className="flex-1 mx-8">
-            <div className="bg-white/5 rounded-md h-4 max-w-[200px] mx-auto" />
+            <div className="bg-white/5 rounded-md h-4.5 max-w-[240px] mx-auto" />
           </div>
         </div>
         {/* Content */}
-        <div className="bg-[#071319] p-5 text-[11px]">
-          <div className="flex items-center justify-between mb-4">
-            <div className="flex items-center gap-1.5">
-              <span className="text-[#4597b0] text-[11px] font-medium">aiCartograph</span>
-              <span className="text-white/30 text-[11px]">&gt;</span>
-              <span className="text-white/70 text-[11px]">Agent Studio</span>
+        <div className="bg-[#071319] p-6">
+          <div className="flex items-center justify-between mb-5">
+            <div className="flex items-center gap-2">
+              <span className="text-[#4597b0] text-[13px] font-medium">aiCartograph</span>
+              <span className="text-white/30 text-[13px]">&gt;</span>
+              <span className="text-white/70 text-[13px]">Agent Studio</span>
             </div>
-            <div className="bg-[#4597b0]/20 text-[#4597b0] text-[9px] px-2.5 py-1 rounded font-medium">
+            <div className="bg-[#4597b0]/20 text-[#4597b0] text-[11px] px-3 py-1.5 rounded font-medium">
               + New Agent
             </div>
           </div>
 
-          <div className="grid grid-cols-3 gap-2.5">
+          <div className="grid grid-cols-3 gap-3">
             {agents.map((agent, i) => (
               <div
                 key={i}
-                className="bg-white/[0.04] rounded-lg border border-white/[0.06] p-3 flex flex-col"
+                className="bg-white/[0.04] rounded-lg border border-white/[0.06] p-4 flex flex-col"
                 style={{
                   opacity: isInView ? 1 : 0,
                   transform: isInView ? "translateY(0)" : "translateY(12px)",
                   transition: `all 0.5s ${agent.delay}s ease-out`,
                 }}
               >
-                <div className="flex items-start justify-between mb-2">
+                <div className="flex items-start justify-between mb-2.5">
                   <div
-                    className="w-7 h-7 rounded-lg flex items-center justify-center text-[12px]"
+                    className="w-9 h-9 rounded-lg flex items-center justify-center text-[14px]"
                     style={{
                       backgroundColor:
                         agent.channel === "Web" ? "rgba(69,151,176,0.15)"
@@ -83,7 +83,7 @@ export default function MockupAgents({ className = "" }: { className?: string })
                     <span
                       style={{
                         color: agent.channel === "Web" ? "#4597b0" : agent.channel === "Slack" ? "#62acbb" : "#febc2e",
-                        fontSize: agent.channel === "Slack" ? "14px" : "12px",
+                        fontSize: agent.channel === "Slack" ? "16px" : "14px",
                         fontWeight: agent.channel === "Slack" ? "bold" : "normal",
                       }}
                     >
@@ -91,7 +91,7 @@ export default function MockupAgents({ className = "" }: { className?: string })
                     </span>
                   </div>
                   <span
-                    className="text-[8px] px-1.5 py-0.5 rounded-full font-medium"
+                    className="text-[10px] px-2 py-0.5 rounded-full font-medium"
                     style={{
                       color: agent.statusColor,
                       backgroundColor: agent.status === "Deployed" ? "rgba(54,192,142,0.1)" : "rgba(254,188,46,0.08)",
@@ -103,34 +103,34 @@ export default function MockupAgents({ className = "" }: { className?: string })
                   </span>
                 </div>
 
-                <div className="text-white/85 text-[11px] font-semibold mb-1">{agent.name}</div>
-                <div className="text-white/40 text-[9px] mb-3 leading-relaxed">{agent.description}</div>
+                <div className="text-white/85 text-[13px] font-semibold mb-1">{agent.name}</div>
+                <div className="text-white/40 text-[11px] mb-4 leading-relaxed">{agent.description}</div>
 
-                <div className="mt-auto pt-2 border-t border-white/[0.05] flex items-center justify-between">
+                <div className="mt-auto pt-2.5 border-t border-white/[0.05] flex items-center justify-between">
                   <div>
-                    <div className="text-white/30 text-[7px] uppercase tracking-wide">Queries</div>
+                    <div className="text-white/30 text-[9px] uppercase tracking-wide">Queries</div>
                     <div
-                      className="text-[12px] font-semibold"
+                      className="text-[14px] font-semibold"
                       style={{ color: agent.queries === "0" ? "rgba(255,255,255,0.2)" : "#4597b0" }}
                     >
                       {agent.queries}
                     </div>
                   </div>
                   <div>
-                    <div className="text-white/30 text-[7px] uppercase tracking-wide">Channel</div>
-                    <div className="text-white/50 text-[9px]">{agent.channel}</div>
+                    <div className="text-white/30 text-[9px] uppercase tracking-wide">Channel</div>
+                    <div className="text-white/50 text-[11px]">{agent.channel}</div>
                   </div>
                   {/* Animated sparkline */}
-                  <div className="flex items-end gap-px h-3">
+                  <div className="flex items-end gap-[2px] h-4">
                     {(agent.status === "Deployed"
                       ? [3, 5, 4, 7, 6, 8, 5, 9, 7]
                       : [0, 0, 0, 0, 0, 0, 0, 0, 0]
                     ).map((h, j) => (
                       <div
                         key={j}
-                        className="w-[3px] rounded-sm origin-bottom"
+                        className="w-[4px] rounded-sm origin-bottom"
                         style={{
-                          height: `${h * 1.2}px`,
+                          height: `${h * 1.6}px`,
                           backgroundColor: h > 0
                             ? i === 0 ? "rgba(69,151,176,0.4)" : "rgba(98,172,187,0.4)"
                             : "rgba(255,255,255,0.05)",

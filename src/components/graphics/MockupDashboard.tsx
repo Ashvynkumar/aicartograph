@@ -28,40 +28,32 @@ export default function MockupDashboard({ className = "" }: { className?: string
           0%, 100% { opacity: 0.4; }
           50% { opacity: 1; }
         }
-        @keyframes mockup-line-draw {
-          0% { stroke-dashoffset: 400; }
-          100% { stroke-dashoffset: 0; }
-        }
         @keyframes mockup-counter-glow {
           0%, 100% { text-shadow: 0 0 4px transparent; }
           50% { text-shadow: 0 0 8px rgba(69,151,176,0.3); }
         }
-        @keyframes mockup-bar-grow {
-          0% { transform: scaleY(0); }
-          100% { transform: scaleY(1); }
-        }
       `}</style>
       <div className="rounded-xl overflow-hidden border border-white/[0.06] shadow-2xl shadow-black/40">
         {/* Chrome bar */}
-        <div className="h-8 bg-[#080604] flex items-center px-3 gap-1.5">
-          <div className="w-2.5 h-2.5 rounded-full bg-[#ff5f57]" />
-          <div className="w-2.5 h-2.5 rounded-full bg-[#febc2e]" />
-          <div className="w-2.5 h-2.5 rounded-full bg-[#28c840]" />
+        <div className="h-9 bg-[#080604] flex items-center px-4 gap-1.5">
+          <div className="w-3 h-3 rounded-full bg-[#ff5f57]" />
+          <div className="w-3 h-3 rounded-full bg-[#febc2e]" />
+          <div className="w-3 h-3 rounded-full bg-[#28c840]" />
           <div className="flex-1 mx-8">
-            <div className="bg-white/5 rounded-md h-4 max-w-[200px] mx-auto" />
+            <div className="bg-white/5 rounded-md h-4.5 max-w-[240px] mx-auto" />
           </div>
         </div>
         {/* Content */}
-        <div className="bg-[#071319] p-5 text-[11px]">
+        <div className="bg-[#071319] p-6">
           {/* Breadcrumb bar */}
-          <div className="flex items-center gap-1.5 mb-4">
-            <span className="text-[#4597b0] text-[11px] font-medium">aiCartograph</span>
-            <span className="text-white/30 text-[11px]">&gt;</span>
-            <span className="text-white/70 text-[11px]">Command Center</span>
+          <div className="flex items-center gap-2 mb-5">
+            <span className="text-[#4597b0] text-[13px] font-medium">aiCartograph</span>
+            <span className="text-white/30 text-[13px]">&gt;</span>
+            <span className="text-white/70 text-[13px]">Command Center</span>
           </div>
 
           {/* Metric cards row */}
-          <div className="grid grid-cols-4 gap-2.5 mb-4">
+          <div className="grid grid-cols-4 gap-3 mb-5">
             {[
               { label: "Total Sources", value: "47", color: "#4597b0", delay: 0 },
               { label: "Resolution Rate", value: "73%", color: "#36c08e", delay: 0.15 },
@@ -70,11 +62,11 @@ export default function MockupDashboard({ className = "" }: { className?: string
             ].map((card) => (
               <div
                 key={card.label}
-                className="bg-white/[0.04] rounded-lg p-3 border border-white/[0.06] relative overflow-hidden"
+                className="bg-white/[0.04] rounded-lg p-3.5 border border-white/[0.06] relative overflow-hidden"
               >
-                <div className="text-white/50 text-[10px] mb-1.5">{card.label}</div>
+                <div className="text-white/50 text-[11px] mb-1.5">{card.label}</div>
                 <div
-                  className="text-[18px] font-bold"
+                  className="text-[22px] font-bold"
                   style={{
                     color: card.color,
                     animation: isInView ? `mockup-counter-glow 3s ${card.delay}s ease-in-out infinite` : "none",
@@ -82,7 +74,6 @@ export default function MockupDashboard({ className = "" }: { className?: string
                 >
                   {card.value}
                 </div>
-                {/* Shimmer overlay */}
                 {isInView && (
                   <div className="absolute inset-0 overflow-hidden pointer-events-none">
                     <div
@@ -99,14 +90,14 @@ export default function MockupDashboard({ className = "" }: { className?: string
           </div>
 
           {/* Chart + Activity feed */}
-          <div className="flex gap-2">
+          <div className="flex gap-3">
             {/* Area chart */}
-            <div className="flex-1 bg-white/[0.03] rounded-lg border border-white/[0.06] p-2.5">
-              <div className="text-white/50 text-[10px] mb-2">Query Volume (7d)</div>
-              <div className="relative h-20">
-                <div className="absolute left-0 top-0 text-white/20 text-[8px]">200</div>
-                <div className="absolute left-0 bottom-0 text-white/20 text-[8px]">0</div>
-                <div className="absolute inset-x-4 bottom-0 h-full flex items-end">
+            <div className="flex-1 bg-white/[0.03] rounded-lg border border-white/[0.06] p-4">
+              <div className="text-white/50 text-[12px] mb-3">Query Volume (7d)</div>
+              <div className="relative h-24">
+                <div className="absolute left-0 top-0 text-white/20 text-[10px]">200</div>
+                <div className="absolute left-0 bottom-0 text-white/20 text-[10px]">0</div>
+                <div className="absolute inset-x-5 bottom-0 h-full flex items-end">
                   <div
                     className="w-full h-full rounded-sm"
                     style={{
@@ -117,13 +108,8 @@ export default function MockupDashboard({ className = "" }: { className?: string
                     }}
                   />
                 </div>
-                {/* Animated chart line */}
-                <div className="absolute inset-x-4 bottom-0 h-full">
-                  <svg
-                    viewBox="0 0 200 60"
-                    className="w-full h-full"
-                    preserveAspectRatio="none"
-                  >
+                <div className="absolute inset-x-5 bottom-0 h-full">
+                  <svg viewBox="0 0 200 60" className="w-full h-full" preserveAspectRatio="none">
                     <polyline
                       points="0,48 20,39 40,42 70,27 100,30 130,18 150,15 170,21 200,12"
                       fill="none"
@@ -135,15 +121,8 @@ export default function MockupDashboard({ className = "" }: { className?: string
                         transition: "stroke-dashoffset 2s ease-out",
                       }}
                     />
-                    {/* Animated dot at the end of line */}
                     {isInView && (
-                      <circle
-                        cx="200"
-                        cy="12"
-                        r="2.5"
-                        fill="#4597b0"
-                        style={{ animation: "mockup-pulse-dot 2s ease-in-out infinite" }}
-                      />
+                      <circle cx="200" cy="12" r="3" fill="#4597b0" style={{ animation: "mockup-pulse-dot 2s ease-in-out infinite" }} />
                     )}
                   </svg>
                 </div>
@@ -151,9 +130,9 @@ export default function MockupDashboard({ className = "" }: { className?: string
             </div>
 
             {/* Activity feed */}
-            <div className="w-[38%] bg-white/[0.03] rounded-lg border border-white/[0.06] p-2.5">
-              <div className="text-white/50 text-[10px] mb-2">Recent Activity</div>
-              <div className="space-y-1.5">
+            <div className="w-[40%] bg-white/[0.03] rounded-lg border border-white/[0.06] p-4">
+              <div className="text-white/50 text-[12px] mb-3">Recent Activity</div>
+              <div className="space-y-2.5">
                 {[
                   { text: "Source sync completed", time: "2m ago", dot: "#36c08e", delay: 0.2 },
                   { text: "3 contradictions resolved", time: "14m ago", dot: "#4597b0", delay: 0.4 },
@@ -162,7 +141,7 @@ export default function MockupDashboard({ className = "" }: { className?: string
                 ].map((item, i) => (
                   <div
                     key={i}
-                    className="flex items-center gap-1.5 py-1 border-b border-white/[0.04] last:border-0"
+                    className="flex items-center gap-2 py-1.5 border-b border-white/[0.04] last:border-0"
                     style={{
                       opacity: isInView ? 1 : 0,
                       transform: isInView ? "translateX(0)" : "translateX(8px)",
@@ -170,18 +149,14 @@ export default function MockupDashboard({ className = "" }: { className?: string
                     }}
                   >
                     <div
-                      className="w-1.5 h-1.5 rounded-full flex-shrink-0"
+                      className="w-2 h-2 rounded-full flex-shrink-0"
                       style={{
                         backgroundColor: item.dot,
                         animation: isInView ? `mockup-pulse-dot 2.5s ${item.delay}s ease-in-out infinite` : "none",
                       }}
                     />
-                    <span className="text-white/60 text-[10px] flex-1 truncate">
-                      {item.text}
-                    </span>
-                    <span className="text-white/30 text-[9px] flex-shrink-0">
-                      {item.time}
-                    </span>
+                    <span className="text-white/60 text-[12px] flex-1 truncate">{item.text}</span>
+                    <span className="text-white/30 text-[10px] flex-shrink-0">{item.time}</span>
                   </div>
                 ))}
               </div>
