@@ -5,7 +5,8 @@ import Link from "next/link";
 import {
   LayoutDashboard, Database, MessageSquare, PenLine, HeartPulse,
   MessageCircle, GitBranch, BarChart3, Plug, Layout, FileText,
-  Shield, Settings, ChevronLeft, ChevronRight, User,
+  Shield, Settings, ChevronLeft, ChevronRight, User, LogOut,
+  Sun, Moon,
 } from "lucide-react";
 import { useAppStore } from "@/lib/store";
 
@@ -26,7 +27,10 @@ const NAV_ITEMS = [
 
 export default function Sidebar() {
   const pathname = usePathname();
-  const { sidebarCollapsed, setSidebarCollapsed, sources, conversations, feedbackItems, healthIssues } = useAppStore();
+  const {
+    sidebarCollapsed, setSidebarCollapsed, sources, conversations,
+    feedbackItems, healthIssues, theme, toggleTheme, logout, user,
+  } = useAppStore();
 
   const getBadgeValue = (key?: string) => {
     if (!key) return null;
@@ -58,11 +62,11 @@ export default function Sidebar() {
       className={`fixed left-0 top-0 h-screen z-40 flex flex-col transition-all duration-300 ${
         sidebarCollapsed ? "w-[68px]" : "w-[240px]"
       }`}
-      style={{ backgroundColor: "#080604" }}
+      style={{ backgroundColor: "var(--sidebar-bg)" }}
     >
       {/* Logo */}
       <div className="flex items-center gap-2 px-4 h-16 border-b border-white/5">
-        <div className="w-8 h-8 rounded-lg flex items-center justify-center bg-gradient-to-br from-[#4597b0] to-[#62acbb] shrink-0">
+        <div className="w-8 h-8 rounded-lg flex items-center justify-center bg-gradient-to-br from-[#4597b0] via-[#56b3f5] to-[#36c08e] shrink-0 shadow-md animate-gradient-flow">
           <span className="text-white text-sm font-bold">ai</span>
         </div>
         {!sidebarCollapsed && (
@@ -73,7 +77,7 @@ export default function Sidebar() {
       </div>
 
       {/* Nav */}
-      <nav className="flex-1 overflow-y-auto py-3 px-2 space-y-0.5">
+      <nav className="flex-1 overflow-y-auto py-3 px-2 space-y-0.5 app-sidebar-nav">
         {NAV_ITEMS.map((item) => {
           const isActive = pathname === item.href || pathname.startsWith(item.href + "/");
           const Icon = item.icon;
@@ -91,7 +95,7 @@ export default function Sidebar() {
               }`}
             >
               {isActive && (
-                <div className="absolute left-0 top-1/2 -translate-y-1/2 w-[3px] h-5 rounded-r-full bg-[#4597b0]" />
+                <div className="absolute left-0 top-1/2 -translate-y-1/2 w-[3px] h-5 rounded-r-full bg-gradient-to-b from-[#4597b0] to-[#56b3f5]" />
               )}
               <div className="relative shrink-0">
                 <Icon size={18} />
@@ -114,6 +118,16 @@ export default function Sidebar() {
 
       {/* Bottom */}
       <div className="border-t border-white/5 p-2 space-y-0.5">
+        {/* Theme Toggle */}
+        <button
+          onClick={toggleTheme}
+          className="flex items-center gap-3 px-3 py-2 rounded-lg text-sm text-white/50 hover:text-white/80 hover:bg-white/5 w-full transition-all"
+          title={theme === "dark" ? "Switch to Light Mode" : "Switch to Dark Mode"}
+        >
+          {theme === "dark" ? <Sun size={18} /> : <Moon size={18} />}
+          {!sidebarCollapsed && <span>{theme === "dark" ? "Light Mode" : "Dark Mode"}</span>}
+        </button>
+
         <Link
           href="/app/settings"
           className={`flex items-center gap-3 px-3 py-2 rounded-lg text-sm transition-all ${
@@ -125,12 +139,24 @@ export default function Sidebar() {
           <Settings size={18} />
           {!sidebarCollapsed && <span>Settings</span>}
         </Link>
+
+        {/* User info */}
         <div className="flex items-center gap-3 px-3 py-2 text-white/50">
-          <div className="w-6 h-6 rounded-full bg-gradient-to-br from-[#4597b0] to-[#62acbb] flex items-center justify-center shrink-0">
+          <div className="w-6 h-6 rounded-full bg-gradient-to-br from-[#4597b0] to-[#56b3f5] flex items-center justify-center shrink-0">
             <User size={12} className="text-white" />
           </div>
-          {!sidebarCollapsed && <span className="text-xs truncate">Atlas</span>}
+          {!sidebarCollapsed && <span className="text-xs truncate flex-1">{user.name}</span>}
         </div>
+
+        {/* Logout */}
+        <button
+          onClick={logout}
+          className="flex items-center gap-3 px-3 py-2 rounded-lg text-sm text-red-400/70 hover:text-red-400 hover:bg-red-400/10 w-full transition-all"
+        >
+          <LogOut size={18} />
+          {!sidebarCollapsed && <span>Logout</span>}
+        </button>
+
         <button
           onClick={() => setSidebarCollapsed(!sidebarCollapsed)}
           className="flex items-center gap-3 px-3 py-2 rounded-lg text-sm text-white/50 hover:text-white/80 hover:bg-white/5 w-full transition-all"

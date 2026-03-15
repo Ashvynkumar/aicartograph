@@ -6,12 +6,18 @@ import CommandPalette from "@/components/app/CommandPalette";
 import CompassAgent from "@/components/app/CompassAgent";
 import OnboardingWizard from "@/components/app/OnboardingWizard";
 import { useAppStore } from "@/lib/store";
+import { useEffect } from "react";
 
 export default function AppLayout({ children }: { children: React.ReactNode }) {
-  const { sidebarCollapsed } = useAppStore();
+  const { sidebarCollapsed, theme } = useAppStore();
+
+  // Sync theme on mount
+  useEffect(() => {
+    document.documentElement.setAttribute("data-theme", theme);
+  }, [theme]);
 
   return (
-    <div className="min-h-screen bg-[#0c2329]">
+    <div className="min-h-screen app-layout-main" style={{ background: "var(--bg-primary)" }}>
       <Sidebar />
       <div
         className={`transition-all duration-300 ${

@@ -220,6 +220,25 @@ export default function HealthPage() {
           </div>
         </div>
       </div>
+
+      {/* Module Handshake */}
+      <div className="rounded-xl p-4 flex items-center justify-between" style={{ background: "linear-gradient(135deg, rgba(54,192,142,0.08), rgba(69,151,176,0.04))", border: "1px solid rgba(54,192,142,0.15)" }}>
+        <div>
+          <p className="text-sm font-medium" style={{ color: "var(--text-secondary)" }}>Improve your health score</p>
+          <p className="text-xs mt-0.5" style={{ color: "var(--text-muted)" }}>Update stale sources, create missing docs, or automate alerts</p>
+        </div>
+        <div className="flex gap-2">
+          <a href="/app/sources" className="px-3 py-1.5 rounded-lg text-xs font-medium text-white bg-[#4597b0] hover:bg-[#3a87a0] transition-all">
+            Update Sources
+          </a>
+          <a href="/app/foundry" className="px-3 py-1.5 rounded-lg text-xs font-medium transition-all" style={{ background: "var(--bg-input)", border: "1px solid var(--border-primary)", color: "var(--text-tertiary)" }}>
+            Create in Foundry
+          </a>
+          <a href="/app/workflows" className="px-3 py-1.5 rounded-lg text-xs font-medium transition-all" style={{ background: "var(--bg-input)", border: "1px solid var(--border-primary)", color: "var(--text-tertiary)" }}>
+            Setup Alerts
+          </a>
+        </div>
+      </div>
     </div>
   );
 }

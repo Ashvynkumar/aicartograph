@@ -36,6 +36,8 @@ interface AppState {
   commandPaletteOpen: boolean;
   compassOpen: boolean;
   activeResolutionMode: "quick" | "deep";
+  theme: "dark" | "light";
+  welcomePromptDismissed: boolean;
 
   // Actions
   setSidebarCollapsed: (v: boolean) => void;
@@ -45,6 +47,10 @@ interface AppState {
   completeOnboarding: () => void;
   setActiveConversation: (id: string | null) => void;
   setResolutionMode: (mode: "quick" | "deep") => void;
+  setTheme: (theme: "dark" | "light") => void;
+  toggleTheme: () => void;
+  setWelcomePromptDismissed: (v: boolean) => void;
+  logout: () => void;
   addSource: (source: Source) => void;
   removeSource: (id: string) => void;
   addConversation: (conv: Conversation) => void;
@@ -77,6 +83,8 @@ export const useAppStore = create<AppState>((set) => ({
   commandPaletteOpen: false,
   compassOpen: false,
   activeResolutionMode: "deep",
+  theme: "dark",
+  welcomePromptDismissed: false,
 
   setSidebarCollapsed: (v) => set({ sidebarCollapsed: v }),
   setCommandPaletteOpen: (v) => set({ commandPaletteOpen: v }),
@@ -85,6 +93,20 @@ export const useAppStore = create<AppState>((set) => ({
   completeOnboarding: () => set({ onboardingComplete: true, onboardingStep: 3 }),
   setActiveConversation: (id) => set({ activeConversationId: id }),
   setResolutionMode: (mode) => set({ activeResolutionMode: mode }),
+  setTheme: (theme) => {
+    document.documentElement.setAttribute("data-theme", theme);
+    set({ theme });
+  },
+  toggleTheme: () => set((s) => {
+    const newTheme = s.theme === "dark" ? "light" : "dark";
+    document.documentElement.setAttribute("data-theme", newTheme);
+    return { theme: newTheme };
+  }),
+  setWelcomePromptDismissed: (v) => set({ welcomePromptDismissed: v }),
+  logout: () => {
+    document.cookie = "auth=; path=/; expires=Thu, 01 Jan 1970 00:00:00 GMT";
+    window.location.href = "/auth/login";
+  },
 
   addSource: (source) => set((s) => ({ sources: [...s.sources, source] })),
   removeSource: (id) => set((s) => ({ sources: s.sources.filter((x) => x.id !== id) })),

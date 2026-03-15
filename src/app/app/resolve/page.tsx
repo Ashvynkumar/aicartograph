@@ -168,8 +168,8 @@ export default function ResolvePage() {
                 <Sparkles size={28} className="text-white" />
               </div>
               <div className="text-center">
-                <h2 className="text-white text-lg font-bold font-serif">Ask your knowledge base</h2>
-                <p className="text-white/40 text-sm mt-1">
+                <h2 className="text-lg font-bold font-serif" style={{ color: "var(--text-primary)" }}>Ask your knowledge base</h2>
+                <p className="text-sm mt-1" style={{ color: "var(--text-muted)" }}>
                   Get synthesized answers from all your sources with citations
                 </p>
               </div>
