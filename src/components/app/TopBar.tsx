@@ -6,18 +6,18 @@ import { useAppStore } from "@/lib/store";
 import { useState, useRef, useEffect } from "react";
 
 const PAGE_NAMES: Record<string, string> = {
-  "/app/dashboard": "Dashboard",
-  "/app/sources": "Sources",
+  "/app/dashboard": "Command Center",
+  "/app/sources": "Sources & Docs",
   "/app/resolve": "Resolve",
-  "/app/foundry": "Foundry",
-  "/app/health": "Health",
-  "/app/feedback": "Feedback",
-  "/app/workflows": "Workflows",
+  "/app/agents": "Agent Studio",
+  "/app/health": "Health & Gaps",
+  "/app/feedback": "Feedback Loop",
+  "/app/workflows": "Automations",
   "/app/analytics": "Analytics",
   "/app/integrations": "Integrations",
-  "/app/widget": "Widget",
-  "/app/reports": "Reports",
-  "/app/audit": "Audit",
+  "/app/admin": "Admin Control",
+  "/app/docs": "API & Docs",
+  "/app/audit": "Audit Trail",
   "/app/settings": "Settings",
 };
 
@@ -29,7 +29,7 @@ export default function TopBar() {
   const notifRef = useRef<HTMLDivElement>(null);
   const userRef = useRef<HTMLDivElement>(null);
   const unread = notifications.filter((n) => !n.read).length;
-  const pageName = PAGE_NAMES[pathname] || "Dashboard";
+  const pageName = PAGE_NAMES[pathname] || "Command Center";
 
   useEffect(() => {
     const handler = (e: MouseEvent) => {
@@ -81,18 +81,8 @@ export default function TopBar() {
           style={{ background: "linear-gradient(135deg, #4597b0, #56b3f5)" }}
         >
           <Upload size={14} />
-          <span className="hidden sm:inline">Upload Source</span>
+          <span className="hidden sm:inline">Upload</span>
         </a>
-
-        {/* Theme toggle */}
-        <button
-          onClick={toggleTheme}
-          className="p-2 rounded-lg transition-all"
-          style={{ color: "var(--text-tertiary)" }}
-          title={theme === "dark" ? "Switch to Light Mode" : "Switch to Dark Mode"}
-        >
-          {theme === "dark" ? <Sun size={18} /> : <Moon size={18} />}
-        </button>
 
         {/* Notifications */}
         <div className="relative" ref={notifRef}>
@@ -115,10 +105,7 @@ export default function TopBar() {
             >
               <div className="flex items-center justify-between px-4 py-3" style={{ borderBottom: "1px solid var(--border-primary)" }}>
                 <span className="text-sm font-medium" style={{ color: "var(--text-primary)" }}>Notifications</span>
-                <button
-                  onClick={() => markAllNotificationsRead()}
-                  className="text-[#4597b0] text-xs hover:underline"
-                >
+                <button onClick={() => markAllNotificationsRead()} className="text-[#4597b0] text-xs hover:underline">
                   Mark all read
                 </button>
               </div>
@@ -166,26 +153,15 @@ export default function TopBar() {
                 <p className="text-[10px] mt-1" style={{ color: "var(--text-muted)" }}>{user.company} &middot; {user.role}</p>
               </div>
               <div className="py-1">
-                <a
-                  href="/app/settings"
-                  className="flex items-center gap-2 px-4 py-2 text-sm transition-all"
-                  style={{ color: "var(--text-secondary)" }}
-                >
+                <a href="/app/admin" className="flex items-center gap-2 px-4 py-2 text-sm transition-all hover:bg-white/5" style={{ color: "var(--text-secondary)" }}>
                   <User size={14} /> Profile & Settings
                 </a>
-                <button
-                  onClick={toggleTheme}
-                  className="flex items-center gap-2 px-4 py-2 text-sm w-full transition-all"
-                  style={{ color: "var(--text-secondary)" }}
-                >
+                <button onClick={toggleTheme} className="flex items-center gap-2 px-4 py-2 text-sm w-full transition-all hover:bg-white/5" style={{ color: "var(--text-secondary)" }}>
                   {theme === "dark" ? <Sun size={14} /> : <Moon size={14} />}
                   {theme === "dark" ? "Light Mode" : "Dark Mode"}
                 </button>
                 <div style={{ borderTop: "1px solid var(--border-primary)", margin: "4px 0" }} />
-                <button
-                  onClick={logout}
-                  className="flex items-center gap-2 px-4 py-2 text-sm w-full text-red-400 hover:bg-red-400/10 transition-all"
-                >
+                <button onClick={logout} className="flex items-center gap-2 px-4 py-2 text-sm w-full text-red-400 hover:bg-red-400/10 transition-all">
                   <LogOut size={14} /> Sign Out
                 </button>
               </div>

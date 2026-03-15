@@ -221,7 +221,7 @@ export default function AboutPage() {
 
           <div className="grid sm:grid-cols-2 gap-6 max-w-4xl mx-auto">
             {principles.map((p, i) => (
-              <AnimateOnScroll key={p.title} delay={i * 0.1}>
+              <AnimateOnScroll key={p.title} delay={i * 0.1} className={i === principles.length - 1 ? "sm:col-span-2 sm:max-w-md sm:mx-auto" : ""}>
                 <div className={`card-surface rounded-xl p-6 ${p.border} hover:-translate-y-0.5 hover:shadow-lg transition-all duration-300`}>
                   <h3 className="heading-h3 text-brand-900 mb-2 text-base">{p.title}</h3>
                   <p className="text-brand-700 text-sm leading-relaxed">{p.description}</p>

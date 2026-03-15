@@ -123,7 +123,7 @@ function KnowledgeSources() {
 }
 
 /* ─── Section 4: 18 Problems Diagnostic (DARK) ─── */
-const tileBgs = ["bg-brand-800", "bg-brand-800/70", "bg-[#223e49]"];
+const tileBgs = ["bg-brand-800", "bg-[#223e49]", "bg-[#1a3540]"];
 
 function EighteenProblems() {
   return (

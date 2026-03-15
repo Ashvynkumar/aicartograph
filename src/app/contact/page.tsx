@@ -54,7 +54,7 @@ export default function ContactPage() {
   return (
     <>
       {/* Hero (DARK) */}
-      <section className="pt-28 pb-16 section-dark relative">
+      <section className="pt-24 pb-8 section-dark relative">
         <div className="absolute top-0 left-1/2 w-72 h-72 bg-brand-500/5 rounded-full blur-3xl -translate-x-1/2" />
         <Container className="relative text-center">
           <AnimateOnScroll className="space-y-5 max-w-3xl mx-auto">
@@ -73,7 +73,7 @@ export default function ContactPage() {
       <SectionDivider variant="rich" />
 
       {/* Form + Calendly (LIGHT) */}
-      <section className="section-light py-12 lg:py-16">
+      <section className="section-light py-8 lg:py-10">
         <Container>
           <div className="grid lg:grid-cols-2 gap-8 max-w-5xl mx-auto">
             {/* Form */}
@@ -125,7 +125,7 @@ export default function ContactPage() {
                     <div>
                       <label htmlFor="message" className="block text-sm text-brand-700 mb-1.5">Message</label>
                       <textarea
-                        id="message" rows={3}
+                        id="message" rows={2}
                         className="w-full rounded-xl border border-brand-700/20 bg-white px-5 py-3 text-brand-900 placeholder:text-brand-700/40 outline-none focus:border-brand-500/50 focus:ring-1 focus:ring-brand-500/25 transition-all resize-none"
                         placeholder="Tell us about your knowledge challenges..."
                         value={formState.message}

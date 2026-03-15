@@ -31,8 +31,8 @@
 /* ——— Theme CSS Variables ——— */
 :root,
 [data-theme="dark"] {
-  --bg-primary: #0c2329;
-  --bg-secondary: #080604;
+  --bg-primary: #080604;
+  --bg-secondary: #0c2329;
   --bg-card: rgba(34, 62, 73, 0.6);
   --bg-card-hover: rgba(34, 62, 73, 0.85);
   --bg-elevated: #1a3a45;
@@ -40,12 +40,12 @@
   --bg-input-hover: rgba(255, 255, 255, 0.1);
   --border-primary: rgba(255, 255, 255, 0.06);
   --border-hover: rgba(69, 151, 176, 0.3);
-  --text-primary: #ffffff;
+  --text-primary: #FDFFFF;
   --text-secondary: rgba(255, 255, 255, 0.8);
   --text-tertiary: rgba(255, 255, 255, 0.5);
   --text-muted: rgba(255, 255, 255, 0.3);
   --sidebar-bg: #080604;
-  --topbar-bg: rgba(12, 35, 41, 0.8);
+  --topbar-bg: rgba(8, 6, 4, 0.85);
   --accent-primary: #4597b0;
   --accent-secondary: #62acbb;
   --accent-glow: rgba(69, 151, 176, 0.2);
@@ -54,24 +54,24 @@
 }
 
 [data-theme="light"] {
-  --bg-primary: #f5f8fa;
+  --bg-primary: #F0F7FA;
   --bg-secondary: #ffffff;
   --bg-card: rgba(255, 255, 255, 0.95);
   --bg-card-hover: rgba(255, 255, 255, 1);
   --bg-elevated: #ffffff;
-  --bg-input: rgba(0, 0, 0, 0.04);
-  --bg-input-hover: rgba(0, 0, 0, 0.07);
-  --border-primary: rgba(0, 0, 0, 0.08);
+  --bg-input: rgba(12, 35, 41, 0.05);
+  --bg-input-hover: rgba(12, 35, 41, 0.08);
+  --border-primary: rgba(12, 35, 41, 0.12);
   --border-hover: rgba(69, 151, 176, 0.4);
-  --text-primary: #0f1a1e;
-  --text-secondary: #2d4a54;
-  --text-tertiary: #5a7a86;
-  --text-muted: #8fa8b3;
-  --sidebar-bg: #0e2a32;
-  --topbar-bg: rgba(255, 255, 255, 0.85);
-  --accent-primary: #3a87a0;
-  --accent-secondary: #4d9bb0;
-  --accent-glow: rgba(69, 151, 176, 0.15);
+  --text-primary: #0c2329;
+  --text-secondary: #223e49;
+  --text-tertiary: #44696a;
+  --text-muted: #97c1cc;
+  --sidebar-bg: #080604;
+  --topbar-bg: rgba(240, 247, 250, 0.9);
+  --accent-primary: #4597b0;
+  --accent-secondary: #49818d;
+  --accent-glow: rgba(69, 151, 176, 0.12);
   --scrollbar-thumb: rgba(69, 151, 176, 0.25);
   --scrollbar-hover: rgba(69, 151, 176, 0.45);
 }
@@ -213,6 +213,79 @@ body {
 [data-theme="light"] .app-sidebar-nav a.active,
 [data-theme="light"] .app-sidebar-nav button.active {
   background: rgba(255, 255, 255, 0.15);
+}
+
+/* ─── Light mode: remap hardcoded dark-theme text colors in app area ─── */
+[data-theme="light"] .app-layout-main .text-white {
+  color: var(--text-primary) !important;
+}
+[data-theme="light"] .app-layout-main .text-white\/90 {
+  color: var(--text-primary) !important;
+}
+[data-theme="light"] .app-layout-main .text-white\/80 {
+  color: var(--text-secondary) !important;
+}
+[data-theme="light"] .app-layout-main .text-white\/70 {
+  color: var(--text-secondary) !important;
+}
+[data-theme="light"] .app-layout-main .text-white\/60 {
+  color: var(--text-tertiary) !important;
+}
+[data-theme="light"] .app-layout-main .text-white\/50 {
+  color: var(--text-tertiary) !important;
+}
+[data-theme="light"] .app-layout-main .text-white\/40 {
+  color: var(--text-muted) !important;
+}
+[data-theme="light"] .app-layout-main .text-white\/30 {
+  color: var(--text-muted) !important;
+}
+[data-theme="light"] .app-layout-main .text-white\/25 {
+  color: var(--text-muted) !important;
+}
+[data-theme="light"] .app-layout-main .text-white\/20 {
+  color: var(--text-muted) !important;
+}
+
+/* Light mode: remap hardcoded dark backgrounds to light equivalents */
+[data-theme="light"] .app-layout-main [class*="bg-\[#223e49\]"],
+[data-theme="light"] .app-layout-main [class*="bg-\[#0c2329\]"],
+[data-theme="light"] .app-layout-main [class*="bg-\[#1a3a44\]"],
+[data-theme="light"] .app-layout-main [class*="bg-\[#1a3540\]"] {
+  background-color: var(--bg-card) !important;
+  border: 1px solid var(--border-primary);
+}
+
+/* Light mode: remap white opacity borders */
+[data-theme="light"] .app-layout-main .border-white\/5,
+[data-theme="light"] .app-layout-main .border-white\/10 {
+  border-color: var(--border-primary) !important;
+}
+[data-theme="light"] .app-layout-main .border-white\/20 {
+  border-color: rgba(12, 35, 41, 0.15) !important;
+}
+
+/* Light mode: remap white opacity backgrounds */
+[data-theme="light"] .app-layout-main .bg-white\/5,
+[data-theme="light"] .app-layout-main .bg-white\/10 {
+  background-color: rgba(12, 35, 41, 0.05) !important;
+}
+[data-theme="light"] .app-layout-main .bg-white\/\[0\.06\],
+[data-theme="light"] .app-layout-main .bg-white\/\[0\.02\] {
+  background-color: rgba(12, 35, 41, 0.03) !important;
+}
+
+/* Light mode: topbar search and buttons */
+[data-theme="light"] .app-layout-main .bg-brand-800\/60 {
+  background-color: var(--bg-card) !important;
+}
+
+/* Light mode: code blocks should stay dark */
+[data-theme="light"] .app-layout-main pre {
+  background-color: #1a1a2e !important;
+}
+[data-theme="light"] .app-layout-main pre code {
+  color: #36c08e !important;
 }
 
 /* Animated compass keyframes */
