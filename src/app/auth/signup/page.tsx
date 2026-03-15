@@ -203,12 +203,12 @@ function ConvergenceCanvas() {
 
 /* ── Floating feature badges ── */
 const floatingBadges = [
-  { icon: Shield, label: "SOC 2 Compliant", x: "left-[6%]", y: "top-[18%]", delay: "0s" },
-  { icon: Zap, label: "Real-time Sync", x: "left-[8%]", y: "top-[45%]", delay: "0.5s" },
+  { icon: Zap, label: "Real-time Sync", x: "left-[6%]", y: "top-[20%]", delay: "0s" },
+  { icon: Brain, label: "AI-Powered", x: "left-[7%]", y: "top-[48%]", delay: "0.5s" },
   { icon: Globe, label: "Multi-source", x: "left-[5%]", y: "bottom-[25%]", delay: "1s" },
-  { icon: Brain, label: "AI-Powered", x: "right-[6%]", y: "top-[20%]", delay: "0.3s" },
-  { icon: BarChart3, label: "Analytics", x: "right-[7%]", y: "top-[48%]", delay: "0.8s" },
-  { icon: Lock, label: "Enterprise Ready", x: "right-[5%]", y: "bottom-[22%]", delay: "1.2s" },
+  { icon: BarChart3, label: "Analytics", x: "right-[6%]", y: "top-[22%]", delay: "0.3s" },
+  { icon: Lock, label: "Secure by Design", x: "right-[7%]", y: "top-[50%]", delay: "0.8s" },
+  { icon: Shield, label: "Role-based Access", x: "right-[5%]", y: "bottom-[22%]", delay: "1.2s" },
 ];
 
 function FloatingBadges() {
@@ -411,9 +411,9 @@ export default function SignupPage() {
         <div className="flex items-center justify-center gap-6 mt-6 text-white/20 text-[10px] tracking-wider uppercase">
           <span className="flex items-center gap-1.5"><Lock size={10} /> 256-bit SSL</span>
           <span className="w-px h-3 bg-white/10" />
-          <span className="flex items-center gap-1.5"><Shield size={10} /> SOC 2</span>
+          <span className="flex items-center gap-1.5"><Shield size={10} /> Encrypted Data</span>
           <span className="w-px h-3 bg-white/10" />
-          <span className="flex items-center gap-1.5"><Globe size={10} /> GDPR</span>
+          <span className="flex items-center gap-1.5"><Zap size={10} /> 99.9% Uptime</span>
         </div>
       </div>
     </div>
