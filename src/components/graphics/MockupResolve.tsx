@@ -48,7 +48,7 @@ export default function MockupResolve({ className = "" }: { className?: string }
           </div>
         </div>
         {/* Content */}
-        <div className="bg-[#071319] p-4 text-[10px] flex gap-3">
+        <div className="bg-[#071319] p-5 text-[11px] flex gap-3">
           {/* Chat panel */}
           <div className="flex-1 flex flex-col gap-2.5">
             {/* Header */}
@@ -59,7 +59,7 @@ export default function MockupResolve({ className = "" }: { className?: string }
                   style={{ animation: isInView ? "resolve-typing 2s ease-in-out infinite" : "none" }}
                 />
               </div>
-              <span className="text-white/70 text-[10px] font-medium">Resolve</span>
+              <span className="text-white/70 text-[11px] font-medium">Resolve</span>
             </div>
 
             {/* User message */}
@@ -75,7 +75,7 @@ export default function MockupResolve({ className = "" }: { className?: string }
                 <span className="text-[7px] text-[#62acbb] font-bold">U</span>
               </div>
               <div className="bg-white/[0.06] rounded-lg rounded-tl-sm px-2.5 py-2 flex-1">
-                <p className="text-white/80 leading-relaxed">
+                <p className="text-white/80 text-[11px] leading-relaxed">
                   How do I configure SSO for Enterprise v3.2?
                 </p>
               </div>
@@ -97,7 +97,7 @@ export default function MockupResolve({ className = "" }: { className?: string }
                 className="bg-[#4597b0]/[0.08] rounded-lg rounded-tl-sm px-2.5 py-2 flex-1 border border-[#4597b0]/10"
                 style={{ animation: isInView ? "resolve-pulse 4s ease-in-out infinite" : "none" }}
               >
-                <p className="text-white/80 leading-relaxed mb-1.5">
+                <p className="text-white/80 text-[11px] leading-relaxed mb-2">
                   To configure SSO for Enterprise v3.2, follow these steps:
                 </p>
                 <ul className="space-y-1 ml-2">
@@ -121,16 +121,16 @@ export default function MockupResolve({ className = "" }: { className?: string }
                     </li>
                   ))}
                 </ul>
-                <div className="mt-2 pt-1.5 border-t border-white/[0.06] flex items-center gap-1">
-                  <span className="text-white/30 text-[8px]">Cited 3 sources</span>
-                  <span className="text-[#4597b0] text-[8px]">· 94% confidence</span>
+                <div className="mt-2 pt-2 border-t border-white/[0.06] flex items-center gap-1.5">
+                  <span className="text-white/30 text-[9px]">Cited 3 sources</span>
+                  <span className="text-[#36c08e] text-[9px] font-medium">· 94% confidence</span>
                 </div>
               </div>
             </div>
 
             {/* Input bar */}
             <div className="mt-auto bg-white/[0.04] rounded-lg border border-white/[0.06] px-2.5 py-2 flex items-center gap-2">
-              <span className="text-white/25 text-[9px] flex-1">
+              <span className="text-white/30 text-[10px] flex-1">
                 Ask a follow-up question...
                 {isInView && <span style={{ animation: "resolve-typing 1s step-end infinite", color: "#4597b0" }}>▊</span>}
               </span>
@@ -142,7 +142,7 @@ export default function MockupResolve({ className = "" }: { className?: string }
 
           {/* Citations sidebar */}
           <div className="w-[38%] flex flex-col gap-2">
-            <div className="text-white/50 text-[9px] font-medium pb-1.5 border-b border-white/[0.06]">
+            <div className="text-white/50 text-[10px] font-medium pb-2 border-b border-white/[0.06]">
               Sources & Citations
             </div>
             {[

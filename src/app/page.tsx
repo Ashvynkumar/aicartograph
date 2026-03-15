@@ -99,7 +99,7 @@ function ProblemTeaser() {
   const diagnosticColors = ["#f06565", "#e07c4f", "#f0b429", "#4597b0", "#9b8ce8", "#36c08e"];
 
   return (
-    <section className="py-12 lg:py-16 relative" style={{ background: "#071319" }}>
+    <section className="py-12 lg:py-16 relative" style={{ background: "#0a1a22" }}>
       <div className="absolute inset-0 pointer-events-none" style={{ background: "radial-gradient(circle at 50% 100%, rgba(240,101,101,0.04) 0%, transparent 40%)" }} />
       <Container className="relative">
         <AnimateOnScroll className="text-center mb-10">

@@ -14,7 +14,7 @@ export default function CTABanner({
   subheadline = "Every answer. Everywhere. The moment it matters.",
 }: CTABannerProps) {
   return (
-    <section className="py-10 lg:py-12 relative" style={{ background: "#071319" }}>
+    <section className="py-10 lg:py-12 relative" style={{ background: "#060e14" }}>
       <div className="absolute inset-0" style={{ background: "radial-gradient(ellipse at 50% 50%, rgba(69,151,176,0.06) 0%, transparent 50%), radial-gradient(ellipse at 30% 80%, rgba(155,140,232,0.03) 0%, transparent 40%), radial-gradient(ellipse at 70% 20%, rgba(240,180,41,0.02) 0%, transparent 40%)" }} />
       <Container className="relative">
         <AnimateOnScroll>

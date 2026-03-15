@@ -52,29 +52,29 @@ export default function MockupDashboard({ className = "" }: { className?: string
           </div>
         </div>
         {/* Content */}
-        <div className="bg-[#071319] p-4 text-[10px]">
+        <div className="bg-[#071319] p-5 text-[11px]">
           {/* Breadcrumb bar */}
-          <div className="flex items-center gap-1 mb-3">
-            <span className="text-[#4597b0] text-[10px]">aiCartograph</span>
-            <span className="text-white/30 text-[10px]">&gt;</span>
-            <span className="text-white/60 text-[10px]">Command Center</span>
+          <div className="flex items-center gap-1.5 mb-4">
+            <span className="text-[#4597b0] text-[11px] font-medium">aiCartograph</span>
+            <span className="text-white/30 text-[11px]">&gt;</span>
+            <span className="text-white/70 text-[11px]">Command Center</span>
           </div>
 
           {/* Metric cards row */}
-          <div className="grid grid-cols-4 gap-2 mb-3">
+          <div className="grid grid-cols-4 gap-2.5 mb-4">
             {[
               { label: "Total Sources", value: "47", color: "#4597b0", delay: 0 },
               { label: "Resolution Rate", value: "73%", color: "#36c08e", delay: 0.15 },
-              { label: "Health Score", value: "82", color: "#62acbb", delay: 0.3 },
-              { label: "Open Feedback", value: "12", color: "#febc2e", delay: 0.45 },
+              { label: "Health Score", value: "82", color: "#f0b429", delay: 0.3 },
+              { label: "Open Feedback", value: "12", color: "#9b8ce8", delay: 0.45 },
             ].map((card) => (
               <div
                 key={card.label}
-                className="bg-white/[0.04] rounded-lg p-2.5 border border-white/[0.06] relative overflow-hidden"
+                className="bg-white/[0.04] rounded-lg p-3 border border-white/[0.06] relative overflow-hidden"
               >
-                <div className="text-white/40 text-[9px] mb-1">{card.label}</div>
+                <div className="text-white/50 text-[10px] mb-1.5">{card.label}</div>
                 <div
-                  className="text-[16px] font-semibold"
+                  className="text-[18px] font-bold"
                   style={{
                     color: card.color,
                     animation: isInView ? `mockup-counter-glow 3s ${card.delay}s ease-in-out infinite` : "none",
@@ -102,8 +102,8 @@ export default function MockupDashboard({ className = "" }: { className?: string
           <div className="flex gap-2">
             {/* Area chart */}
             <div className="flex-1 bg-white/[0.03] rounded-lg border border-white/[0.06] p-2.5">
-              <div className="text-white/50 text-[9px] mb-2">Query Volume (7d)</div>
-              <div className="relative h-16">
+              <div className="text-white/50 text-[10px] mb-2">Query Volume (7d)</div>
+              <div className="relative h-20">
                 <div className="absolute left-0 top-0 text-white/20 text-[8px]">200</div>
                 <div className="absolute left-0 bottom-0 text-white/20 text-[8px]">0</div>
                 <div className="absolute inset-x-4 bottom-0 h-full flex items-end">
@@ -152,7 +152,7 @@ export default function MockupDashboard({ className = "" }: { className?: string
 
             {/* Activity feed */}
             <div className="w-[38%] bg-white/[0.03] rounded-lg border border-white/[0.06] p-2.5">
-              <div className="text-white/50 text-[9px] mb-2">Recent Activity</div>
+              <div className="text-white/50 text-[10px] mb-2">Recent Activity</div>
               <div className="space-y-1.5">
                 {[
                   { text: "Source sync completed", time: "2m ago", dot: "#36c08e", delay: 0.2 },
@@ -176,10 +176,10 @@ export default function MockupDashboard({ className = "" }: { className?: string
                         animation: isInView ? `mockup-pulse-dot 2.5s ${item.delay}s ease-in-out infinite` : "none",
                       }}
                     />
-                    <span className="text-white/60 text-[9px] flex-1 truncate">
+                    <span className="text-white/60 text-[10px] flex-1 truncate">
                       {item.text}
                     </span>
-                    <span className="text-white/25 text-[8px] flex-shrink-0">
+                    <span className="text-white/30 text-[9px] flex-shrink-0">
                       {item.time}
                     </span>
                   </div>

@@ -47,14 +47,14 @@ export default function MockupAgents({ className = "" }: { className?: string })
           </div>
         </div>
         {/* Content */}
-        <div className="bg-[#071319] p-4 text-[10px]">
-          <div className="flex items-center justify-between mb-3">
-            <div className="flex items-center gap-1">
-              <span className="text-[#4597b0] text-[10px]">aiCartograph</span>
-              <span className="text-white/30 text-[10px]">&gt;</span>
-              <span className="text-white/60 text-[10px]">Agent Studio</span>
+        <div className="bg-[#071319] p-5 text-[11px]">
+          <div className="flex items-center justify-between mb-4">
+            <div className="flex items-center gap-1.5">
+              <span className="text-[#4597b0] text-[11px] font-medium">aiCartograph</span>
+              <span className="text-white/30 text-[11px]">&gt;</span>
+              <span className="text-white/70 text-[11px]">Agent Studio</span>
             </div>
-            <div className="bg-[#4597b0]/20 text-[#4597b0] text-[8px] px-2 py-0.5 rounded font-medium">
+            <div className="bg-[#4597b0]/20 text-[#4597b0] text-[9px] px-2.5 py-1 rounded font-medium">
               + New Agent
             </div>
           </div>
@@ -103,8 +103,8 @@ export default function MockupAgents({ className = "" }: { className?: string })
                   </span>
                 </div>
 
-                <div className="text-white/80 text-[10px] font-medium mb-0.5">{agent.name}</div>
-                <div className="text-white/35 text-[8px] mb-3 leading-relaxed">{agent.description}</div>
+                <div className="text-white/85 text-[11px] font-semibold mb-1">{agent.name}</div>
+                <div className="text-white/40 text-[9px] mb-3 leading-relaxed">{agent.description}</div>
 
                 <div className="mt-auto pt-2 border-t border-white/[0.05] flex items-center justify-between">
                   <div>

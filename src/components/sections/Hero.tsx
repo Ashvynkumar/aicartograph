@@ -48,19 +48,19 @@ export default function Hero() {
             </motion.div>
           </motion.div>
 
-          <p className="text-brand-300 text-sm tracking-wide">
+          <p className="text-white/40 text-sm tracking-widest uppercase">
             {SITE.tagline}
           </p>
 
           <h1 className="heading-h1 text-[#FDFFFF]">
             Every answer. Everywhere.
             <br />
-            <span className="bg-gradient-to-r from-brand-500 to-brand-400 bg-clip-text text-transparent">
+            <span className="bg-gradient-to-r from-accent-amber to-accent-copper bg-clip-text text-transparent">
               The moment it matters.
             </span>
           </h1>
 
-          <p className="text-lg text-brand-300 max-w-2xl mx-auto leading-relaxed">
+          <p className="text-lg text-white/60 max-w-2xl mx-auto leading-relaxed">
             {SITE.mission}
           </p>
 

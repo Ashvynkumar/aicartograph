@@ -201,26 +201,26 @@ function ScenarioTabs() {
             <h3 className="heading-h3 text-[#FDFFFF] mt-1">{scenario.scenario}</h3>
           </div>
 
-          <div className="grid md:grid-cols-2 gap-6">
+          <div className="grid md:grid-cols-2 gap-8">
             {/* Before — Without aiCartograph */}
-            <div className="relative rounded-xl overflow-hidden border border-accent-coral/20" style={{ background: "linear-gradient(135deg, rgba(240,101,101,0.06) 0%, rgba(224,124,79,0.04) 50%, transparent 100%)" }}>
-              <div className="absolute inset-0 pointer-events-none" style={{ background: "radial-gradient(ellipse at top left, rgba(240,101,101,0.08) 0%, transparent 60%)" }} />
-              <div className="relative p-6">
-                <div className="flex items-center gap-3 mb-3">
-                  <span className="inline-flex items-center rounded-full px-3 py-1 text-xs font-semibold tracking-wide uppercase bg-accent-coral/15 text-accent-coral border border-accent-coral/25">
-                    Without aiCartograph
-                  </span>
-                  <span className="text-accent-coral text-xs font-bold">{scenario.before.time}</span>
+            <div className="relative rounded-2xl overflow-hidden" style={{ background: "linear-gradient(160deg, rgba(240,101,101,0.08) 0%, rgba(15,10,10,0.9) 40%, #0a0808 100%)", border: "1px solid rgba(240,101,101,0.15)" }}>
+              <div className="relative p-7">
+                <div className="flex items-center justify-between mb-5">
+                  <div className="flex items-center gap-2">
+                    <div className="w-2 h-2 rounded-full bg-[#f06565]" />
+                    <span className="text-[#f06565] text-xs font-bold uppercase tracking-widest">The Old Way</span>
+                  </div>
+                  <span className="text-[#f06565]/80 text-sm font-mono font-bold">{scenario.before.time}</span>
                 </div>
-                <div className="space-y-3">
+                <div className="space-y-4">
                   {scenario.before.steps.map((step, i) => {
                     const isLast = i === scenario.before.steps.length - 1;
                     return (
-                      <div key={`${activeTab}-before-${i}`} className="flex items-start gap-3" style={{ animationDelay: `${i * 0.1}s` }}>
-                        <span className="w-6 h-6 rounded-full flex items-center justify-center shrink-0 mt-0.5 text-[10px] font-bold" style={{ background: `rgba(240,101,101,${0.08 + i * 0.04})`, color: "#f06565", border: "1px solid rgba(240,101,101,0.2)" }}>
+                      <div key={`${activeTab}-before-${i}`} className="flex items-start gap-3.5">
+                        <div className="w-7 h-7 rounded-lg flex items-center justify-center shrink-0 mt-0.5 text-[11px] font-bold" style={{ background: isLast ? "rgba(240,101,101,0.2)" : "rgba(255,255,255,0.04)", color: isLast ? "#f06565" : "rgba(255,255,255,0.35)", border: isLast ? "1px solid rgba(240,101,101,0.3)" : "1px solid rgba(255,255,255,0.06)" }}>
                           {i + 1}
-                        </span>
-                        <p className={`text-sm leading-relaxed break-words ${isLast ? "font-medium" : ""}`} style={{ color: isLast ? "#f06565" : `rgba(255,255,255,${0.7 - i * 0.06})` }}>
+                        </div>
+                        <p className={`text-sm leading-relaxed ${isLast ? "font-semibold text-[#f06565]" : "text-white/60"}`}>
                           {step}
                         </p>
                       </div>
@@ -228,29 +228,28 @@ function ScenarioTabs() {
                   })}
                 </div>
               </div>
-              {/* Bottom gradient accent */}
-              <div className="h-[2px]" style={{ background: "linear-gradient(90deg, #f06565, #e07c4f, transparent)" }} />
+              <div className="h-1 rounded-b-2xl" style={{ background: "linear-gradient(90deg, #f06565 0%, #e07c4f 50%, transparent 100%)" }} />
             </div>
 
             {/* After — With aiCartograph */}
-            <div className="relative rounded-xl overflow-hidden border border-brand-500/25" style={{ background: "linear-gradient(135deg, rgba(69,151,176,0.08) 0%, rgba(54,192,142,0.05) 50%, transparent 100%)" }}>
-              <div className="absolute inset-0 pointer-events-none" style={{ background: "radial-gradient(ellipse at top right, rgba(69,151,176,0.1) 0%, transparent 60%)" }} />
-              <div className="relative p-6">
-                <div className="flex items-center gap-3 mb-3">
-                  <span className="inline-flex items-center rounded-full px-3 py-1 text-xs font-semibold tracking-wide uppercase bg-brand-500/15 text-brand-400 border border-brand-500/25 shadow-lg shadow-brand-500/10">
-                    With aiCartograph
-                  </span>
-                  <span className="text-accent-emerald text-xs font-bold">{scenario.after.time}</span>
+            <div className="relative rounded-2xl overflow-hidden" style={{ background: "linear-gradient(160deg, rgba(54,192,142,0.1) 0%, rgba(5,20,15,0.9) 40%, #050f0a 100%)", border: "1px solid rgba(54,192,142,0.2)" }}>
+              <div className="relative p-7">
+                <div className="flex items-center justify-between mb-5">
+                  <div className="flex items-center gap-2">
+                    <div className="w-2 h-2 rounded-full bg-[#36c08e] animate-pulse" />
+                    <span className="text-[#36c08e] text-xs font-bold uppercase tracking-widest">With aiCartograph</span>
+                  </div>
+                  <span className="text-[#36c08e]/80 text-sm font-mono font-bold">{scenario.after.time}</span>
                 </div>
-                <div className="space-y-3">
+                <div className="space-y-4">
                   {scenario.after.steps.map((step, i) => {
                     const isLast = i === scenario.after.steps.length - 1;
                     return (
-                      <div key={`${activeTab}-after-${i}`} className="flex items-start gap-3" style={{ animationDelay: `${i * 0.1}s` }}>
-                        <span className="w-6 h-6 rounded-full flex items-center justify-center shrink-0 mt-0.5 text-[10px] font-bold" style={{ background: `rgba(69,151,176,${0.1 + i * 0.04})`, color: "#62acbb", border: "1px solid rgba(69,151,176,0.25)" }}>
+                      <div key={`${activeTab}-after-${i}`} className="flex items-start gap-3.5">
+                        <div className="w-7 h-7 rounded-lg flex items-center justify-center shrink-0 mt-0.5 text-[11px] font-bold" style={{ background: isLast ? "rgba(54,192,142,0.2)" : "rgba(54,192,142,0.06)", color: isLast ? "#36c08e" : "#36c08e", border: isLast ? "1px solid rgba(54,192,142,0.3)" : "1px solid rgba(54,192,142,0.1)" }}>
                           {i + 1}
-                        </span>
-                        <p className={`text-sm leading-relaxed break-words ${isLast ? "font-medium" : ""}`} style={{ color: isLast ? "#62acbb" : `rgba(255,255,255,${0.75 - i * 0.04})` }}>
+                        </div>
+                        <p className={`text-sm leading-relaxed ${isLast ? "font-semibold text-[#36c08e]" : "text-white/70"}`}>
                           {step}
                         </p>
                       </div>
@@ -258,13 +257,12 @@ function ScenarioTabs() {
                   })}
                 </div>
               </div>
-              {/* Bottom gradient accent */}
-              <div className="h-[2px]" style={{ background: "linear-gradient(90deg, #4597b0, #36c08e, transparent)" }} />
+              <div className="h-1 rounded-b-2xl" style={{ background: "linear-gradient(90deg, #36c08e 0%, #4597b0 50%, transparent 100%)" }} />
             </div>
           </div>
 
-          <AnimateOnScroll className="text-center mt-8">
-            <p className="text-lg font-medium" style={{ background: "linear-gradient(90deg, #f06565, #4597b0, #36c08e)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent" }}>
+          <AnimateOnScroll className="text-center mt-10">
+            <p className="text-xl font-bold tracking-tight" style={{ background: "linear-gradient(90deg, #f06565 0%, #f0b429 30%, #36c08e 60%, #4597b0 100%)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent" }}>
               This is the difference between retrieval and resolution.
             </p>
           </AnimateOnScroll>

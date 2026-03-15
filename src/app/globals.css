@@ -466,5 +466,11 @@ body {
 
 .marquee-item {
   flex-shrink: 0;
-  width: 320px;
+  width: 420px;
+  height: 340px;
+}
+
+.marquee-item > div:first-child {
+  height: 310px;
+  overflow: hidden;
 }

@@ -28,31 +28,32 @@ export default function Footer() {
       </div>
 
       <div className="mx-auto max-w-7xl px-6 sm:px-8 lg:px-12 py-14 relative">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10">
-          {/* Brand + email */}
-          <div className="lg:col-span-2 space-y-5">
-            <div className="flex items-center gap-3">
-              <Logo variant="dark" />
-              <motion.div
-                animate={{ rotate: [0, 10, -10, 0] }}
-                transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
-              >
-                <CompassIcon className="w-5 h-5 opacity-50" />
-              </motion.div>
-            </div>
-            <p className="text-brand-300 text-sm max-w-xs leading-relaxed">
-              Knowledge Resolution Platform for SaaS Companies. Making knowledge work, not just exist.
-            </p>
-            <Button
-              variant="primary"
-              size="sm"
-              onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
+        {/* Centered hero logo */}
+        <div className="text-center mb-12">
+          <motion.div
+            className="inline-flex items-center gap-4 mb-4"
+            initial={{ opacity: 0, y: 10 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
+            viewport={{ once: true }}
+          >
+            <Logo variant="dark" className="h-10 w-auto" />
+            <motion.div
+              animate={{ rotate: [0, 10, -10, 0] }}
+              transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
             >
-              Request Early Access
-            </Button>
-          </div>
+              <CompassIcon className="w-7 h-7 opacity-60" />
+            </motion.div>
+          </motion.div>
+          <p className="text-brand-300/60 text-sm tracking-wide max-w-md mx-auto">
+            Knowledge Resolution Platform for SaaS Companies
+          </p>
+        </div>
 
-          {/* Link columns — Product and Company only */}
+        <div className="section-divider mb-10" />
+
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-10">
+          {/* Link columns */}
           {Object.entries(footerLinks).map(([title, links]) => (
             <div key={title}>
               <h4 className="text-sm font-semibold text-white/80 mb-4">{title}</h4>
@@ -70,6 +71,21 @@ export default function Footer() {
               </ul>
             </div>
           ))}
+
+          {/* CTA column */}
+          <div className="space-y-4">
+            <h4 className="text-sm font-semibold text-white/80 mb-4">Get Started</h4>
+            <p className="text-sm text-white/35 leading-relaxed">
+              Making knowledge work, not just exist.
+            </p>
+            <Button
+              variant="primary"
+              size="sm"
+              onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
+            >
+              Request Early Access
+            </Button>
+          </div>
         </div>
 
         <div className="mt-12 pt-6 border-t border-white/5">
