@@ -11,7 +11,7 @@ import { SITE } from "@/lib/constants";
 
 export default function Hero() {
   return (
-    <section className="relative min-h-[80vh] flex items-center overflow-hidden pt-16 section-dark">
+    <section className="relative min-h-screen flex items-center overflow-hidden pt-16 section-dark">
       <AbstractPattern className="opacity-50" />
 
       {/* Multi-color gradient orbs — full palette */}
