@@ -6,8 +6,9 @@ import Link from "next/link";
 import Image from "next/image";
 import { Eye, EyeOff, LogIn } from "lucide-react";
 
-/* ── Canvas: Loki-style branching timelines + convergence nodes ── */
-function TimelineCanvas() {
+/* ── Canvas: Cartograph convergence — scattered source nodes with curved
+     paths converging to a central point, mirroring the compass logo ── */
+function ConvergenceCanvas() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
 
   useEffect(() => {
@@ -26,161 +27,150 @@ function TimelineCanvas() {
     resize();
     window.addEventListener("resize", resize);
 
-    // Timeline branches — vertical lines that curve and converge
-    interface Branch {
-      x: number;
-      speed: number;
-      amplitude: number;
-      phase: number;
-      color: string;
-      width: number;
-    }
+    const palette = [
+      "rgba(69,151,176,",   // #4597b0
+      "rgba(98,172,187,",   // #62acbb
+      "rgba(151,193,204,",  // #97c1cc
+      "rgba(73,129,141,",   // #49818d
+      "rgba(54,192,142,",   // #36c08e
+      "rgba(155,140,232,",  // #9b8ce8
+    ];
 
-    const branches: Branch[] = [];
-    const branchCount = 14;
-    for (let i = 0; i < branchCount; i++) {
-      branches.push({
-        x: (i / branchCount) * 1.4 - 0.2, // normalized position
-        speed: 0.3 + Math.random() * 0.4,
-        amplitude: 20 + Math.random() * 60,
-        phase: Math.random() * Math.PI * 2,
-        color:
-          i % 4 === 0
-            ? "rgba(69,151,176,"
-            : i % 4 === 1
-              ? "rgba(98,172,187,"
-              : i % 4 === 2
-                ? "rgba(86,179,245,"
-                  : "rgba(54,192,142,",
-        width: 0.5 + Math.random() * 1,
-      });
-    }
-
-    // Floating convergence nodes
-    interface Node {
-      x: number;
-      y: number;
+    // Source nodes — scattered around edges, each with a curved path to center
+    interface SourceNode {
+      // Home position (normalized 0-1)
+      homeX: number;
+      homeY: number;
       radius: number;
       pulseSpeed: number;
       phase: number;
       color: string;
-      driftX: number;
-      driftY: number;
+      driftRadius: number;
+      driftSpeed: number;
+      // Convergence path control point offset
+      cpOffsetX: number;
+      cpOffsetY: number;
+      // Path pulse — a light that travels along the curve
+      pathPulseSpeed: number;
+      pathPulsePhase: number;
     }
 
-    const nodes: Node[] = [];
-    for (let i = 0; i < 24; i++) {
-      nodes.push({
-        x: Math.random(),
-        y: Math.random(),
-        radius: 1.5 + Math.random() * 3,
-        pulseSpeed: 0.5 + Math.random() * 1.5,
+    const sourceNodes: SourceNode[] = [];
+    const nodeCount = 32;
+
+    for (let i = 0; i < nodeCount; i++) {
+      // Place nodes in a scattered ring around center, biased to edges
+      const angle = (i / nodeCount) * Math.PI * 2 + (Math.random() - 0.5) * 0.5;
+      const dist = 0.25 + Math.random() * 0.3; // distance from center (normalized)
+      sourceNodes.push({
+        homeX: 0.5 + Math.cos(angle) * dist,
+        homeY: 0.5 + Math.sin(angle) * dist,
+        radius: 1.5 + Math.random() * 2.5,
+        pulseSpeed: 0.4 + Math.random() * 1.2,
         phase: Math.random() * Math.PI * 2,
-        color: ["rgba(69,151,176,", "rgba(98,172,187,", "rgba(54,192,142,", "rgba(155,140,232,"][
-          Math.floor(Math.random() * 4)
-        ],
-        driftX: (Math.random() - 0.5) * 0.3,
-        driftY: (Math.random() - 0.5) * 0.15,
+        color: palette[Math.floor(Math.random() * palette.length)],
+        driftRadius: 8 + Math.random() * 15,
+        driftSpeed: 0.2 + Math.random() * 0.4,
+        cpOffsetX: (Math.random() - 0.5) * 0.3,
+        cpOffsetY: (Math.random() - 0.5) * 0.3,
+        pathPulseSpeed: 0.3 + Math.random() * 0.5,
+        pathPulsePhase: Math.random() * Math.PI * 2,
       });
     }
+
+    // Convergence center — the focal point (behind the card)
+    const centerX = 0.5;
+    const centerY = 0.5;
 
     const draw = () => {
       const w = canvas.width;
       const h = canvas.height;
       ctx.clearRect(0, 0, w, h);
-      t += 0.004;
+      t += 0.003;
 
-      // Draw timeline branches — flowing vertical curves
-      for (const b of branches) {
+      const cx = centerX * w;
+      const cy = centerY * h;
+
+      // Central glow — subtle radial behind the card
+      const centralGlow = ctx.createRadialGradient(cx, cy, 0, cx, cy, Math.min(w, h) * 0.25);
+      centralGlow.addColorStop(0, "rgba(69,151,176,0.06)");
+      centralGlow.addColorStop(0.5, "rgba(69,151,176,0.02)");
+      centralGlow.addColorStop(1, "rgba(69,151,176,0)");
+      ctx.fillStyle = centralGlow;
+      ctx.fillRect(0, 0, w, h);
+
+      // Draw convergence paths and nodes
+      for (const node of sourceNodes) {
+        const pulse = Math.sin(t * node.pulseSpeed * 2 + node.phase);
+
+        // Current node position with gentle drift
+        const nx = node.homeX * w + Math.sin(t * node.driftSpeed + node.phase) * node.driftRadius;
+        const ny = node.homeY * h + Math.cos(t * node.driftSpeed * 0.7 + node.phase) * node.driftRadius;
+
+        // Quadratic bezier control point — creates the curved convergence path
+        const cpx = cx + node.cpOffsetX * w;
+        const cpy = cy + node.cpOffsetY * h;
+
+        // Draw convergence curve (very subtle)
+        const pathAlpha = 0.04 + pulse * 0.015;
         ctx.beginPath();
-        ctx.strokeStyle = b.color + "0.12)";
-        ctx.lineWidth = b.width;
-        const baseX = b.x * w;
-
-        for (let y = 0; y <= h; y += 4) {
-          const progress = y / h;
-          // Branches converge toward center as they go down
-          const convergeFactor = Math.pow(progress, 2) * 0.3;
-          const centerPull = (w / 2 - baseX) * convergeFactor;
-          const wave = Math.sin(progress * 4 + t * b.speed + b.phase) * b.amplitude;
-          const x = baseX + centerPull + wave;
-
-          if (y === 0) ctx.moveTo(x, y);
-          else ctx.lineTo(x, y);
-        }
+        ctx.strokeStyle = node.color + pathAlpha.toFixed(3) + ")";
+        ctx.lineWidth = 0.6;
+        ctx.moveTo(nx, ny);
+        ctx.quadraticCurveTo(cpx, cpy, cx, cy);
         ctx.stroke();
 
-        // Glow layer
+        // Traveling light pulse along the curve
+        const pathT = (Math.sin(t * node.pathPulseSpeed + node.pathPulsePhase) + 1) / 2;
+        // Quadratic bezier point at parameter pathT
+        const ptx = (1 - pathT) * (1 - pathT) * nx + 2 * (1 - pathT) * pathT * cpx + pathT * pathT * cx;
+        const pty = (1 - pathT) * (1 - pathT) * ny + 2 * (1 - pathT) * pathT * cpy + pathT * pathT * cy;
+        const pulseGlow = ctx.createRadialGradient(ptx, pty, 0, ptx, pty, 8);
+        pulseGlow.addColorStop(0, node.color + "0.12)");
+        pulseGlow.addColorStop(1, node.color + "0)");
+        ctx.fillStyle = pulseGlow;
         ctx.beginPath();
-        ctx.strokeStyle = b.color + "0.04)";
-        ctx.lineWidth = b.width * 4;
-        for (let y = 0; y <= h; y += 4) {
-          const progress = y / h;
-          const convergeFactor = Math.pow(progress, 2) * 0.3;
-          const centerPull = (w / 2 - baseX) * convergeFactor;
-          const wave = Math.sin(progress * 4 + t * b.speed + b.phase) * b.amplitude;
-          const x = baseX + centerPull + wave;
-          if (y === 0) ctx.moveTo(x, y);
-          else ctx.lineTo(x, y);
-        }
-        ctx.stroke();
-      }
-
-      // Horizontal timeline threads — subtle
-      for (let i = 0; i < 5; i++) {
-        const y = (0.15 + i * 0.18) * h;
-        ctx.beginPath();
-        ctx.strokeStyle = `rgba(69,151,176,${0.04 + Math.sin(t * 0.5 + i) * 0.02})`;
-        ctx.lineWidth = 0.5;
-        for (let x = 0; x <= w; x += 4) {
-          const wave = Math.sin(x * 0.008 + t * 0.3 + i * 1.5) * 15;
-          if (x === 0) ctx.moveTo(x, y + wave);
-          else ctx.lineTo(x, y + wave);
-        }
-        ctx.stroke();
-      }
-
-      // Pulsing convergence nodes
-      for (const n of nodes) {
-        const pulse = Math.sin(t * n.pulseSpeed * 2 + n.phase);
-        const opacity = 0.15 + pulse * 0.1;
-        const r = n.radius + pulse * 1.5;
-        const nx = (n.x + Math.sin(t * n.driftX + n.phase) * 0.02) * w;
-        const ny = (n.y + Math.cos(t * n.driftY + n.phase) * 0.01) * h;
-
-        // Outer glow
-        const grad = ctx.createRadialGradient(nx, ny, 0, nx, ny, r * 6);
-        grad.addColorStop(0, n.color + (opacity * 0.5).toFixed(2) + ")");
-        grad.addColorStop(1, n.color + "0)");
-        ctx.fillStyle = grad;
-        ctx.beginPath();
-        ctx.arc(nx, ny, r * 6, 0, Math.PI * 2);
+        ctx.arc(ptx, pty, 8, 0, Math.PI * 2);
         ctx.fill();
 
-        // Core
-        ctx.fillStyle = n.color + opacity.toFixed(2) + ")";
+        // Node outer glow
+        const nodeOpacity = 0.12 + pulse * 0.08;
+        const r = node.radius + pulse * 1;
+        const nodeGlow = ctx.createRadialGradient(nx, ny, 0, nx, ny, r * 5);
+        nodeGlow.addColorStop(0, node.color + (nodeOpacity * 0.4).toFixed(3) + ")");
+        nodeGlow.addColorStop(1, node.color + "0)");
+        ctx.fillStyle = nodeGlow;
+        ctx.beginPath();
+        ctx.arc(nx, ny, r * 5, 0, Math.PI * 2);
+        ctx.fill();
+
+        // Node core
+        ctx.fillStyle = node.color + nodeOpacity.toFixed(3) + ")";
         ctx.beginPath();
         ctx.arc(nx, ny, r, 0, Math.PI * 2);
         ctx.fill();
       }
 
-      // Occasional connection lines between nearby nodes
-      for (let i = 0; i < nodes.length; i++) {
-        for (let j = i + 1; j < nodes.length; j++) {
-          const dx = nodes[i].x - nodes[j].x;
-          const dy = nodes[i].y - nodes[j].y;
+      // Faint connections between nearby nodes
+      for (let i = 0; i < sourceNodes.length; i++) {
+        for (let j = i + 1; j < sourceNodes.length; j++) {
+          const a = sourceNodes[i];
+          const b = sourceNodes[j];
+          const ax = a.homeX * w + Math.sin(t * a.driftSpeed + a.phase) * a.driftRadius;
+          const ay = a.homeY * h + Math.cos(t * a.driftSpeed * 0.7 + a.phase) * a.driftRadius;
+          const bx = b.homeX * w + Math.sin(t * b.driftSpeed + b.phase) * b.driftRadius;
+          const by = b.homeY * h + Math.cos(t * b.driftSpeed * 0.7 + b.phase) * b.driftRadius;
+          const dx = ax - bx;
+          const dy = ay - by;
           const dist = Math.sqrt(dx * dx + dy * dy);
-          if (dist < 0.2) {
-            const alpha = (1 - dist / 0.2) * 0.06;
+          const threshold = Math.min(w, h) * 0.12;
+          if (dist < threshold) {
+            const alpha = (1 - dist / threshold) * 0.04;
             ctx.beginPath();
-            ctx.strokeStyle = `rgba(69,151,176,${alpha})`;
-            ctx.lineWidth = 0.5;
-            const nx1 = (nodes[i].x + Math.sin(t * nodes[i].driftX + nodes[i].phase) * 0.02) * w;
-            const ny1 = (nodes[i].y + Math.cos(t * nodes[i].driftY + nodes[i].phase) * 0.01) * h;
-            const nx2 = (nodes[j].x + Math.sin(t * nodes[j].driftX + nodes[j].phase) * 0.02) * w;
-            const ny2 = (nodes[j].y + Math.cos(t * nodes[j].driftY + nodes[j].phase) * 0.01) * h;
-            ctx.moveTo(nx1, ny1);
-            ctx.lineTo(nx2, ny2);
+            ctx.strokeStyle = `rgba(69,151,176,${alpha.toFixed(3)})`;
+            ctx.lineWidth = 0.4;
+            ctx.moveTo(ax, ay);
+            ctx.lineTo(bx, by);
             ctx.stroke();
           }
         }
@@ -197,22 +187,6 @@ function TimelineCanvas() {
   }, []);
 
   return <canvas ref={canvasRef} className="absolute inset-0 w-full h-full" />;
-}
-
-/* ── Topo wave SVG overlay (from original, now used as accent) ── */
-function TopoWaves() {
-  return (
-    <div className="absolute inset-0 opacity-[0.07]">
-      <svg className="w-full h-full" xmlns="http://www.w3.org/2000/svg">
-        <pattern id="topo-login" x="0" y="0" width="200" height="200" patternUnits="userSpaceOnUse">
-          <path d="M0 100 Q50 50 100 100 T200 100" fill="none" stroke="#4597b0" strokeWidth="0.5" />
-          <path d="M0 130 Q50 80 100 130 T200 130" fill="none" stroke="#62acbb" strokeWidth="0.5" />
-          <path d="M0 70 Q50 20 100 70 T200 70" fill="none" stroke="#97c1cc" strokeWidth="0.5" />
-        </pattern>
-        <rect width="100%" height="100%" fill="url(#topo-login)" />
-      </svg>
-    </div>
-  );
 }
 
 function LoginForm() {
@@ -244,17 +218,14 @@ function LoginForm() {
 
   return (
     <div className="min-h-screen bg-[#040a0d] flex items-center justify-center px-4 relative overflow-hidden">
-      {/* Layer 1: Animated timeline canvas */}
-      <TimelineCanvas />
-
-      {/* Layer 2: Topo wave pattern */}
-      <TopoWaves />
+      {/* Convergence canvas */}
+      <ConvergenceCanvas />
 
       {/* Vignette overlay for depth */}
       <div
         className="absolute inset-0 pointer-events-none"
         style={{
-          background: "radial-gradient(ellipse at center, transparent 30%, rgba(4,10,13,0.7) 100%)",
+          background: "radial-gradient(ellipse at center, transparent 20%, rgba(4,10,13,0.6) 70%, rgba(4,10,13,0.85) 100%)",
         }}
       />
 
