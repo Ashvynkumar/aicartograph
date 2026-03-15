@@ -7,6 +7,7 @@ import {
   Play, Pause, Settings, Rocket, TestTube, Bot,
   ChevronDown, Check, Globe, Phone, FileText,
   Users, BarChart3, ThumbsUp, Zap, Eye,
+  Download, Shield, Copy, Server, Container,
 } from "lucide-react";
 
 type AgentStatus = "deployed" | "active" | "draft" | "paused";
@@ -154,6 +155,9 @@ export default function AgentsPage() {
   const [agents, setAgents] = useState<Agent[]>(DEFAULT_AGENTS);
   const [modalOpen, setModalOpen] = useState(false);
   const [editingAgent, setEditingAgent] = useState<Agent | null>(null);
+  const [exportAgent, setExportAgent] = useState<Agent | null>(null);
+  const [exportTab, setExportTab] = useState<"platform" | "code" | "docker">("code");
+  const [copiedBlock, setCopiedBlock] = useState<string | null>(null);
 
   // Modal form state
   const [formName, setFormName] = useState("");
@@ -269,13 +273,58 @@ export default function AgentsPage() {
     );
   };
 
+  const copyToClipboard = (text: string, id: string) => {
+    navigator.clipboard.writeText(text);
+    setCopiedBlock(id);
+    setTimeout(() => setCopiedBlock(null), 2000);
+  };
+
+  const generateYaml = (agent: Agent) =>
+`# agent.config.yaml — ${agent.name}
+name: "${agent.name}"
+channel: ${agent.channel}
+persona: ${agent.persona}
+greeting: "${agent.greeting}"
+knowledge_sources:
+${agent.knowledgeSources.map((ks) => `  - ${ks}`).join("\n")}
+fallback: ${agent.fallback}
+response_mode: ${agent.responseMode}`;
+
+  const generateSdkCode = (agent: Agent) =>
+`import { CartographAgent } from "@aicartograph/sdk";
+
+// Load agent from config — knowledge stays on YOUR infrastructure
+const agent = new CartographAgent("./agent.config.yaml");
+
+// Serve the resolution agent
+agent.serve({
+  port: 3000,
+  cors: true,
+  healthCheck: "/health",
+});
+
+console.log("${agent.name} running on http://localhost:3000");`;
+
+  const generateDocker = (agent: Agent) =>
+`# Pull the aiCartograph resolution engine
+docker pull aicartograph/engine:latest
+
+# Run with your config — knowledge never leaves your infrastructure
+docker run -d \\
+  --name ${agent.name.toLowerCase().replace(/\\s+/g, "-")} \\
+  -v ./knowledge:/data/sources \\
+  -v ./agent.config.yaml:/app/config.yaml \\
+  -p 3000:3000 \\
+  -e AICARTOGRAPH_MODE=self-hosted \\
+  aicartograph/engine:latest`;
+
   return (
     <div className="space-y-6 max-w-7xl">
       {/* Header */}
       <div className="flex items-center justify-between">
         <div>
           <h1 className="text-white text-xl font-bold font-serif">Agent Studio</h1>
-          <p className="text-white/40 text-sm mt-1">Build and deploy AI agents for your users</p>
+          <p className="text-white/40 text-sm mt-1">Build, deploy, and export AI agents</p>
         </div>
         <button
           onClick={openCreateModal}
@@ -301,6 +350,26 @@ export default function AgentsPage() {
             <p className="text-white text-lg font-bold">{stat.value}</p>
           </div>
         ))}
+      </div>
+
+      {/* Privacy-First Banner */}
+      <div className="flex items-center gap-3 px-4 py-3 rounded-xl bg-emerald-500/5 border border-emerald-500/15">
+        <Shield size={18} className="text-emerald-400 shrink-0" />
+        <p className="text-white/60 text-xs">
+          <span className="text-emerald-400 font-medium">Your knowledge, your infrastructure.</span>{" "}
+          Export agents as code and deploy on your own servers. Zero data leaves your premises.
+        </p>
+        <button
+          onClick={() => {
+            if (agents[0]) {
+              setExportAgent(agents[0]);
+              setExportTab("docker");
+            }
+          }}
+          className="ml-auto shrink-0 text-xs text-emerald-400/80 hover:text-emerald-400 transition-colors"
+        >
+          Learn more &rarr;
+        </button>
       </div>
 
       {/* Agent Cards Grid */}
@@ -349,15 +418,18 @@ export default function AgentsPage() {
               </div>
 
               {/* Actions */}
-              <div className="flex items-center gap-2 mt-4 pt-3 border-t border-white/5">
+              <div className="flex items-center gap-2 mt-4 pt-3 border-t border-white/5 flex-wrap">
                 <button
                   onClick={() => openConfigureModal(agent)}
                   className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-white/5 text-white/50 text-xs hover:bg-white/10 hover:text-white/80 transition-colors"
                 >
                   <Settings size={12} /> Configure
                 </button>
-                <button className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-white/5 text-white/50 text-xs hover:bg-white/10 hover:text-white/80 transition-colors">
-                  <TestTube size={12} /> Test
+                <button
+                  onClick={() => { setExportAgent(agent); setExportTab("code"); }}
+                  className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-white/5 text-white/50 text-xs hover:bg-white/10 hover:text-white/80 transition-colors"
+                >
+                  <Download size={12} /> Export
                 </button>
                 <button
                   onClick={() => handleDeploy(agent.id)}
@@ -723,6 +795,224 @@ export default function AgentsPage() {
                   {editingAgent ? "Save & Deploy" : "Create & Deploy"}
                 </button>
               </div>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Export Modal */}
+      {exportAgent && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm">
+          <div className="bg-[#0c2329] border border-white/10 rounded-2xl max-w-2xl w-full mx-4 max-h-[90vh] overflow-y-auto">
+            {/* Header */}
+            <div className="flex items-center justify-between p-6 border-b border-white/5 sticky top-0 bg-[#0c2329] z-10 rounded-t-2xl">
+              <div className="flex items-center gap-3">
+                <div className="w-10 h-10 rounded-xl bg-emerald-500/10 flex items-center justify-center">
+                  <Download size={20} className="text-emerald-400" />
+                </div>
+                <div>
+                  <h2 className="text-white font-bold">Export: {exportAgent.name}</h2>
+                  <p className="text-white/40 text-xs">Deploy this agent anywhere</p>
+                </div>
+              </div>
+              <button onClick={() => setExportAgent(null)} className="text-white/40 hover:text-white/80 transition-colors">
+                <X size={20} />
+              </button>
+            </div>
+
+            {/* Tabs */}
+            <div className="flex border-b border-white/5">
+              {([
+                { id: "platform" as const, label: "Platform", icon: Globe },
+                { id: "code" as const, label: "Export as Code", icon: Code },
+                { id: "docker" as const, label: "Self-Host (Docker)", icon: Server },
+              ]).map((tab) => {
+                const TIcon = tab.icon;
+                return (
+                  <button
+                    key={tab.id}
+                    onClick={() => setExportTab(tab.id)}
+                    className={`flex items-center gap-2 px-5 py-3 text-xs font-medium border-b-2 transition-colors ${
+                      exportTab === tab.id
+                        ? "border-[#4597b0] text-[#4597b0]"
+                        : "border-transparent text-white/40 hover:text-white/60"
+                    }`}
+                  >
+                    <TIcon size={14} />
+                    {tab.label}
+                  </button>
+                );
+              })}
+            </div>
+
+            {/* Tab Content */}
+            <div className="p-6">
+              {exportTab === "platform" && (
+                <div className="text-center py-8 space-y-4">
+                  <div className="w-16 h-16 mx-auto rounded-2xl bg-[#4597b0]/10 flex items-center justify-center">
+                    <Globe size={32} className="text-[#4597b0]" />
+                  </div>
+                  <h3 className="text-white font-semibold text-lg">Runs on aiCartograph Cloud</h3>
+                  <p className="text-white/50 text-sm max-w-md mx-auto">
+                    This agent is fully managed on aiCartograph infrastructure. No setup needed —
+                    it&apos;s already live and handling queries.
+                  </p>
+                  <div className="flex items-center justify-center gap-2 text-xs text-emerald-400">
+                    <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
+                    Agent is {exportAgent.status === "deployed" || exportAgent.status === "active" ? "live" : "ready to deploy"}
+                  </div>
+                </div>
+              )}
+
+              {exportTab === "code" && (
+                <div className="space-y-5">
+                  <p className="text-white/50 text-sm">
+                    Export this agent as code to run on your own infrastructure. Your knowledge never leaves your servers.
+                  </p>
+
+                  {/* YAML Config */}
+                  <div>
+                    <div className="flex items-center justify-between mb-2">
+                      <span className="text-white/60 text-xs font-medium">agent.config.yaml</span>
+                      <button
+                        onClick={() => copyToClipboard(generateYaml(exportAgent), "yaml")}
+                        className="flex items-center gap-1 text-xs text-white/40 hover:text-white/70 transition-colors"
+                      >
+                        {copiedBlock === "yaml" ? <Check size={12} className="text-emerald-400" /> : <Copy size={12} />}
+                        {copiedBlock === "yaml" ? "Copied" : "Copy"}
+                      </button>
+                    </div>
+                    <pre className="rounded-lg bg-[#1a1a2e] p-4 overflow-x-auto text-xs">
+                      <code className="text-emerald-300 font-mono whitespace-pre">{generateYaml(exportAgent)}</code>
+                    </pre>
+                  </div>
+
+                  {/* SDK Code */}
+                  <div>
+                    <div className="flex items-center justify-between mb-2">
+                      <span className="text-white/60 text-xs font-medium">server.ts</span>
+                      <button
+                        onClick={() => copyToClipboard(generateSdkCode(exportAgent), "sdk")}
+                        className="flex items-center gap-1 text-xs text-white/40 hover:text-white/70 transition-colors"
+                      >
+                        {copiedBlock === "sdk" ? <Check size={12} className="text-emerald-400" /> : <Copy size={12} />}
+                        {copiedBlock === "sdk" ? "Copied" : "Copy"}
+                      </button>
+                    </div>
+                    <pre className="rounded-lg bg-[#1a1a2e] p-4 overflow-x-auto text-xs">
+                      <code className="text-emerald-300 font-mono whitespace-pre">{generateSdkCode(exportAgent)}</code>
+                    </pre>
+                  </div>
+
+                  {/* Install command */}
+                  <div className="rounded-lg bg-white/[0.03] border border-white/5 p-4">
+                    <p className="text-white/40 text-xs mb-2">Install the SDK:</p>
+                    <div className="flex items-center justify-between bg-[#1a1a2e] rounded px-3 py-2">
+                      <code className="text-xs text-emerald-300 font-mono">npm install @aicartograph/sdk</code>
+                      <button
+                        onClick={() => copyToClipboard("npm install @aicartograph/sdk", "npm")}
+                        className="text-white/40 hover:text-white/70 transition-colors"
+                      >
+                        {copiedBlock === "npm" ? <Check size={12} className="text-emerald-400" /> : <Copy size={12} />}
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              )}
+
+              {exportTab === "docker" && (
+                <div className="space-y-5">
+                  {/* Privacy callout */}
+                  <div className="rounded-xl bg-emerald-500/5 border border-emerald-500/15 p-4 flex items-start gap-3">
+                    <Shield size={18} className="text-emerald-400 shrink-0 mt-0.5" />
+                    <div>
+                      <p className="text-emerald-400 text-sm font-medium">Zero Knowledge Architecture</p>
+                      <p className="text-white/50 text-xs mt-1">
+                        Your documents, embeddings, and queries never leave your network. The resolution
+                        engine runs entirely on your servers. Only license validation (JWT, no data) connects externally.
+                      </p>
+                    </div>
+                  </div>
+
+                  {/* Docker command */}
+                  <div>
+                    <div className="flex items-center justify-between mb-2">
+                      <span className="text-white/60 text-xs font-medium">Docker Deployment</span>
+                      <button
+                        onClick={() => copyToClipboard(generateDocker(exportAgent), "docker")}
+                        className="flex items-center gap-1 text-xs text-white/40 hover:text-white/70 transition-colors"
+                      >
+                        {copiedBlock === "docker" ? <Check size={12} className="text-emerald-400" /> : <Copy size={12} />}
+                        {copiedBlock === "docker" ? "Copied" : "Copy"}
+                      </button>
+                    </div>
+                    <pre className="rounded-lg bg-[#1a1a2e] p-4 overflow-x-auto text-xs">
+                      <code className="text-emerald-300 font-mono whitespace-pre">{generateDocker(exportAgent)}</code>
+                    </pre>
+                  </div>
+
+                  {/* Architecture diagram */}
+                  <div className="rounded-lg bg-white/[0.03] border border-white/5 p-4">
+                    <p className="text-white/60 text-xs font-medium mb-3">Self-Hosted Architecture</p>
+                    <pre className="text-[10px] text-white/50 font-mono leading-relaxed">
+{`┌──────────────────────────────────────────┐
+│          YOUR INFRASTRUCTURE              │
+│                                           │
+│  ┌────────┐   ┌────────────┐  ┌───────┐  │
+│  │Knowledge│──▶│aiCartograph│──▶│Vector │  │
+│  │ Sources │   │  Engine    │  │  DB   │  │
+│  └────────┘   └─────┬──────┘  └───────┘  │
+│                     │                     │
+│                ┌────▼────┐                │
+│                │ Agents  │                │
+│                │ (local) │                │
+│                └─────────┘                │
+│                                           │
+├──────────── firewall ─────────────────────┤
+│  License validation only (JWT, no data)   │
+└──────────────────────────────────────────┘`}
+                    </pre>
+                  </div>
+
+                  {/* Deployment modes */}
+                  <div className="grid grid-cols-3 gap-3">
+                    {[
+                      { mode: "Cloud", desc: "Fully managed SaaS", color: "text-[#4597b0]", border: "border-[#4597b0]/20" },
+                      { mode: "Hybrid", desc: "Cloud management + local engine", color: "text-amber-400", border: "border-amber-400/20" },
+                      { mode: "Self-Hosted", desc: "Everything on your infra", color: "text-emerald-400", border: "border-emerald-400/20" },
+                    ].map((m) => (
+                      <div key={m.mode} className={`rounded-lg border ${m.border} bg-white/[0.02] p-3 text-center`}>
+                        <p className={`text-xs font-medium ${m.color}`}>{m.mode}</p>
+                        <p className="text-white/30 text-[10px] mt-1">{m.desc}</p>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
+            </div>
+
+            {/* Footer */}
+            <div className="flex items-center justify-between p-6 border-t border-white/5">
+              <button
+                onClick={() => setExportAgent(null)}
+                className="px-4 py-2.5 rounded-lg text-white/50 text-sm hover:text-white/80 hover:bg-white/5 transition-colors"
+              >
+                Close
+              </button>
+              {exportTab !== "platform" && (
+                <button
+                  onClick={() => {
+                    const text = exportTab === "code"
+                      ? `${generateYaml(exportAgent)}\n\n---\n\n${generateSdkCode(exportAgent)}`
+                      : generateDocker(exportAgent);
+                    copyToClipboard(text, "all");
+                  }}
+                  className="flex items-center gap-2 px-5 py-2.5 rounded-lg bg-gradient-to-r from-[#4597b0] to-[#62acbb] text-white text-sm font-medium hover:shadow-lg hover:shadow-[#4597b0]/20 transition-all"
+                >
+                  <Download size={14} />
+                  {copiedBlock === "all" ? "Copied to Clipboard!" : "Copy All"}
+                </button>
+              )}
             </div>
           </div>
         </div>

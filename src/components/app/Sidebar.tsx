@@ -4,8 +4,8 @@ import { usePathname } from "next/navigation";
 import Link from "next/link";
 import {
   LayoutDashboard, Database, HeartPulse, MessageSquare, Bot,
-  BarChart3, MessageCircle, GitBranch, Plug, Shield, BookOpen,
-  Settings, ChevronLeft, ChevronRight, LogOut, Sun, Moon,
+  BarChart3, MessageCircle, GitBranch, Shield, BookOpen,
+  ChevronLeft, ChevronRight, LogOut, Sun, Moon,
   ChevronDown, ChevronUp,
 } from "lucide-react";
 import { useAppStore } from "@/lib/store";
@@ -20,6 +20,7 @@ interface NavItem {
 
 interface NavGroup {
   title: string;
+  pillarColor?: string;
   items: NavItem[];
   collapsible?: boolean;
 }
@@ -44,33 +45,40 @@ export default function Sidebar() {
       ],
     },
     {
-      title: "KNOWLEDGE",
+      title: "CONNECT",
+      pillarColor: "#d4a853",
       items: [
-        { href: "/app/sources", label: "Sources & Docs", icon: Database, badge: () => sources.length },
-        { href: "/app/health", label: "Health & Gaps", icon: HeartPulse, badge: () => healthScore },
+        { href: "/app/sources", label: "Sources", icon: Database, badge: () => sources.length },
       ],
     },
     {
-      title: "RESOLUTION",
+      title: "RESOLVE",
+      pillarColor: "#4597b0",
       items: [
         { href: "/app/resolve", label: "Resolve", icon: MessageSquare, badge: () => conversations.length },
         { href: "/app/agents", label: "Agent Studio", icon: Bot },
       ],
     },
     {
-      title: "INSIGHTS",
+      title: "DETECT",
+      pillarColor: "#d4726a",
       items: [
+        { href: "/app/health", label: "Health", icon: HeartPulse, badge: () => healthScore },
         { href: "/app/analytics", label: "Analytics", icon: BarChart3 },
-        { href: "/app/feedback", label: "Feedback Loop", icon: MessageCircle, badge: () => openFeedback > 0 ? openFeedback : null },
+      ],
+    },
+    {
+      title: "CLOSE THE LOOP",
+      pillarColor: "#4ba88e",
+      items: [
+        { href: "/app/feedback", label: "Feedback", icon: MessageCircle, badge: () => openFeedback > 0 ? openFeedback : null },
       ],
     },
     {
       title: "ADMIN",
       collapsible: true,
       items: [
-        { href: "/app/admin", label: "Admin Control", icon: Settings },
         { href: "/app/workflows", label: "Automations", icon: GitBranch },
-        { href: "/app/integrations", label: "Integrations", icon: Plug },
         { href: "/app/audit", label: "Audit Trail", icon: Shield },
         { href: "/app/docs", label: "API & Docs", icon: BookOpen },
       ],
@@ -127,9 +135,17 @@ export default function Sidebar() {
                       {adminExpanded ? <ChevronUp size={10} /> : <ChevronDown size={10} />}
                     </button>
                   ) : (
-                    <span className="text-white/25 text-[10px] uppercase tracking-[0.15em] font-semibold">
-                      {group.title}
-                    </span>
+                    <div className="flex items-center gap-1.5">
+                      {group.pillarColor && (
+                        <span
+                          className="w-1.5 h-1.5 rounded-full"
+                          style={{ backgroundColor: group.pillarColor }}
+                        />
+                      )}
+                      <span className="text-white/25 text-[10px] uppercase tracking-[0.15em] font-semibold">
+                        {group.title}
+                      </span>
+                    </div>
                   )}
                 </div>
               )}

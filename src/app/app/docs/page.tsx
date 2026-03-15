@@ -5,7 +5,7 @@ import {
   BookOpen, Code, Copy, Download, GitBranch, ExternalLink,
   ChevronRight, ChevronDown, FileText, Terminal, Zap, Key,
   Globe, Webhook, Package, MessageSquare, Layout, FolderGit2,
-  Check, X, Search,
+  Check, X, Search, Server, Shield, Box, Lock,
 } from "lucide-react";
 
 /* ─── Doc tree structure ─── */
@@ -67,6 +67,17 @@ const DOC_TREE: DocNode[] = [
       { id: "export-md", label: "Export as Markdown", icon: Download },
       { id: "git-integration", label: "Git Integration", icon: GitBranch },
       { id: "cicd", label: "CI/CD Pipelines", icon: Terminal },
+    ],
+  },
+  {
+    id: "self-hosted",
+    label: "Self-Hosted",
+    icon: Server,
+    children: [
+      { id: "self-hosted-overview", label: "Overview", icon: Shield },
+      { id: "self-hosted-docker", label: "Docker Deployment", icon: Box },
+      { id: "self-hosted-cli", label: "CLI Local Indexing", icon: Terminal },
+      { id: "self-hosted-privacy", label: "Privacy Architecture", icon: Lock },
     ],
   },
 ];
@@ -478,6 +489,183 @@ const DOC_CONTENT: Record<string, React.ReactNode> = {
       <CodeBlock language="yaml" code={`# .github/workflows/sync-kb.yml\nname: Sync Knowledge Base\non:\n  push:\n    branches: [main]\n    paths: [\"docs/**\"]\njobs:\n  sync:\n    runs-on: ubuntu-latest\n    steps:\n      - uses: actions/checkout@v4\n      - run: npm install -g @aicartograph/cli\n      - run: aicartograph source sync --dir ./docs\n        env:\n          AICARTOGRAPH_API_KEY: \${{ secrets.AICARTOGRAPH_KEY }}`} />
     </div>
   ),
+
+  "self-hosted-overview": (
+    <div>
+      <h2 className="text-lg font-bold font-serif mb-1" style={{ color: "var(--text-primary)" }}>
+        Self-Hosted Deployment
+      </h2>
+      <p className="text-sm mb-6" style={{ color: "var(--text-tertiary)" }}>
+        aiCartograph follows a privacy-first architecture inspired by tools like MkDocs Material.
+        Your knowledge stays on YOUR infrastructure &mdash; we provide the resolution engine, you control the data.
+      </p>
+
+      <h3 className="text-sm font-semibold mb-4" style={{ color: "var(--text-secondary)" }}>
+        Deployment Modes
+      </h3>
+
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
+        {/* Cloud */}
+        <div
+          className="rounded-lg border p-4"
+          style={{ background: "var(--bg-input)", borderColor: "var(--border-primary)" }}
+        >
+          <div className="flex items-center gap-2 mb-2">
+            <Globe size={16} style={{ color: "var(--accent-primary)" }} />
+            <h4 className="text-sm font-semibold" style={{ color: "var(--text-primary)" }}>Cloud</h4>
+          </div>
+          <p className="text-xs mb-3" style={{ color: "var(--text-tertiary)" }}>
+            Fully managed SaaS. Knowledge processed on aiCartograph servers.
+          </p>
+          <p className="text-xs font-medium" style={{ color: "var(--accent-primary)" }}>
+            Best for: non-sensitive content, fast setup.
+          </p>
+        </div>
+
+        {/* Hybrid */}
+        <div
+          className="rounded-lg border p-4"
+          style={{ background: "var(--bg-input)", borderColor: "var(--border-primary)" }}
+        >
+          <div className="flex items-center gap-2 mb-2">
+            <Server size={16} style={{ color: "var(--accent-primary)" }} />
+            <h4 className="text-sm font-semibold" style={{ color: "var(--text-primary)" }}>Hybrid</h4>
+          </div>
+          <p className="text-xs mb-3" style={{ color: "var(--text-tertiary)" }}>
+            Cloud management dashboard + self-hosted resolution engine.
+            Knowledge never leaves your network. Analytics sent to cloud (anonymized).
+          </p>
+          <p className="text-xs font-medium" style={{ color: "var(--accent-primary)" }}>
+            Best for: most enterprises.
+          </p>
+        </div>
+
+        {/* Self-Hosted */}
+        <div
+          className="rounded-lg border p-4"
+          style={{ background: "var(--bg-input)", borderColor: "var(--border-primary)" }}
+        >
+          <div className="flex items-center gap-2 mb-2">
+            <Shield size={16} style={{ color: "var(--accent-primary)" }} />
+            <h4 className="text-sm font-semibold" style={{ color: "var(--text-primary)" }}>Self-Hosted</h4>
+          </div>
+          <p className="text-xs mb-3" style={{ color: "var(--text-tertiary)" }}>
+            Everything on your infrastructure. Air-gapped option available.
+          </p>
+          <p className="text-xs font-medium" style={{ color: "var(--accent-primary)" }}>
+            Best for: regulated industries, government, healthcare.
+          </p>
+        </div>
+      </div>
+    </div>
+  ),
+
+  "self-hosted-docker": (
+    <div>
+      <h2 className="text-lg font-bold font-serif mb-1" style={{ color: "var(--text-primary)" }}>
+        Docker Deployment
+      </h2>
+      <p className="text-sm mb-6" style={{ color: "var(--text-tertiary)" }}>
+        Deploy aiCartograph on your own infrastructure using Docker Compose with the resolution engine and vector database.
+      </p>
+
+      <h3 className="text-sm font-semibold mb-2" style={{ color: "var(--text-secondary)" }}>
+        Docker Compose Setup
+      </h3>
+      <CodeBlock
+        language="yaml"
+        code={`# docker-compose.yml\nversion: "3.9"\nservices:\n  engine:\n    image: aicartograph/engine:latest\n    ports: ["3000:3000"]\n    volumes:\n      - ./knowledge:/data/sources\n      - ./config:/app/config\n    environment:\n      - AICARTOGRAPH_MODE=self-hosted\n      - AICARTOGRAPH_LICENSE_KEY=\${LICENSE_KEY}\n\n  vectordb:\n    image: aicartograph/vectordb:latest\n    volumes:\n      - vectordb_data:/data\n\nvolumes:\n  vectordb_data:`}
+      />
+
+      <h3 className="text-sm font-semibold mb-2 mt-6" style={{ color: "var(--text-secondary)" }}>
+        Adding Knowledge Sources Locally
+      </h3>
+      <CodeBlock
+        language="bash"
+        code={`# Add local docs\naicartograph source add --type directory --path ./docs\n\n# Add from URL (fetched and stored locally)\naicartograph source add --type url --url "https://internal-wiki.company.com" --store-local\n\n# Index everything\naicartograph index --local`}
+      />
+    </div>
+  ),
+
+  "self-hosted-cli": (
+    <div>
+      <h2 className="text-lg font-bold font-serif mb-1" style={{ color: "var(--text-primary)" }}>
+        CLI Local Indexing
+      </h2>
+      <p className="text-sm mb-6" style={{ color: "var(--text-tertiary)" }}>
+        Use the aiCartograph CLI for fully local indexing and serving without any cloud dependencies.
+      </p>
+
+      <h3 className="text-sm font-semibold mb-2" style={{ color: "var(--text-secondary)" }}>
+        CLI Setup
+      </h3>
+      <CodeBlock
+        language="bash"
+        code={`# Install CLI\nnpm install -g @aicartograph/cli\n\n# Initialize a local project\naicartograph init --mode self-hosted\n\n# Configure knowledge sources\naicartograph config set sources.dir ./knowledge\naicartograph config set engine.model local  # Use local model\n\n# Index and serve\naicartograph index\naicartograph serve --port 3000`}
+      />
+
+      <div
+        className="rounded-lg p-4 mt-6 border"
+        style={{
+          background: "rgba(69, 151, 176, 0.08)",
+          borderColor: "rgba(69, 151, 176, 0.2)",
+        }}
+      >
+        <p className="text-sm font-medium" style={{ color: "var(--accent-primary)" }}>
+          Fully Local
+        </p>
+        <p className="text-xs mt-1" style={{ color: "var(--text-tertiary)" }}>
+          All indexing happens on your machine. No data is sent to external servers.
+        </p>
+      </div>
+    </div>
+  ),
+
+  "self-hosted-privacy": (
+    <div>
+      <h2 className="text-lg font-bold font-serif mb-1" style={{ color: "var(--text-primary)" }}>
+        Privacy Architecture
+      </h2>
+      <p className="text-sm mb-6" style={{ color: "var(--text-tertiary)" }}>
+        Understand how aiCartograph keeps your data private in self-hosted and hybrid deployments.
+      </p>
+
+      <h3 className="text-sm font-semibold mb-3" style={{ color: "var(--text-secondary)" }}>
+        How It Works
+      </h3>
+      <ul className="text-sm space-y-2 ml-4 list-disc mb-6" style={{ color: "var(--text-tertiary)" }}>
+        <li>Knowledge ingestion happens locally</li>
+        <li>Vector embeddings computed on your infrastructure</li>
+        <li>Resolution queries processed locally</li>
+        <li>Only anonymized telemetry (opt-in) leaves your network</li>
+        <li>License validation via signed JWT (no knowledge data transmitted)</li>
+      </ul>
+
+      <h3 className="text-sm font-semibold mb-2" style={{ color: "var(--text-secondary)" }}>
+        Architecture Diagram
+      </h3>
+      <CodeBlock
+        language="text"
+        code={`┌─────────────────────────────────────────────────┐\n│                YOUR INFRASTRUCTURE               │\n│                                                   │\n│  ┌──────────┐    ┌──────────────┐    ┌────────┐  │\n│  │ Knowledge │───▶│  aiCartograph │───▶│ Vector │  │\n│  │  Sources  │    │    Engine     │    │   DB   │  │\n│  └──────────┘    └──────┬───────┘    └────────┘  │\n│                         │                         │\n│                    ┌────▼────┐                    │\n│                    │ Agents  │                    │\n│                    │ (local) │                    │\n│                    └─────────┘                    │\n│                                                   │\n├─────────────── firewall ─────────────────────────┤\n│                                                   │\n│  Optional: Anonymized telemetry (opt-in only)     │\n│  License validation (JWT, no data)                │\n│                                                   │\n└─────────────────────────────────────────────────┘`}
+      />
+
+      <div
+        className="rounded-lg p-4 mt-6 border"
+        style={{
+          background: "rgba(69, 151, 176, 0.08)",
+          borderColor: "rgba(69, 151, 176, 0.2)",
+        }}
+      >
+        <p className="text-sm font-medium" style={{ color: "var(--accent-primary)" }}>
+          Zero Knowledge Architecture
+        </p>
+        <p className="text-xs mt-1" style={{ color: "var(--text-tertiary)" }}>
+          Your documents, embeddings, and queries never leave your network. Even in hybrid mode, the cloud
+          dashboard only receives anonymized resolution metrics &mdash; never the actual content.
+        </p>
+      </div>
+    </div>
+  ),
 };
 
 /* ─── Sidebar tree item ─── */
@@ -655,7 +843,7 @@ function GitPushModal({ onClose }: { onClose: () => void }) {
 export default function DocsPage() {
   const [activeDoc, setActiveDoc] = useState("quick-start");
   const [expandedIds, setExpandedIds] = useState<Set<string>>(
-    new Set(["getting-started", "api-reference", "sdks", "guides", "export-git"])
+    new Set(["getting-started", "api-reference", "sdks", "guides", "export-git", "self-hosted", "self-hosted-overview"])
   );
   const [showGitModal, setShowGitModal] = useState(false);
   const [toast, setToast] = useState<string | null>(null);
