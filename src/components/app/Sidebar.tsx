@@ -2,6 +2,7 @@
 
 import { usePathname } from "next/navigation";
 import Link from "next/link";
+import Image from "next/image";
 import {
   LayoutDashboard, Database, HeartPulse, MessageSquare, Bot,
   BarChart3, MessageCircle, GitBranch, Shield, BookOpen,
@@ -105,9 +106,13 @@ export default function Sidebar() {
     >
       {/* Logo */}
       <div className="flex items-center gap-2 px-4 h-14 border-b border-white/5 shrink-0">
-        <div className="w-8 h-8 rounded-lg flex items-center justify-center bg-gradient-to-br from-[#4597b0] via-[#56b3f5] to-[#36c08e] shrink-0 shadow-md animate-gradient-flow">
-          <span className="text-white text-sm font-bold">ai</span>
-        </div>
+        <Image
+          src="/aiCartograph_icon_final.svg"
+          alt="aiCartograph"
+          width={32}
+          height={32}
+          className="shrink-0"
+        />
         {!sidebarCollapsed && (
           <span className="text-white/90 text-sm font-semibold tracking-tight">
             aiCartograph
