@@ -191,6 +191,113 @@ export function SupportPlatformIcon({ className = "w-5 h-5" }: IconProps) {
   );
 }
 
+function CloudStorageIcon({ className = "w-5 h-5" }: IconProps) {
+  return (
+    <svg viewBox="0 0 20 20" fill="none" className={className}>
+      <path d="M6 14a4 4 0 01-.88-7.9A5 5 0 0115.9 7 3.5 3.5 0 0116 14H6z" stroke="#56b3f5" strokeWidth="1.5" />
+    </svg>
+  );
+}
+
+function EmailArchiveIcon({ className = "w-5 h-5" }: IconProps) {
+  return (
+    <svg viewBox="0 0 20 20" fill="none" className={className}>
+      <rect x="3" y="5" width="14" height="10" rx="2" stroke="#e07c4f" strokeWidth="1.5" />
+      <path d="M3 7l7 4 7-4" stroke="#e07c4f" strokeWidth="1.5" />
+    </svg>
+  );
+}
+
+function DesignToolIcon({ className = "w-5 h-5" }: IconProps) {
+  return (
+    <svg viewBox="0 0 20 20" fill="none" className={className}>
+      <circle cx="8" cy="8" r="3" stroke="#9b8ce8" strokeWidth="1.5" />
+      <rect x="9" y="9" width="8" height="8" rx="1" stroke="#9b8ce8" strokeWidth="1.5" opacity="0.7" />
+    </svg>
+  );
+}
+
+function HRSystemIcon({ className = "w-5 h-5" }: IconProps) {
+  return (
+    <svg viewBox="0 0 20 20" fill="none" className={className}>
+      <circle cx="7" cy="7" r="2.5" stroke="#36c08e" strokeWidth="1.5" />
+      <circle cx="13" cy="7" r="2.5" stroke="#36c08e" strokeWidth="1.5" opacity="0.7" />
+      <path d="M3 16c0-2.2 1.8-4 4-4s4 1.8 4 4" stroke="#36c08e" strokeWidth="1.5" strokeLinecap="round" />
+      <path d="M9 16c0-2.2 1.8-4 4-4s4 1.8 4 4" stroke="#36c08e" strokeWidth="1.5" strokeLinecap="round" opacity="0.7" />
+    </svg>
+  );
+}
+
+function ERPIcon({ className = "w-5 h-5" }: IconProps) {
+  return (
+    <svg viewBox="0 0 20 20" fill="none" className={className}>
+      <rect x="2" y="3" width="7" height="6" rx="1" stroke="#f0b429" strokeWidth="1.5" />
+      <rect x="11" y="3" width="7" height="6" rx="1" stroke="#f0b429" strokeWidth="1.5" opacity="0.7" />
+      <rect x="6" y="11" width="8" height="6" rx="1" stroke="#f0b429" strokeWidth="1.5" opacity="0.5" />
+      <path d="M5.5 9v2M14.5 9v2" stroke="#f0b429" strokeWidth="1" opacity="0.4" />
+    </svg>
+  );
+}
+
+function APIDocIcon({ className = "w-5 h-5" }: IconProps) {
+  return (
+    <svg viewBox="0 0 20 20" fill="none" className={className}>
+      <rect x="3" y="2" width="14" height="16" rx="2" stroke="#4597b0" strokeWidth="1.5" />
+      <path d="M7 6h2M7 9h6M7 12h4" stroke="#4597b0" strokeWidth="1" strokeLinecap="round" opacity="0.6" />
+      <path d="M13 5l2 2-2 2" stroke="#4597b0" strokeWidth="1" strokeLinecap="round" opacity="0.8" />
+    </svg>
+  );
+}
+
+function VideoLibraryIcon({ className = "w-5 h-5" }: IconProps) {
+  return (
+    <svg viewBox="0 0 20 20" fill="none" className={className}>
+      <rect x="2" y="4" width="16" height="12" rx="2" stroke="#f06565" strokeWidth="1.5" />
+      <path d="M8 7.5v5l4.5-2.5L8 7.5z" fill="#f06565" opacity="0.7" />
+    </svg>
+  );
+}
+
+function LMSIcon({ className = "w-5 h-5" }: IconProps) {
+  return (
+    <svg viewBox="0 0 20 20" fill="none" className={className}>
+      <path d="M10 3L2 8l8 5 8-5-8-5z" stroke="#4caf7d" strokeWidth="1.5" strokeLinejoin="round" />
+      <path d="M4 9.5v4l6 3.5 6-3.5v-4" stroke="#4caf7d" strokeWidth="1.5" strokeLinejoin="round" opacity="0.6" />
+    </svg>
+  );
+}
+
+function AnalyticsIcon({ className = "w-5 h-5" }: IconProps) {
+  return (
+    <svg viewBox="0 0 20 20" fill="none" className={className}>
+      <rect x="3" y="12" width="3" height="5" rx="0.5" fill="#56b3f5" opacity="0.5" />
+      <rect x="8.5" y="8" width="3" height="9" rx="0.5" fill="#56b3f5" opacity="0.7" />
+      <rect x="14" y="4" width="3" height="13" rx="0.5" fill="#56b3f5" opacity="0.9" />
+    </svg>
+  );
+}
+
+function TicketingIcon({ className = "w-5 h-5" }: IconProps) {
+  return (
+    <svg viewBox="0 0 20 20" fill="none" className={className}>
+      <rect x="2" y="5" width="16" height="10" rx="2" stroke="#ffd644" strokeWidth="1.5" />
+      <path d="M2 9a2 2 0 010-4M18 9a2 2 0 000-4M2 15a2 2 0 000-4M18 15a2 2 0 010-4" stroke="#ffd644" strokeWidth="1" opacity="0.4" />
+      <path d="M9 5v10" stroke="#ffd644" strokeWidth="1" strokeDasharray="2 2" opacity="0.4" />
+    </svg>
+  );
+}
+
+function RoadmapIcon({ className = "w-5 h-5" }: IconProps) {
+  return (
+    <svg viewBox="0 0 20 20" fill="none" className={className}>
+      <path d="M4 5h8M4 10h12M4 15h6" stroke="#9b8ce8" strokeWidth="2" strokeLinecap="round" />
+      <circle cx="14" cy="5" r="1.5" fill="#9b8ce8" opacity="0.6" />
+      <circle cx="18" cy="10" r="1.5" fill="#9b8ce8" opacity="0.6" />
+      <circle cx="12" cy="15" r="1.5" fill="#9b8ce8" opacity="0.6" />
+    </svg>
+  );
+}
+
 const sourceIcons: Record<string, React.FC<IconProps>> = {
   "Wikis": WikiIcon,
   "Help Centers": HelpCenterIcon,
@@ -201,6 +308,17 @@ const sourceIcons: Record<string, React.FC<IconProps>> = {
   "Code Repositories": CodeRepoIcon,
   "CRM Systems": CRMIcon,
   "Support Platforms": SupportPlatformIcon,
+  "Cloud Storage": CloudStorageIcon,
+  "Email Archives": EmailArchiveIcon,
+  "Design Tools": DesignToolIcon,
+  "HR Systems": HRSystemIcon,
+  "ERP Platforms": ERPIcon,
+  "API Documentation": APIDocIcon,
+  "Video Libraries": VideoLibraryIcon,
+  "Learning Management": LMSIcon,
+  "Analytics Dashboards": AnalyticsIcon,
+  "Ticketing Systems": TicketingIcon,
+  "Product Roadmaps": RoadmapIcon,
 };
 
 export function SourceIcon({ name, className }: { name: string; className?: string }) {

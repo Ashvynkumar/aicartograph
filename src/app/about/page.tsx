@@ -1,8 +1,6 @@
 import type { Metadata } from "next";
 import AnimateOnScroll from "@/components/AnimateOnScroll";
 import Container from "@/components/ui/Container";
-import Badge from "@/components/ui/Badge";
-import SectionDivider from "@/components/ui/SectionDivider";
 import CTABanner from "@/components/sections/CTABanner";
 import { SITE, SIX_VERTICALS } from "@/lib/constants";
 
@@ -54,15 +52,15 @@ const verticalColors = [
   "border-l-4 border-accent-copper",
 ];
 
+
 export default function AboutPage() {
   return (
     <>
-      {/* Hero (DARK) */}
-      <section className="pt-28 pb-16 section-dark relative">
+      {/* Hero */}
+      <section className="pt-28 pb-16 relative" style={{ background: "#071319" }}>
         <div className="absolute top-0 right-1/3 w-72 h-72 bg-brand-500/5 rounded-full blur-3xl" />
         <Container className="relative">
           <AnimateOnScroll className="max-w-3xl space-y-5">
-            <Badge variant="highlight">About</Badge>
             <h1 className="heading-h1 text-[#FDFFFF]">
               Building the Knowledge
               <br />
@@ -74,16 +72,16 @@ export default function AboutPage() {
         </Container>
       </section>
 
-      <SectionDivider variant="rich" />
+      <div className="glow-divider" />
 
-      {/* Vision + Mission (LIGHT) — LARGE typography */}
-      <section className="section-light py-12 lg:py-16">
+      {/* Vision + Mission */}
+      <section className="py-12 lg:py-16" style={{ background: "#091e26" }}>
         <Container>
           <div className="max-w-3xl mx-auto space-y-12">
             <AnimateOnScroll>
               <div className="space-y-3">
                 <p className="section-label">Vision</p>
-                <h2 className="heading-h2 text-brand-900" style={{ fontSize: "clamp(2rem, 4vw, 2.5rem)" }}>
+                <h2 className="heading-h2 text-[#FDFFFF]" style={{ fontSize: "clamp(2rem, 4vw, 2.5rem)" }}>
                   {SITE.vision}
                 </h2>
               </div>
@@ -92,7 +90,7 @@ export default function AboutPage() {
             <AnimateOnScroll>
               <div className="space-y-3">
                 <p className="section-label">Mission</p>
-                <blockquote className="text-xl sm:text-2xl text-brand-700 leading-relaxed border-l-4 border-brand-500 pl-6" style={{ fontFamily: "var(--font-serif)" }}>
+                <blockquote className="text-xl sm:text-2xl text-brand-300 leading-relaxed border-l-4 border-brand-500 pl-6" style={{ fontFamily: "var(--font-serif)" }}>
                   {SITE.mission}
                 </blockquote>
               </div>
@@ -101,10 +99,10 @@ export default function AboutPage() {
         </Container>
       </section>
 
-      <SectionDivider variant="gradient" />
+      <div className="glow-divider" />
 
-      {/* Brand Origin (DARK) */}
-      <section className="section-dark py-12 lg:py-16">
+      {/* Brand Origin */}
+      <section className="py-12 lg:py-16" style={{ background: "#0a1a22" }}>
         <Container>
           <div className="max-w-3xl mx-auto space-y-10">
             <AnimateOnScroll>
@@ -144,99 +142,117 @@ export default function AboutPage() {
         </Container>
       </section>
 
-      <SectionDivider variant="rich" />
+      <div className="glow-divider" />
 
-      {/* Foundational Layer — Six Verticals (LIGHT) */}
-      <section className="section-light py-12 lg:py-16">
-        <Container>
-          <AnimateOnScroll className="text-center mb-8">
-            <p className="section-label mb-4">Foundational Layer</p>
-            <h2 className="heading-h2 text-brand-900 mb-3">
+      {/* Foundational Layer — Six Verticals */}
+      <section className="py-12 lg:py-16 relative" style={{ background: "#050d12" }}>
+        <div className="absolute inset-0 pointer-events-none" style={{ background: "radial-gradient(circle at 50% 50%, rgba(69,151,176,0.06) 0%, transparent 50%)" }} />
+        <Container className="relative">
+          <AnimateOnScroll className="text-center mb-10">
+            <p className="section-label mb-4" style={{ color: "#56b3f5" }}>Foundational Layer</p>
+            <h2 className="heading-h2 text-[#FDFFFF] mb-3">
               Wherever knowledge flows
             </h2>
-            <p className="text-brand-700 text-lg max-w-2xl mx-auto">
+            <p className="text-white/50 text-lg max-w-2xl mx-auto">
               Wherever teams create knowledge and others consume it, aiCartograph
               ensures it resolves.
             </p>
           </AnimateOnScroll>
 
-          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 max-w-4xl mx-auto">
-            {SIX_VERTICALS.map((vertical, i) => (
-              <AnimateOnScroll key={vertical.name} delay={i * 0.08}>
-                <div className={`card-surface rounded-xl p-6 h-full ${verticalColors[i]} hover:-translate-y-0.5 hover:shadow-lg transition-all duration-300`}>
-                  <h3 className="heading-h3 text-brand-900 mb-2 text-base">{vertical.name}</h3>
-                  <p className="text-brand-700 text-sm leading-relaxed">
-                    {vertical.description}
-                  </p>
-                </div>
-              </AnimateOnScroll>
-            ))}
+          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4 max-w-4xl mx-auto min-h-[200px]">
+            {SIX_VERTICALS.map((vertical, i) => {
+              const colors = ["#56b3f5", "#f06565", "#f0b429", "#36c08e", "#9b8ce8", "#e07c4f"];
+              const color = colors[i];
+              const icons = ["⚡", "🎯", "📈", "👥", "⚖️", "🔒"];
+              return (
+                <AnimateOnScroll key={vertical.name} delay={i * 0.08}>
+                  <div className="relative rounded-xl p-5 h-full group transition-all duration-300 hover:scale-[1.02]" style={{ background: `linear-gradient(145deg, ${color}0A, transparent 70%)`, border: `1px solid ${color}18` }}>
+                    <div className="absolute top-0 left-0 w-full h-[2px] rounded-t-xl" style={{ background: `linear-gradient(90deg, ${color}40, transparent)` }} />
+                    <div className="flex items-start gap-3">
+                      <span className="text-xl mt-0.5">{icons[i]}</span>
+                      <div>
+                        <h3 className="font-semibold text-[#FDFFFF] mb-1.5 text-base" style={{ fontSize: "clamp(0.9rem, 1.5vw, 1rem)" }}>{vertical.name}</h3>
+                        <p className="text-white/55 text-sm leading-relaxed break-words">
+                          {vertical.description}
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                </AnimateOnScroll>
+              );
+            })}
           </div>
         </Container>
       </section>
 
-      <SectionDivider variant="gradient" />
+      <div className="glow-divider" />
 
-      {/* Team (DARK) */}
-      <section className="section-dark py-12 lg:py-16">
+      {/* Team */}
+      <section className="py-12 lg:py-16" style={{ background: "#081520" }}>
         <Container>
-          <div className="max-w-3xl mx-auto">
-            <AnimateOnScroll className="space-y-6">
+          <div className="max-w-4xl mx-auto">
+            <AnimateOnScroll className="space-y-8">
               <h2 className="heading-h2 text-[#FDFFFF]">The team</h2>
-              <div className="grid sm:grid-cols-2 gap-6">
-                <div className="rounded-xl bg-brand-800 border border-brand-700/30 p-6 border-l-4 border-l-accent-amber">
-                  <h3 className="text-[#FDFFFF] font-semibold text-lg mb-1">Atlas</h3>
-                  <p className="text-accent-amber text-sm mb-3">Founder & CEO</p>
-                  <p className="text-brand-300 text-sm leading-relaxed">
-                    Founded aiCartograph after seeing the same pattern across SaaS companies:
-                    organizations invest in creating knowledge, but the people who need it
-                    most still can&apos;t get answers.
-                  </p>
-                </div>
-                <div className="rounded-xl bg-brand-800 border border-brand-700/30 p-6 border-l-4 border-l-accent-sky">
-                  <h3 className="text-[#FDFFFF] font-semibold text-lg mb-1">Compass</h3>
-                  <p className="text-accent-sky text-sm mb-3">AI Co-founder</p>
-                  <p className="text-brand-300 text-sm leading-relaxed">
-                    AI partner in strategy, architecture, and execution — helping build
-                    aiCartograph from founding blueprint to production platform.
-                  </p>
-                </div>
+
+              {/* Founder */}
+              <div className="dark-card p-6 border-l-4 border-l-accent-amber max-w-2xl">
+                <h3 className="text-[#FDFFFF] font-semibold text-lg mb-1">Atlas</h3>
+                <p className="text-accent-amber text-sm mb-3">Founder &amp; CEO</p>
+                <p className="text-white/60 text-sm leading-relaxed">
+                  Founded aiCartograph after seeing the same pattern across SaaS companies:
+                  organizations invest in creating knowledge, but the people who need it
+                  most still can&apos;t get answers.
+                </p>
               </div>
+
             </AnimateOnScroll>
           </div>
         </Container>
       </section>
 
-      <SectionDivider variant="rich" />
+      <div className="glow-divider" />
 
-      {/* Operating Principles (LIGHT) — renamed from "What we believe" */}
-      <section className="section-light py-12 lg:py-16">
-        <Container>
-          <AnimateOnScroll className="text-center mb-8">
-            <p className="section-label mb-4">How We Think</p>
-            <h2 className="heading-h2 text-brand-900">
+      {/* Operating Principles */}
+      <section className="py-12 lg:py-16 relative" style={{ background: "#0c1f2a" }}>
+        <div className="absolute inset-0 pointer-events-none" style={{ background: "radial-gradient(ellipse at 30% 20%, rgba(240,180,41,0.03) 0%, transparent 50%), radial-gradient(ellipse at 70% 80%, rgba(155,140,232,0.03) 0%, transparent 50%)" }} />
+        <Container className="relative">
+          <AnimateOnScroll className="text-center mb-10">
+            <p className="section-label mb-4" style={{ color: "#f0b429" }}>How We Think</p>
+            <h2 className="heading-h2 text-[#FDFFFF]">
               Operating principles
             </h2>
           </AnimateOnScroll>
 
-          <div className="grid sm:grid-cols-2 gap-6 max-w-4xl mx-auto">
-            {principles.map((p, i) => (
-              <AnimateOnScroll key={p.title} delay={i * 0.1} className={i === principles.length - 1 ? "sm:col-span-2 sm:max-w-md sm:mx-auto" : ""}>
-                <div className={`card-surface rounded-xl p-6 ${p.border} hover:-translate-y-0.5 hover:shadow-lg transition-all duration-300`}>
-                  <h3 className="heading-h3 text-brand-900 mb-2 text-base">{p.title}</h3>
-                  <p className="text-brand-700 text-sm leading-relaxed">{p.description}</p>
-                </div>
-              </AnimateOnScroll>
-            ))}
+          <div className="max-w-3xl mx-auto space-y-4 min-h-[200px]">
+            {principles.map((p, i) => {
+              const colors = ["#56b3f5", "#f0b429", "#36c08e", "#9b8ce8", "#f06565"];
+              const color = colors[i];
+              const numbers = ["01", "02", "03", "04", "05"];
+              return (
+                <AnimateOnScroll key={p.title} delay={i * 0.08}>
+                  <div className="flex items-start gap-5 group">
+                    <div className="shrink-0 mt-1">
+                      <span className="block w-10 h-10 rounded-xl text-sm font-bold flex items-center justify-center" style={{ background: `${color}12`, color, border: `1px solid ${color}25` }}>
+                        {numbers[i]}
+                      </span>
+                    </div>
+                    <div className="flex-1 pb-4" style={{ borderBottom: `1px solid ${color}12` }}>
+                      <h3 className="font-semibold text-[#FDFFFF] mb-1.5 text-base">{p.title}</h3>
+                      <p className="text-white/55 text-sm leading-relaxed break-words">{p.description}</p>
+                    </div>
+                  </div>
+                </AnimateOnScroll>
+              );
+            })}
           </div>
         </Container>
       </section>
 
-      <SectionDivider variant="gradient" />
+      <div className="glow-divider" />
 
       <CTABanner
         headline="Join us in building this category"
-        subheadline="We're just getting started. Let's talk about what knowledge resolution can do for your organization."
+        subheadline="We&apos;re just getting started. Let&apos;s talk about what knowledge resolution can do for your organization."
       />
     </>
   );

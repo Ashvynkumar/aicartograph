@@ -34,7 +34,7 @@ function AnimatedCounter({ target, suffix = "" }: { target: number; suffix?: str
   }, [target]);
 
   return (
-    <div ref={ref} className="text-5xl sm:text-6xl font-bold tabular-nums text-brand-500">
+    <div ref={ref} className="text-4xl sm:text-5xl font-bold tabular-nums text-brand-500">
       {count.toLocaleString()}{suffix}
     </div>
   );
@@ -42,27 +42,46 @@ function AnimatedCounter({ target, suffix = "" }: { target: number; suffix?: str
 
 export default function SocialProof() {
   const stats = [
-    { value: 18, suffix: "", label: "Knowledge problems we diagnose" },
-    { value: 6, suffix: "", label: "Organizational verticals served" },
-    { value: 4, suffix: "", label: "Framework pillars" },
+    { value: 18, suffix: "", label: "Knowledge Gaps", color: "#f06565" },
+    { value: 100, suffix: "+", label: "Integrations supported", color: "#f0b429" },
+    { value: 6, suffix: "", label: "Differentiators", color: "#4597b0" },
+    { value: 8, suffix: "", label: "Pre-built agents", color: "#9b8ce8" },
+    { value: 6, suffix: "", label: "Verticals served", color: "#36c08e" },
+    { value: 4, suffix: "", label: "Framework pillars", color: "#e07c4f" },
   ];
 
   return (
-    <section className="section-light py-12 lg:py-16 relative">
+    <section className="py-12 lg:py-16 relative" style={{ background: "#091e26" }}>
       <Container className="relative">
-        <AnimateOnScroll className="text-center mb-8">
+        <AnimateOnScroll className="text-center mb-10">
           <p className="section-label mb-4">By the numbers</p>
-          <h2 className="heading-h2 text-brand-900">
+          <h2 className="heading-h2 text-[#FDFFFF]">
             The full knowledge lifecycle, resolved
           </h2>
         </AnimateOnScroll>
 
-        <div className="grid sm:grid-cols-3 gap-6 text-center max-w-3xl mx-auto">
+        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-4 text-center max-w-6xl mx-auto min-h-[160px]">
           {stats.map((stat, i) => (
-            <AnimateOnScroll key={i} delay={i * 0.15}>
-              <div className="card-surface rounded-xl p-8 hover:-translate-y-0.5 hover:shadow-lg transition-all duration-300">
+            <AnimateOnScroll key={i} delay={i * 0.1}>
+              <div
+                className="glass-card rounded-xl px-5 py-6 relative overflow-hidden transition-all duration-300 cursor-default"
+                style={{ border: `1px solid rgba(255,255,255,0.06)` }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.border = `1px solid ${stat.color}40`;
+                  e.currentTarget.style.boxShadow = `0 0 20px ${stat.color}15, 0 4px 16px rgba(0,0,0,0.3)`;
+                  e.currentTarget.style.transform = "translateY(-3px)";
+                  e.currentTarget.style.background = `linear-gradient(160deg, ${stat.color}08, transparent)`;
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.border = "1px solid rgba(255,255,255,0.06)";
+                  e.currentTarget.style.boxShadow = "none";
+                  e.currentTarget.style.transform = "translateY(0)";
+                  e.currentTarget.style.background = "";
+                }}
+              >
+                <div className="absolute top-0 left-0 right-0 h-[2px]" style={{ background: `linear-gradient(90deg, transparent, ${stat.color}50, transparent)` }} />
                 <AnimatedCounter target={stat.value} suffix={stat.suffix} />
-                <p className="text-brand-700 mt-2 text-sm">{stat.label}</p>
+                <p className="text-white/50 mt-2 text-sm whitespace-nowrap">{stat.label}</p>
               </div>
             </AnimateOnScroll>
           ))}
