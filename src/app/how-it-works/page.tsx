@@ -165,7 +165,7 @@ function ScenarioTabs() {
   const scenario = SCENARIOS[activeTab];
 
   return (
-    <section className="py-12 lg:py-16" style={{ background: "#0e2830" }}>
+    <section className="py-12 lg:py-16" style={{ background: "#091e26" }}>
       <Container>
         <AnimateOnScroll className="text-center mb-8">
           <p className="section-label mb-4">Real Scenarios</p>
@@ -202,41 +202,69 @@ function ScenarioTabs() {
           </div>
 
           <div className="grid md:grid-cols-2 gap-6">
-            {/* Before */}
-            <div className="dark-card p-6 border-l-4 border-l-accent-coral">
-              <Badge>Without aiCartograph</Badge>
-              <p className="text-accent-coral text-xs font-medium mt-2 mb-3">{scenario.before.time}</p>
-              <div className="space-y-3">
-                {scenario.before.steps.map((step, i) => (
-                  <div key={i} className="flex items-start gap-3">
-                    <span className="text-accent-coral font-mono text-xs font-bold mt-1 shrink-0">{i + 1}.</span>
-                    <p className={`text-sm leading-relaxed break-words ${i === scenario.before.steps.length - 1 ? "text-accent-coral font-medium" : "text-white/60"}`}>
-                      {step}
-                    </p>
-                  </div>
-                ))}
+            {/* Before — Without aiCartograph */}
+            <div className="relative rounded-xl overflow-hidden border border-accent-coral/20" style={{ background: "linear-gradient(135deg, rgba(240,101,101,0.06) 0%, rgba(224,124,79,0.04) 50%, transparent 100%)" }}>
+              <div className="absolute inset-0 pointer-events-none" style={{ background: "radial-gradient(ellipse at top left, rgba(240,101,101,0.08) 0%, transparent 60%)" }} />
+              <div className="relative p-6">
+                <div className="flex items-center gap-3 mb-3">
+                  <span className="inline-flex items-center rounded-full px-3 py-1 text-xs font-semibold tracking-wide uppercase bg-accent-coral/15 text-accent-coral border border-accent-coral/25">
+                    Without aiCartograph
+                  </span>
+                  <span className="text-accent-coral text-xs font-bold">{scenario.before.time}</span>
+                </div>
+                <div className="space-y-3">
+                  {scenario.before.steps.map((step, i) => {
+                    const isLast = i === scenario.before.steps.length - 1;
+                    return (
+                      <div key={`${activeTab}-before-${i}`} className="flex items-start gap-3" style={{ animationDelay: `${i * 0.1}s` }}>
+                        <span className="w-6 h-6 rounded-full flex items-center justify-center shrink-0 mt-0.5 text-[10px] font-bold" style={{ background: `rgba(240,101,101,${0.08 + i * 0.04})`, color: "#f06565", border: "1px solid rgba(240,101,101,0.2)" }}>
+                          {i + 1}
+                        </span>
+                        <p className={`text-sm leading-relaxed break-words ${isLast ? "font-medium" : ""}`} style={{ color: isLast ? "#f06565" : `rgba(255,255,255,${0.7 - i * 0.06})` }}>
+                          {step}
+                        </p>
+                      </div>
+                    );
+                  })}
+                </div>
               </div>
+              {/* Bottom gradient accent */}
+              <div className="h-[2px]" style={{ background: "linear-gradient(90deg, #f06565, #e07c4f, transparent)" }} />
             </div>
 
-            {/* After */}
-            <div className="dark-card p-6 border-l-4 border-l-brand-500 shadow-lg shadow-brand-500/10">
-              <Badge variant="highlight">With aiCartograph</Badge>
-              <p className="text-brand-400 text-xs font-medium mt-2 mb-3">{scenario.after.time}</p>
-              <div className="space-y-3">
-                {scenario.after.steps.map((step, i) => (
-                  <div key={i} className="flex items-start gap-3">
-                    <span className="text-brand-500 font-mono text-xs font-bold mt-1 shrink-0">{i + 1}.</span>
-                    <p className={`text-sm leading-relaxed break-words ${i === scenario.after.steps.length - 1 ? "text-brand-400 font-medium" : "text-white/60"}`}>
-                      {step}
-                    </p>
-                  </div>
-                ))}
+            {/* After — With aiCartograph */}
+            <div className="relative rounded-xl overflow-hidden border border-brand-500/25" style={{ background: "linear-gradient(135deg, rgba(69,151,176,0.08) 0%, rgba(54,192,142,0.05) 50%, transparent 100%)" }}>
+              <div className="absolute inset-0 pointer-events-none" style={{ background: "radial-gradient(ellipse at top right, rgba(69,151,176,0.1) 0%, transparent 60%)" }} />
+              <div className="relative p-6">
+                <div className="flex items-center gap-3 mb-3">
+                  <span className="inline-flex items-center rounded-full px-3 py-1 text-xs font-semibold tracking-wide uppercase bg-brand-500/15 text-brand-400 border border-brand-500/25 shadow-lg shadow-brand-500/10">
+                    With aiCartograph
+                  </span>
+                  <span className="text-accent-emerald text-xs font-bold">{scenario.after.time}</span>
+                </div>
+                <div className="space-y-3">
+                  {scenario.after.steps.map((step, i) => {
+                    const isLast = i === scenario.after.steps.length - 1;
+                    return (
+                      <div key={`${activeTab}-after-${i}`} className="flex items-start gap-3" style={{ animationDelay: `${i * 0.1}s` }}>
+                        <span className="w-6 h-6 rounded-full flex items-center justify-center shrink-0 mt-0.5 text-[10px] font-bold" style={{ background: `rgba(69,151,176,${0.1 + i * 0.04})`, color: "#62acbb", border: "1px solid rgba(69,151,176,0.25)" }}>
+                          {i + 1}
+                        </span>
+                        <p className={`text-sm leading-relaxed break-words ${isLast ? "font-medium" : ""}`} style={{ color: isLast ? "#62acbb" : `rgba(255,255,255,${0.75 - i * 0.04})` }}>
+                          {step}
+                        </p>
+                      </div>
+                    );
+                  })}
+                </div>
               </div>
+              {/* Bottom gradient accent */}
+              <div className="h-[2px]" style={{ background: "linear-gradient(90deg, #4597b0, #36c08e, transparent)" }} />
             </div>
           </div>
 
           <AnimateOnScroll className="text-center mt-8">
-            <p className="text-brand-400 font-medium text-base">
+            <p className="text-lg font-medium" style={{ background: "linear-gradient(90deg, #f06565, #4597b0, #36c08e)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent" }}>
               This is the difference between retrieval and resolution.
             </p>
           </AnimateOnScroll>
@@ -249,7 +277,7 @@ function ScenarioTabs() {
 /* ─── Behind the Scenes ─── */
 function BehindTheScenes() {
   return (
-    <section className="py-12 lg:py-16" style={{ background: "#0c2329" }}>
+    <section className="py-12 lg:py-16" style={{ background: "#071319" }}>
       <Container>
         <AnimateOnScroll className="text-center mb-8">
           <p className="section-label mb-4">Under the Hood</p>
@@ -273,11 +301,10 @@ export default function HowItWorksPage() {
   return (
     <>
       {/* Hero */}
-      <section className="pt-28 pb-16 relative" style={{ background: "#0c2329" }}>
+      <section className="pt-28 pb-16 relative" style={{ background: "#071319" }}>
         <div className="absolute top-0 right-1/4 w-72 h-72 bg-brand-500/5 rounded-full blur-3xl" />
         <Container className="relative">
           <AnimateOnScroll className="max-w-3xl space-y-5">
-            <Badge variant="highlight">How It Works</Badge>
             <h1 className="heading-h1 text-[#FDFFFF]">
               From question to resolution
               <br />

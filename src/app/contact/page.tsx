@@ -3,7 +3,6 @@
 import { useState, FormEvent } from "react";
 import AnimateOnScroll from "@/components/AnimateOnScroll";
 import Container from "@/components/ui/Container";
-import Badge from "@/components/ui/Badge";
 import Button from "@/components/ui/Button";
 import { SITE } from "@/lib/constants";
 
@@ -53,11 +52,10 @@ export default function ContactPage() {
   return (
     <>
       {/* Hero */}
-      <section className="pt-24 pb-8 relative" style={{ background: "#0c2329" }}>
+      <section className="pt-24 pb-8 relative" style={{ background: "#071319" }}>
         <div className="absolute top-0 left-1/2 w-72 h-72 bg-brand-500/5 rounded-full blur-3xl -translate-x-1/2" />
         <Container className="relative text-center">
           <AnimateOnScroll className="space-y-5 max-w-3xl mx-auto">
-            <Badge variant="highlight">Contact</Badge>
             <h1 className="heading-h1 text-[#FDFFFF]">
               Let&apos;s talk
             </h1>
@@ -72,7 +70,7 @@ export default function ContactPage() {
       <div className="glow-divider" />
 
       {/* Form + Calendly */}
-      <section className="py-8 lg:py-10" style={{ background: "#0e2830" }}>
+      <section className="py-8 lg:py-10" style={{ background: "#091e26" }}>
         <Container>
           <div className="grid lg:grid-cols-2 gap-8 max-w-5xl mx-auto">
             {/* Form */}

@@ -14,10 +14,12 @@ export default function Hero() {
     <section className="relative min-h-[80vh] flex items-center overflow-hidden pt-16 section-dark">
       <AbstractPattern className="opacity-50" />
 
-      {/* Multi-color gradient orbs */}
+      {/* Multi-color gradient orbs — full palette */}
       <div className="absolute top-1/4 left-1/4 w-72 h-72 bg-brand-500/10 rounded-full blur-3xl" />
       <div className="absolute bottom-1/4 right-1/4 w-64 h-64 bg-brand-400/5 rounded-full blur-3xl" />
       <div className="absolute top-1/3 right-1/3 w-48 h-48 bg-accent-amber/[0.04] rounded-full blur-3xl animate-glow-breathe" />
+      <div className="absolute bottom-1/3 left-1/3 w-56 h-56 bg-accent-lavender/[0.03] rounded-full blur-3xl animate-glow-breathe" style={{ animationDelay: "2s" }} />
+      <div className="absolute top-2/3 right-1/4 w-40 h-40 bg-accent-emerald/[0.03] rounded-full blur-3xl animate-glow-breathe" style={{ animationDelay: "4s" }} />
 
       <Container className="relative z-10 py-16 lg:py-20">
         <motion.div

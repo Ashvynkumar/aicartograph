@@ -27,11 +27,10 @@ const pillarAccents = [
 /* ─── Section 1: Hero ─── */
 function ProductHero() {
   return (
-    <section className="pt-28 pb-16 relative" style={{ background: "#0c2329" }}>
+    <section className="pt-28 pb-16 relative" style={{ background: "#071319" }}>
       <div className="absolute top-0 left-1/3 w-72 h-72 bg-brand-500/5 rounded-full blur-3xl" />
       <Container className="relative">
         <AnimateOnScroll className="max-w-3xl space-y-5">
-          <Badge variant="highlight">Product</Badge>
           <h1 className="heading-h1 text-[#FDFFFF]">
             Knowledge Resolution,
             <br />
@@ -53,7 +52,7 @@ function ProductHero() {
 /* ─── Section 2: Four Pillars Full ─── */
 function FourPillars() {
   return (
-    <section className="py-12 lg:py-16" style={{ background: "#0e2830" }}>
+    <section className="py-12 lg:py-16" style={{ background: "#091e26" }}>
       <Container>
         <AnimateOnScroll className="mb-8">
           <p className="section-label mb-4">The Framework</p>
@@ -112,7 +111,7 @@ const sourceTypes = [
 
 function KnowledgeSources() {
   return (
-    <section className="py-12 lg:py-16" style={{ background: "#0c2329" }}>
+    <section className="py-12 lg:py-16" style={{ background: "#071319" }}>
       <Container>
         <AnimateOnScroll className="text-center mb-8">
           <p className="section-label mb-4">Integrations</p>
@@ -141,33 +140,40 @@ function KnowledgeSources() {
 
 /* ─── Section 4: 18 Problems Diagnostic ─── */
 function EighteenProblems() {
+  const diagnosticColors = ["#f06565", "#e07c4f", "#f0b429", "#ffd644", "#4caf7d", "#36c08e", "#56b3f5", "#4597b0", "#9b8ce8", "#f06565", "#e07c4f", "#f0b429", "#4caf7d", "#36c08e", "#56b3f5", "#4597b0", "#9b8ce8", "#f06565"];
+
   return (
-    <section id="diagnostic" className="py-12 lg:py-16" style={{ background: "#0a1e24" }}>
-      <Container>
-        <AnimateOnScroll className="text-center mb-8">
-          <p className="section-label mb-4">The Knowledge Diagnostic</p>
+    <section id="diagnostic" className="py-12 lg:py-16 relative" style={{ background: "#050d12" }}>
+      <div className="absolute inset-0 pointer-events-none" style={{ background: "radial-gradient(ellipse at 50% 30%, rgba(240,101,101,0.04) 0%, transparent 50%), radial-gradient(ellipse at 50% 70%, rgba(69,151,176,0.04) 0%, transparent 50%)" }} />
+      <Container className="relative">
+        <AnimateOnScroll className="text-center mb-10">
+          <p className="section-label mb-4" style={{ color: "#f06565" }}>The Knowledge Diagnostic</p>
           <h2 className="heading-h2 text-[#FDFFFF] mb-3">
             How many of these is your organization living with?
           </h2>
         </AnimateOnScroll>
 
         <div className="grid grid-cols-3 sm:grid-cols-3 lg:grid-cols-6 gap-2 max-w-4xl mx-auto min-h-[200px]">
-          {EIGHTEEN_PROBLEMS.map((problem, i) => (
-            <AnimateOnScroll key={problem.id} delay={i * 0.03}>
-              <div className="dark-card rounded-lg p-3 min-h-[72px] flex flex-col items-center justify-center text-center hover:border-brand-500/40 transition-all">
-                <span className="text-brand-500 font-mono text-xs font-bold mb-1">
-                  {String(problem.id).padStart(2, "0")}
-                </span>
-                <span className="text-[#FDFFFF] text-sm font-semibold leading-tight break-words">
-                  {problem.name}
-                </span>
-              </div>
-            </AnimateOnScroll>
-          ))}
+          {EIGHTEEN_PROBLEMS.map((problem, i) => {
+            const color = diagnosticColors[i];
+            return (
+              <AnimateOnScroll key={problem.id} delay={i * 0.03}>
+                <div className="relative rounded-lg p-3 min-h-[72px] flex flex-col items-center justify-center text-center group transition-all duration-300 hover:scale-105 cursor-default overflow-hidden" style={{ background: `linear-gradient(145deg, ${color}0C, transparent)`, border: `1px solid ${color}18` }}>
+                  <div className="absolute top-0 left-0 right-0 h-[1px]" style={{ background: `linear-gradient(90deg, transparent, ${color}40, transparent)` }} />
+                  <span className="font-mono text-xs font-bold mb-1" style={{ color }}>
+                    {String(problem.id).padStart(2, "0")}
+                  </span>
+                  <span className="text-[#FDFFFF] text-sm font-semibold leading-tight break-words">
+                    {problem.name}
+                  </span>
+                </div>
+              </AnimateOnScroll>
+            );
+          })}
         </div>
 
         <AnimateOnScroll className="text-center mt-10">
-          <p className="text-brand-400 font-medium text-base">
+          <p className="text-base font-medium" style={{ background: "linear-gradient(90deg, #f06565, #f0b429, #4597b0)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent" }}>
             If you recognize five or more, your organization has a knowledge resolution problem.
           </p>
         </AnimateOnScroll>
@@ -186,7 +192,7 @@ const uspBorders = [
 
 function USPDeepDive() {
   return (
-    <section className="py-12 lg:py-16" style={{ background: "#0e2830" }}>
+    <section className="py-12 lg:py-16" style={{ background: "#091e26" }}>
       <Container>
         <AnimateOnScroll className="mb-8 text-center">
           <p className="section-label mb-4">Differentiators</p>
@@ -202,7 +208,7 @@ function USPDeepDive() {
         <div className="grid sm:grid-cols-2 gap-6 min-h-[200px]">
           {USPS.map((usp, i) => (
             <AnimateOnScroll key={usp.id} delay={i * 0.1}>
-              <div className={`dark-card p-6 h-full ${uspBorders[i]}`}>
+              <div className={`glass-card p-6 h-full ${uspBorders[i]}`}>
                 <div className="flex items-start gap-4">
                   <div className="shrink-0">
                     <USPIcon icon={usp.icon} className="w-12 h-12" />
@@ -225,7 +231,7 @@ function USPDeepDive() {
 /* ─── Section 6: Competitor Positioning ─── */
 function CompetitivePositioning() {
   return (
-    <section className="py-12 lg:py-16" style={{ background: "#0c2329" }}>
+    <section className="py-12 lg:py-16" style={{ background: "#071319" }}>
       <Container>
         <AnimateOnScroll className="text-center mb-8">
           <p className="section-label mb-4">Category Creation</p>
@@ -270,7 +276,7 @@ const marketplaceAgents = [
 
 function AgentMarketplacePreview() {
   return (
-    <section className="py-12 lg:py-16" style={{ background: "#0a1e24" }}>
+    <section className="py-12 lg:py-16" style={{ background: "#050d12" }}>
       <Container>
         <AnimateOnScroll className="text-center mb-8">
           <p className="section-label mb-4">Agent Marketplace</p>

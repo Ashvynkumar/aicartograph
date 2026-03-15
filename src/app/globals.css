@@ -13,9 +13,9 @@
   --color-brand-100: #d6eef3;
   --color-brand-50: #eef7fa;
   /* Canvas tint variations for section separation */
-  --color-canvas-base: #0c2329;
-  --color-canvas-raised: #0e2830;
-  --color-canvas-sunken: #0a1e24;
+  --color-canvas-base: #081820;
+  --color-canvas-raised: #0a1e26;
+  --color-canvas-sunken: #060f15;
   /* Extended accent palette — more vibrant */
   --color-accent-amber: #f0b429;
   --color-accent-copper: #e07c4f;
@@ -32,8 +32,8 @@
 /* ——— Theme CSS Variables ——— */
 :root,
 [data-theme="dark"] {
-  --bg-primary: #080604;
-  --bg-secondary: #0c2329;
+  --bg-primary: #040a0d;
+  --bg-secondary: #081820;
   --bg-card: rgba(34, 62, 73, 0.6);
   --bg-card-hover: rgba(34, 62, 73, 0.85);
   --bg-elevated: #1a3a45;
@@ -125,7 +125,7 @@ body {
 /* Unified dark canvas */
 .section-dark,
 .section-light {
-  background: #0c2329;
+  background: #060f15;
   color: #FDFFFF;
 }
 
@@ -155,7 +155,7 @@ body {
 /* Glow divider for section separation */
 .glow-divider {
   height: 1px;
-  background: radial-gradient(50% 50% at 50% 50%, rgba(69, 151, 176, 0.3), transparent);
+  background: radial-gradient(50% 50% at 50% 50%, rgba(69, 151, 176, 0.25), rgba(155, 140, 232, 0.08), transparent);
 }
 
 /* Animated gradient divider between sections */
@@ -187,7 +187,7 @@ body {
 
 /* Floating navbar glass effect */
 .navbar-float {
-  background: rgba(12, 35, 41, 0.75);
+  background: rgba(4, 10, 13, 0.82);
   backdrop-filter: blur(20px) saturate(1.4);
   border: 1px solid rgba(255, 255, 255, 0.06);
   border-radius: 9999px;
@@ -379,4 +379,64 @@ body {
   content: "▊";
   animation: typing-cursor 1s step-end infinite;
   color: var(--accent-primary);
+}
+
+/* ─── Liquid Glass Design System ─── */
+.glass-card {
+  background: rgba(255, 255, 255, 0.03);
+  backdrop-filter: blur(16px) saturate(1.3);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: 16px;
+  box-shadow:
+    0 0 0 0.5px rgba(255, 255, 255, 0.04) inset,
+    0 8px 32px rgba(0, 0, 0, 0.3);
+  transition: all 0.3s ease;
+}
+.glass-card:hover {
+  background: rgba(255, 255, 255, 0.05);
+  border-color: rgba(69, 151, 176, 0.15);
+  box-shadow:
+    0 0 0 0.5px rgba(255, 255, 255, 0.06) inset,
+    0 12px 40px rgba(0, 0, 0, 0.35),
+    0 0 20px rgba(69, 151, 176, 0.05);
+  transform: translateY(-1px);
+}
+
+.glass-surface {
+  background: rgba(255, 255, 255, 0.02);
+  backdrop-filter: blur(12px) saturate(1.2);
+  border: 1px solid rgba(255, 255, 255, 0.04);
+}
+
+/* Gradient accent underlines for sections */
+.accent-underline-multi {
+  height: 2px;
+  background: linear-gradient(
+    90deg,
+    #f06565 0%,
+    #f0b429 20%,
+    #4597b0 40%,
+    #36c08e 60%,
+    #9b8ce8 80%,
+    #56b3f5 100%
+  );
+  background-size: 200% 100%;
+  animation: gradient-flow 6s ease infinite;
+}
+
+/* Multi-color glow breathe */
+@keyframes multi-glow-breathe {
+  0%, 100% {
+    box-shadow: 0 0 30px rgba(69, 151, 176, 0.05), 0 0 60px rgba(155, 140, 232, 0.03);
+  }
+  33% {
+    box-shadow: 0 0 30px rgba(240, 180, 41, 0.05), 0 0 60px rgba(69, 151, 176, 0.03);
+  }
+  66% {
+    box-shadow: 0 0 30px rgba(54, 192, 142, 0.05), 0 0 60px rgba(240, 101, 101, 0.03);
+  }
+}
+
+.animate-multi-glow {
+  animation: multi-glow-breathe 8s ease-in-out infinite;
 }

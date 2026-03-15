@@ -48,7 +48,7 @@ export default function SocialProof() {
   ];
 
   return (
-    <section className="py-12 lg:py-16 relative" style={{ background: "#0e2830" }}>
+    <section className="py-12 lg:py-16 relative" style={{ background: "#091e26" }}>
       <Container className="relative">
         <AnimateOnScroll className="text-center mb-8">
           <p className="section-label mb-4">By the numbers</p>
@@ -58,14 +58,19 @@ export default function SocialProof() {
         </AnimateOnScroll>
 
         <div className="grid sm:grid-cols-3 gap-6 text-center max-w-3xl mx-auto min-h-[200px]">
-          {stats.map((stat, i) => (
-            <AnimateOnScroll key={i} delay={i * 0.15}>
-              <div className="dark-card rounded-xl p-8">
-                <AnimatedCounter target={stat.value} suffix={stat.suffix} />
-                <p className="text-white/50 mt-2 text-sm">{stat.label}</p>
-              </div>
-            </AnimateOnScroll>
-          ))}
+          {stats.map((stat, i) => {
+            const colors = ["#f06565", "#4597b0", "#36c08e"];
+            const color = colors[i];
+            return (
+              <AnimateOnScroll key={i} delay={i * 0.15}>
+                <div className="glass-card rounded-xl p-8 relative overflow-hidden">
+                  <div className="absolute top-0 left-0 right-0 h-[2px]" style={{ background: `linear-gradient(90deg, transparent, ${color}50, transparent)` }} />
+                  <AnimatedCounter target={stat.value} suffix={stat.suffix} />
+                  <p className="text-white/50 mt-2 text-sm">{stat.label}</p>
+                </div>
+              </AnimateOnScroll>
+            );
+          })}
         </div>
       </Container>
     </section>

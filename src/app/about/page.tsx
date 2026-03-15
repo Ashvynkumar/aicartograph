@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import AnimateOnScroll from "@/components/AnimateOnScroll";
 import Container from "@/components/ui/Container";
-import Badge from "@/components/ui/Badge";
 import CTABanner from "@/components/sections/CTABanner";
 import { SITE, SIX_VERTICALS } from "@/lib/constants";
 
@@ -53,26 +52,15 @@ const verticalColors = [
   "border-l-4 border-accent-copper",
 ];
 
-const hiringRoles = [
-  { title: "CTO", description: "Technical vision and architecture leadership for a knowledge-first platform." },
-  { title: "Head of AI/ML", description: "Build the resolution engine \u2014 retrieval, synthesis, and continuous learning." },
-  { title: "Head of Product", description: "Shape the product roadmap and translate customer needs into platform features." },
-  { title: "Head of Engineering", description: "Scale the engineering team and ship reliable, performant infrastructure." },
-  { title: "Senior Engineer (Backend)", description: "Design and build the core resolution pipeline and data layer." },
-  { title: "Senior Engineer (Frontend)", description: "Craft the platform experience \u2014 dashboards, editors, and resolution interfaces." },
-  { title: "Head of Customer Success", description: "Ensure every customer gets measurable value from knowledge resolution." },
-  { title: "Head of Growth", description: "Drive adoption, positioning, and category awareness for Knowledge Resolution." },
-];
 
 export default function AboutPage() {
   return (
     <>
       {/* Hero */}
-      <section className="pt-28 pb-16 relative" style={{ background: "#0c2329" }}>
+      <section className="pt-28 pb-16 relative" style={{ background: "#071319" }}>
         <div className="absolute top-0 right-1/3 w-72 h-72 bg-brand-500/5 rounded-full blur-3xl" />
         <Container className="relative">
           <AnimateOnScroll className="max-w-3xl space-y-5">
-            <Badge variant="highlight">About</Badge>
             <h1 className="heading-h1 text-[#FDFFFF]">
               Building the Knowledge
               <br />
@@ -87,7 +75,7 @@ export default function AboutPage() {
       <div className="glow-divider" />
 
       {/* Vision + Mission */}
-      <section className="py-12 lg:py-16" style={{ background: "#0e2830" }}>
+      <section className="py-12 lg:py-16" style={{ background: "#091e26" }}>
         <Container>
           <div className="max-w-3xl mx-auto space-y-12">
             <AnimateOnScroll>
@@ -114,7 +102,7 @@ export default function AboutPage() {
       <div className="glow-divider" />
 
       {/* Brand Origin */}
-      <section className="py-12 lg:py-16" style={{ background: "#0c2329" }}>
+      <section className="py-12 lg:py-16" style={{ background: "#071319" }}>
         <Container>
           <div className="max-w-3xl mx-auto space-y-10">
             <AnimateOnScroll>
@@ -157,10 +145,11 @@ export default function AboutPage() {
       <div className="glow-divider" />
 
       {/* Foundational Layer — Six Verticals */}
-      <section className="py-12 lg:py-16" style={{ background: "#0e2830" }}>
-        <Container>
-          <AnimateOnScroll className="text-center mb-8">
-            <p className="section-label mb-4">Foundational Layer</p>
+      <section className="py-12 lg:py-16 relative" style={{ background: "#091e26" }}>
+        <div className="absolute inset-0 pointer-events-none" style={{ background: "radial-gradient(circle at 50% 50%, rgba(69,151,176,0.06) 0%, transparent 50%)" }} />
+        <Container className="relative">
+          <AnimateOnScroll className="text-center mb-10">
+            <p className="section-label mb-4" style={{ color: "#56b3f5" }}>Foundational Layer</p>
             <h2 className="heading-h2 text-[#FDFFFF] mb-3">
               Wherever knowledge flows
             </h2>
@@ -170,17 +159,28 @@ export default function AboutPage() {
             </p>
           </AnimateOnScroll>
 
-          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 max-w-4xl mx-auto min-h-[200px]">
-            {SIX_VERTICALS.map((vertical, i) => (
-              <AnimateOnScroll key={vertical.name} delay={i * 0.08}>
-                <div className={`dark-card p-6 h-full ${verticalColors[i]}`}>
-                  <h3 className="heading-h3 text-[#FDFFFF] mb-2 text-base">{vertical.name}</h3>
-                  <p className="text-white/60 text-sm leading-relaxed break-words">
-                    {vertical.description}
-                  </p>
-                </div>
-              </AnimateOnScroll>
-            ))}
+          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4 max-w-4xl mx-auto min-h-[200px]">
+            {SIX_VERTICALS.map((vertical, i) => {
+              const colors = ["#56b3f5", "#f06565", "#f0b429", "#36c08e", "#9b8ce8", "#e07c4f"];
+              const color = colors[i];
+              const icons = ["⚡", "🎯", "📈", "👥", "⚖️", "🔒"];
+              return (
+                <AnimateOnScroll key={vertical.name} delay={i * 0.08}>
+                  <div className="relative rounded-xl p-5 h-full group transition-all duration-300 hover:scale-[1.02]" style={{ background: `linear-gradient(145deg, ${color}0A, transparent 70%)`, border: `1px solid ${color}18` }}>
+                    <div className="absolute top-0 left-0 w-full h-[2px] rounded-t-xl" style={{ background: `linear-gradient(90deg, ${color}40, transparent)` }} />
+                    <div className="flex items-start gap-3">
+                      <span className="text-xl mt-0.5">{icons[i]}</span>
+                      <div>
+                        <h3 className="font-semibold text-[#FDFFFF] mb-1.5 text-base" style={{ fontSize: "clamp(0.9rem, 1.5vw, 1rem)" }}>{vertical.name}</h3>
+                        <p className="text-white/55 text-sm leading-relaxed break-words">
+                          {vertical.description}
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                </AnimateOnScroll>
+              );
+            })}
           </div>
         </Container>
       </section>
@@ -188,7 +188,7 @@ export default function AboutPage() {
       <div className="glow-divider" />
 
       {/* Team */}
-      <section className="py-12 lg:py-16" style={{ background: "#0c2329" }}>
+      <section className="py-12 lg:py-16" style={{ background: "#071319" }}>
         <Container>
           <div className="max-w-4xl mx-auto">
             <AnimateOnScroll className="space-y-8">
@@ -205,24 +205,6 @@ export default function AboutPage() {
                 </p>
               </div>
 
-              {/* Hiring roles */}
-              <div className="space-y-4">
-                <h3 className="text-[#FDFFFF] font-semibold text-lg">The Team We&apos;re Building</h3>
-                <p className="text-white/40 text-sm">We&apos;re assembling a world-class team to build the Knowledge Resolution category.</p>
-                <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
-                  {hiringRoles.map((role) => (
-                    <div key={role.title} className="dark-card p-4 relative">
-                      <div className="absolute top-3 right-3">
-                        <span className="text-[9px] font-medium text-accent-emerald bg-accent-emerald/10 px-1.5 py-0.5 rounded-full">
-                          Hiring
-                        </span>
-                      </div>
-                      <h4 className="text-[#FDFFFF] font-semibold text-sm mb-1">{role.title}</h4>
-                      <p className="text-white/40 text-xs leading-relaxed break-words">{role.description}</p>
-                    </div>
-                  ))}
-                </div>
-              </div>
             </AnimateOnScroll>
           </div>
         </Container>
@@ -231,24 +213,37 @@ export default function AboutPage() {
       <div className="glow-divider" />
 
       {/* Operating Principles */}
-      <section className="py-12 lg:py-16" style={{ background: "#0e2830" }}>
-        <Container>
-          <AnimateOnScroll className="text-center mb-8">
-            <p className="section-label mb-4">How We Think</p>
+      <section className="py-12 lg:py-16 relative" style={{ background: "#091e26" }}>
+        <div className="absolute inset-0 pointer-events-none" style={{ background: "radial-gradient(ellipse at 30% 20%, rgba(240,180,41,0.03) 0%, transparent 50%), radial-gradient(ellipse at 70% 80%, rgba(155,140,232,0.03) 0%, transparent 50%)" }} />
+        <Container className="relative">
+          <AnimateOnScroll className="text-center mb-10">
+            <p className="section-label mb-4" style={{ color: "#f0b429" }}>How We Think</p>
             <h2 className="heading-h2 text-[#FDFFFF]">
               Operating principles
             </h2>
           </AnimateOnScroll>
 
-          <div className="grid sm:grid-cols-2 gap-6 max-w-4xl mx-auto min-h-[200px]">
-            {principles.map((p, i) => (
-              <AnimateOnScroll key={p.title} delay={i * 0.1} className={i === principles.length - 1 ? "sm:col-span-2 sm:max-w-md sm:mx-auto" : ""}>
-                <div className={`dark-card p-6 ${p.border}`}>
-                  <h3 className="heading-h3 text-[#FDFFFF] mb-2 text-base">{p.title}</h3>
-                  <p className="text-white/60 text-sm leading-relaxed break-words">{p.description}</p>
-                </div>
-              </AnimateOnScroll>
-            ))}
+          <div className="max-w-3xl mx-auto space-y-4 min-h-[200px]">
+            {principles.map((p, i) => {
+              const colors = ["#56b3f5", "#f0b429", "#36c08e", "#9b8ce8", "#f06565"];
+              const color = colors[i];
+              const numbers = ["01", "02", "03", "04", "05"];
+              return (
+                <AnimateOnScroll key={p.title} delay={i * 0.08}>
+                  <div className="flex items-start gap-5 group">
+                    <div className="shrink-0 mt-1">
+                      <span className="block w-10 h-10 rounded-xl text-sm font-bold flex items-center justify-center" style={{ background: `${color}12`, color, border: `1px solid ${color}25` }}>
+                        {numbers[i]}
+                      </span>
+                    </div>
+                    <div className="flex-1 pb-4" style={{ borderBottom: `1px solid ${color}12` }}>
+                      <h3 className="font-semibold text-[#FDFFFF] mb-1.5 text-base">{p.title}</h3>
+                      <p className="text-white/55 text-sm leading-relaxed break-words">{p.description}</p>
+                    </div>
+                  </div>
+                </AnimateOnScroll>
+              );
+            })}
           </div>
         </Container>
       </section>

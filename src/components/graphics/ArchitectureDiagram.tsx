@@ -155,7 +155,7 @@ export default function ArchitectureDiagram({
       <div
         ref={containerRef}
         className={`relative w-full overflow-hidden rounded-2xl ${className}`}
-        style={{ backgroundColor: "#0a1e24" }}
+        style={{ backgroundColor: "#050d12" }}
       >
         {/* Subtle grid background */}
         <div

@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import AnimateOnScroll from "@/components/AnimateOnScroll";
 import Container from "@/components/ui/Container";
-import Badge from "@/components/ui/Badge";
 import Button from "@/components/ui/Button";
 import CTABanner from "@/components/sections/CTABanner";
 import { PRICING_TIERS, SITE } from "@/lib/constants";
@@ -46,7 +45,7 @@ export default function PricingPage() {
   return (
     <>
       {/* Hero */}
-      <section className="pt-28 pb-16 relative" style={{ background: "#0c2329" }}>
+      <section className="pt-28 pb-16 relative" style={{ background: "#071319" }}>
         <div className="absolute top-0 left-1/2 w-72 h-72 bg-brand-500/5 rounded-full blur-3xl -translate-x-1/2" />
         <Container className="relative text-center">
           <AnimateOnScroll className="space-y-5 max-w-3xl mx-auto">
@@ -64,12 +63,12 @@ export default function PricingPage() {
       <div className="glow-divider" />
 
       {/* Pricing Cards */}
-      <section className="py-12 lg:py-16" style={{ background: "#0e2830" }}>
+      <section className="py-12 lg:py-16" style={{ background: "#091e26" }}>
         <Container>
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 max-w-6xl mx-auto min-h-[200px]">
             {PRICING_TIERS.map((tier, i) => (
               <AnimateOnScroll key={tier.name} delay={i * 0.1}>
-                <div className={`dark-card overflow-hidden h-full flex flex-col ${tierAccents[i].border} ${tier.highlighted ? "ring-2 ring-brand-500 shadow-lg shadow-brand-500/10" : ""}`}>
+                <div className={`glass-card overflow-hidden h-full flex flex-col ${tierAccents[i].border} ${tier.highlighted ? "ring-2 ring-brand-500 shadow-lg shadow-brand-500/10" : ""}`}>
                   <div className="p-6 flex flex-col flex-1">
                     <h3 className={`font-semibold text-lg mb-1 ${tierAccents[i].badge}`}>{tier.name}</h3>
                     <p className="text-white/40 text-sm mb-4 break-words">{tier.description}</p>
@@ -142,7 +141,7 @@ export default function PricingPage() {
       <div className="glow-divider" />
 
       {/* Usage-based Pricing */}
-      <section className="py-12 lg:py-16" style={{ background: "#0c2329" }}>
+      <section className="py-12 lg:py-16" style={{ background: "#071319" }}>
         <Container>
           <div className="max-w-3xl mx-auto">
             <AnimateOnScroll className="text-center mb-10">
@@ -176,11 +175,12 @@ export default function PricingPage() {
       <div className="glow-divider" />
 
       {/* FAQ */}
-      <section className="py-12 lg:py-16" style={{ background: "#0e2830" }}>
+      <section className="py-12 lg:py-16 relative" style={{ background: "#091e26" }}>
+        <div className="absolute inset-0 pointer-events-none" style={{ background: "radial-gradient(ellipse at 50% 0%, rgba(155,140,232,0.04) 0%, transparent 50%)" }} />
         <Container className="relative">
-          <AnimateOnScroll className="text-center mb-8">
-            <Badge variant="highlight">FAQ</Badge>
-            <h2 className="heading-h2 text-[#FDFFFF] mt-4 mb-3">
+          <AnimateOnScroll className="text-center mb-10">
+            <p className="section-label mb-4" style={{ color: "#9b8ce8" }}>FAQ</p>
+            <h2 className="heading-h2 text-[#FDFFFF] mb-3">
               Frequently asked questions
             </h2>
             <p className="text-white/50 text-lg max-w-xl mx-auto">
@@ -188,15 +188,28 @@ export default function PricingPage() {
             </p>
           </AnimateOnScroll>
 
-          <div className="max-w-4xl mx-auto grid sm:grid-cols-2 gap-3 min-h-[200px]">
-            {faqs.map((faq, i) => (
-              <AnimateOnScroll key={i} delay={i * 0.05}>
-                <div className="dark-card p-4 h-full">
-                  <h3 className="text-[#FDFFFF] font-medium mb-1 text-sm">{faq.q}</h3>
-                  <p className="text-white/50 text-xs leading-relaxed break-words">{faq.a}</p>
-                </div>
-              </AnimateOnScroll>
-            ))}
+          <div className="max-w-3xl mx-auto space-y-3 min-h-[200px]">
+            {faqs.map((faq, i) => {
+              const accentColors = ["#9b8ce8", "#4597b0", "#f0b429", "#36c08e", "#f06565"];
+              const color = accentColors[i % accentColors.length];
+              return (
+                <AnimateOnScroll key={i} delay={i * 0.05}>
+                  <div className="rounded-xl overflow-hidden" style={{ background: `linear-gradient(135deg, ${color}08, transparent 60%)`, border: `1px solid ${color}15` }}>
+                    <div className="p-5">
+                      <div className="flex items-start gap-3">
+                        <span className="w-7 h-7 rounded-lg flex items-center justify-center shrink-0 text-xs font-bold" style={{ background: `${color}15`, color }}>
+                          Q{i + 1}
+                        </span>
+                        <div>
+                          <h3 className="text-[#FDFFFF] font-semibold text-sm mb-2">{faq.q}</h3>
+                          <p className="text-white/50 text-sm leading-relaxed break-words">{faq.a}</p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </AnimateOnScroll>
+              );
+            })}
           </div>
         </Container>
       </section>
