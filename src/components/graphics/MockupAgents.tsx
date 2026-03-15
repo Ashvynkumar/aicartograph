@@ -18,9 +18,12 @@ export default function MockupAgents({ className = "" }: { className?: string })
   }, []);
 
   const agents = [
-    { name: "Web Widget Agent", channel: "Web", channelIcon: "🌐", status: "Deployed", statusColor: "#36c08e", queries: "12.8k", description: "Handles customer queries via embedded widget", delay: 0.2 },
-    { name: "Slack Bot", channel: "Slack", channelIcon: "#", status: "Deployed", statusColor: "#36c08e", queries: "8.4k", description: "Internal team support and knowledge lookup", delay: 0.4 },
-    { name: "Email Agent", channel: "Email", channelIcon: "✉", status: "Draft", statusColor: "#febc2e", queries: "0", description: "Auto-respond to support inbox inquiries", delay: 0.6 },
+    { name: "Web Widget Agent", channel: "Web", channelIcon: "🌐", status: "Deployed", statusColor: "#36c08e", queries: "12.8k", delay: 0.2 },
+    { name: "Slack Bot", channel: "Slack", channelIcon: "#", status: "Deployed", statusColor: "#36c08e", queries: "8.4k", delay: 0.3 },
+    { name: "Email Agent", channel: "Email", channelIcon: "✉", status: "Draft", statusColor: "#febc2e", queries: "—", delay: 0.4 },
+    { name: "Voice Support", channel: "Voice", channelIcon: "🎙", status: "Deployed", statusColor: "#36c08e", queries: "5.2k", delay: 0.5 },
+    { name: "FAQ Bot", channel: "Web", channelIcon: "💬", status: "Deployed", statusColor: "#36c08e", queries: "9.1k", delay: 0.6 },
+    { name: "Onboarding Guide", channel: "Internal", channelIcon: "🎓", status: "Draft", statusColor: "#febc2e", queries: "—", delay: 0.7 },
   ];
 
   return (
@@ -59,92 +62,73 @@ export default function MockupAgents({ className = "" }: { className?: string })
             </div>
           </div>
 
-          <div className="grid grid-cols-3 gap-3">
-            {agents.map((agent, i) => (
-              <div
-                key={i}
-                className="bg-white/[0.04] rounded-lg border border-white/[0.06] p-4 flex flex-col"
-                style={{
-                  opacity: isInView ? 1 : 0,
-                  transform: isInView ? "translateY(0)" : "translateY(12px)",
-                  transition: `all 0.5s ${agent.delay}s ease-out`,
-                }}
-              >
-                <div className="flex items-start justify-between mb-2.5">
-                  <div
-                    className="w-9 h-9 rounded-lg flex items-center justify-center text-[14px]"
-                    style={{
-                      backgroundColor:
-                        agent.channel === "Web" ? "rgba(69,151,176,0.15)"
-                          : agent.channel === "Slack" ? "rgba(98,172,187,0.15)"
-                          : "rgba(254,188,46,0.1)",
-                    }}
-                  >
+          <div className="grid grid-cols-3 gap-2.5">
+            {agents.map((agent, i) => {
+              const channelColors: Record<string, { bg: string; fg: string }> = {
+                Web: { bg: "rgba(69,151,176,0.15)", fg: "#4597b0" },
+                Slack: { bg: "rgba(98,172,187,0.15)", fg: "#62acbb" },
+                Email: { bg: "rgba(254,188,46,0.1)", fg: "#febc2e" },
+                Voice: { bg: "rgba(240,101,101,0.1)", fg: "#f06565" },
+                Internal: { bg: "rgba(240,180,41,0.1)", fg: "#f0b429" },
+              };
+              const cc = channelColors[agent.channel] || channelColors.Web;
+              return (
+                <div
+                  key={i}
+                  className="bg-white/[0.04] rounded-lg border border-white/[0.06] p-3 flex flex-col"
+                  style={{
+                    opacity: isInView ? 1 : 0,
+                    transform: isInView ? "translateY(0)" : "translateY(8px)",
+                    transition: `all 0.4s ${agent.delay}s ease-out`,
+                  }}
+                >
+                  <div className="flex items-center justify-between mb-2">
+                    <div
+                      className="w-7 h-7 rounded-md flex items-center justify-center text-[12px]"
+                      style={{ backgroundColor: cc.bg }}
+                    >
+                      <span style={{ color: cc.fg }}>{agent.channelIcon}</span>
+                    </div>
                     <span
+                      className="text-[9px] px-1.5 py-0.5 rounded-full font-medium"
                       style={{
-                        color: agent.channel === "Web" ? "#4597b0" : agent.channel === "Slack" ? "#62acbb" : "#febc2e",
-                        fontSize: agent.channel === "Slack" ? "16px" : "14px",
-                        fontWeight: agent.channel === "Slack" ? "bold" : "normal",
+                        color: agent.statusColor,
+                        backgroundColor: agent.status === "Deployed" ? "rgba(54,192,142,0.1)" : "rgba(254,188,46,0.08)",
+                        border: `1px solid ${agent.status === "Deployed" ? "rgba(54,192,142,0.15)" : "rgba(254,188,46,0.12)"}`,
+                        animation: isInView && agent.status === "Deployed" ? "agent-status-pulse 3s ease-in-out infinite" : "none",
                       }}
                     >
-                      {agent.channelIcon}
+                      {agent.status}
                     </span>
                   </div>
-                  <span
-                    className="text-[10px] px-2 py-0.5 rounded-full font-medium"
-                    style={{
-                      color: agent.statusColor,
-                      backgroundColor: agent.status === "Deployed" ? "rgba(54,192,142,0.1)" : "rgba(254,188,46,0.08)",
-                      border: `1px solid ${agent.status === "Deployed" ? "rgba(54,192,142,0.15)" : "rgba(254,188,46,0.12)"}`,
-                      animation: isInView && agent.status === "Deployed" ? "agent-status-pulse 3s ease-in-out infinite" : "none",
-                    }}
-                  >
-                    {agent.status}
-                  </span>
-                </div>
-
-                <div className="text-white/85 text-[13px] font-semibold mb-1">{agent.name}</div>
-                <div className="text-white/40 text-[11px] mb-4 leading-relaxed">{agent.description}</div>
-
-                <div className="mt-auto pt-2.5 border-t border-white/[0.05] flex items-center justify-between">
-                  <div>
-                    <div className="text-white/30 text-[9px] uppercase tracking-wide">Queries</div>
-                    <div
-                      className="text-[14px] font-semibold"
-                      style={{ color: agent.queries === "0" ? "rgba(255,255,255,0.2)" : "#4597b0" }}
-                    >
+                  <div className="text-white/85 text-[12px] font-semibold mb-1">{agent.name}</div>
+                  <div className="mt-auto pt-1.5 border-t border-white/[0.05] flex items-center justify-between">
+                    <div className="text-[12px] font-semibold" style={{ color: agent.queries === "—" ? "rgba(255,255,255,0.2)" : "#4597b0" }}>
                       {agent.queries}
                     </div>
-                  </div>
-                  <div>
-                    <div className="text-white/30 text-[9px] uppercase tracking-wide">Channel</div>
-                    <div className="text-white/50 text-[11px]">{agent.channel}</div>
-                  </div>
-                  {/* Animated sparkline */}
-                  <div className="flex items-end gap-[2px] h-4">
-                    {(agent.status === "Deployed"
-                      ? [3, 5, 4, 7, 6, 8, 5, 9, 7]
-                      : [0, 0, 0, 0, 0, 0, 0, 0, 0]
-                    ).map((h, j) => (
-                      <div
-                        key={j}
-                        className="w-[4px] rounded-sm origin-bottom"
-                        style={{
-                          height: `${h * 1.6}px`,
-                          backgroundColor: h > 0
-                            ? i === 0 ? "rgba(69,151,176,0.4)" : "rgba(98,172,187,0.4)"
-                            : "rgba(255,255,255,0.05)",
-                          animation: isInView && h > 0
-                            ? `agent-sparkle ${1.5 + j * 0.1}s ${agent.delay + j * 0.08}s ease-in-out infinite`
-                            : "none",
-                          transformOrigin: "bottom",
-                        }}
-                      />
-                    ))}
+                    <div className="flex items-end gap-[2px] h-3">
+                      {(agent.status === "Deployed"
+                        ? [3, 5, 4, 7, 6, 8, 5]
+                        : [0, 0, 0, 0, 0, 0, 0]
+                      ).map((h, j) => (
+                        <div
+                          key={j}
+                          className="w-[3px] rounded-sm origin-bottom"
+                          style={{
+                            height: `${h * 1.2}px`,
+                            backgroundColor: h > 0 ? `${cc.fg}66` : "rgba(255,255,255,0.05)",
+                            animation: isInView && h > 0
+                              ? `agent-sparkle ${1.5 + j * 0.1}s ${agent.delay + j * 0.08}s ease-in-out infinite`
+                              : "none",
+                            transformOrigin: "bottom",
+                          }}
+                        />
+                      ))}
+                    </div>
                   </div>
                 </div>
-              </div>
-            ))}
+              );
+            })}
           </div>
         </div>
       </div>
