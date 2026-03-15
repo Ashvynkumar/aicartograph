@@ -4,10 +4,9 @@ import { useState, useEffect, useRef } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import Image from "next/image";
-import { Eye, EyeOff, UserPlus } from "lucide-react";
+import { Eye, EyeOff, UserPlus, Shield, Zap, Brain, Globe, BarChart3, Lock } from "lucide-react";
 
-/* ── Canvas: Cartograph convergence — scattered source nodes with curved
-     paths converging to a central point, mirroring the compass logo ── */
+/* ── Canvas: Enhanced Cartograph convergence with grid + brighter nodes ── */
 function ConvergenceCanvas() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
 
@@ -52,22 +51,22 @@ function ConvergenceCanvas() {
     }
 
     const sourceNodes: SourceNode[] = [];
-    const nodeCount = 32;
+    const nodeCount = 48;
 
     for (let i = 0; i < nodeCount; i++) {
       const angle = (i / nodeCount) * Math.PI * 2 + (Math.random() - 0.5) * 0.5;
-      const dist = 0.25 + Math.random() * 0.3;
+      const dist = 0.2 + Math.random() * 0.35;
       sourceNodes.push({
         homeX: 0.5 + Math.cos(angle) * dist,
         homeY: 0.5 + Math.sin(angle) * dist,
-        radius: 1.5 + Math.random() * 2.5,
+        radius: 2 + Math.random() * 3,
         pulseSpeed: 0.4 + Math.random() * 1.2,
         phase: Math.random() * Math.PI * 2,
         color: palette[Math.floor(Math.random() * palette.length)],
-        driftRadius: 8 + Math.random() * 15,
+        driftRadius: 10 + Math.random() * 20,
         driftSpeed: 0.2 + Math.random() * 0.4,
-        cpOffsetX: (Math.random() - 0.5) * 0.3,
-        cpOffsetY: (Math.random() - 0.5) * 0.3,
+        cpOffsetX: (Math.random() - 0.5) * 0.35,
+        cpOffsetY: (Math.random() - 0.5) * 0.35,
         pathPulseSpeed: 0.3 + Math.random() * 0.5,
         pathPulsePhase: Math.random() * Math.PI * 2,
       });
@@ -85,12 +84,43 @@ function ConvergenceCanvas() {
       const cx = centerX * w;
       const cy = centerY * h;
 
-      const centralGlow = ctx.createRadialGradient(cx, cy, 0, cx, cy, Math.min(w, h) * 0.25);
-      centralGlow.addColorStop(0, "rgba(69,151,176,0.06)");
-      centralGlow.addColorStop(0.5, "rgba(69,151,176,0.02)");
+      // Dot grid pattern
+      const gridSpacing = 40;
+      const dotRadius = 0.8;
+      for (let x = gridSpacing; x < w; x += gridSpacing) {
+        for (let y = gridSpacing; y < h; y += gridSpacing) {
+          const distFromCenter = Math.sqrt((x - cx) ** 2 + (y - cy) ** 2);
+          const maxDist = Math.sqrt(cx * cx + cy * cy);
+          const alpha = 0.03 + 0.04 * (1 - distFromCenter / maxDist);
+          ctx.fillStyle = `rgba(69,151,176,${alpha.toFixed(3)})`;
+          ctx.beginPath();
+          ctx.arc(x, y, dotRadius, 0, Math.PI * 2);
+          ctx.fill();
+        }
+      }
+
+      // Central glow — stronger
+      const centralGlow = ctx.createRadialGradient(cx, cy, 0, cx, cy, Math.min(w, h) * 0.35);
+      centralGlow.addColorStop(0, "rgba(69,151,176,0.12)");
+      centralGlow.addColorStop(0.4, "rgba(69,151,176,0.05)");
       centralGlow.addColorStop(1, "rgba(69,151,176,0)");
       ctx.fillStyle = centralGlow;
       ctx.fillRect(0, 0, w, h);
+
+      // Corner accent glows
+      const corners = [
+        { x: 0, y: 0, color: "rgba(54,192,142," },
+        { x: w, y: 0, color: "rgba(155,140,232," },
+        { x: 0, y: h, color: "rgba(155,140,232," },
+        { x: w, y: h, color: "rgba(54,192,142," },
+      ];
+      for (const corner of corners) {
+        const g = ctx.createRadialGradient(corner.x, corner.y, 0, corner.x, corner.y, Math.min(w, h) * 0.4);
+        g.addColorStop(0, corner.color + "0.06)");
+        g.addColorStop(1, corner.color + "0)");
+        ctx.fillStyle = g;
+        ctx.fillRect(0, 0, w, h);
+      }
 
       for (const node of sourceNodes) {
         const pulse = Math.sin(t * node.pulseSpeed * 2 + node.phase);
@@ -99,10 +129,10 @@ function ConvergenceCanvas() {
         const cpx = cx + node.cpOffsetX * w;
         const cpy = cy + node.cpOffsetY * h;
 
-        const pathAlpha = 0.04 + pulse * 0.015;
+        const pathAlpha = 0.08 + pulse * 0.04;
         ctx.beginPath();
         ctx.strokeStyle = node.color + pathAlpha.toFixed(3) + ")";
-        ctx.lineWidth = 0.6;
+        ctx.lineWidth = 0.8;
         ctx.moveTo(nx, ny);
         ctx.quadraticCurveTo(cpx, cpy, cx, cy);
         ctx.stroke();
@@ -110,22 +140,22 @@ function ConvergenceCanvas() {
         const pathT = (Math.sin(t * node.pathPulseSpeed + node.pathPulsePhase) + 1) / 2;
         const ptx = (1 - pathT) * (1 - pathT) * nx + 2 * (1 - pathT) * pathT * cpx + pathT * pathT * cx;
         const pty = (1 - pathT) * (1 - pathT) * ny + 2 * (1 - pathT) * pathT * cpy + pathT * pathT * cy;
-        const pulseGlow = ctx.createRadialGradient(ptx, pty, 0, ptx, pty, 8);
-        pulseGlow.addColorStop(0, node.color + "0.12)");
+        const pulseGlow = ctx.createRadialGradient(ptx, pty, 0, ptx, pty, 12);
+        pulseGlow.addColorStop(0, node.color + "0.25)");
         pulseGlow.addColorStop(1, node.color + "0)");
         ctx.fillStyle = pulseGlow;
         ctx.beginPath();
-        ctx.arc(ptx, pty, 8, 0, Math.PI * 2);
+        ctx.arc(ptx, pty, 12, 0, Math.PI * 2);
         ctx.fill();
 
-        const nodeOpacity = 0.12 + pulse * 0.08;
-        const r = node.radius + pulse * 1;
-        const nodeGlow = ctx.createRadialGradient(nx, ny, 0, nx, ny, r * 5);
-        nodeGlow.addColorStop(0, node.color + (nodeOpacity * 0.4).toFixed(3) + ")");
+        const nodeOpacity = 0.25 + pulse * 0.15;
+        const r = node.radius + pulse * 1.5;
+        const nodeGlow = ctx.createRadialGradient(nx, ny, 0, nx, ny, r * 6);
+        nodeGlow.addColorStop(0, node.color + (nodeOpacity * 0.5).toFixed(3) + ")");
         nodeGlow.addColorStop(1, node.color + "0)");
         ctx.fillStyle = nodeGlow;
         ctx.beginPath();
-        ctx.arc(nx, ny, r * 5, 0, Math.PI * 2);
+        ctx.arc(nx, ny, r * 6, 0, Math.PI * 2);
         ctx.fill();
 
         ctx.fillStyle = node.color + nodeOpacity.toFixed(3) + ")";
@@ -145,12 +175,12 @@ function ConvergenceCanvas() {
           const dx = ax - bx;
           const dy = ay - by;
           const dist = Math.sqrt(dx * dx + dy * dy);
-          const threshold = Math.min(w, h) * 0.12;
+          const threshold = Math.min(w, h) * 0.15;
           if (dist < threshold) {
-            const alpha = (1 - dist / threshold) * 0.04;
+            const alpha = (1 - dist / threshold) * 0.1;
             ctx.beginPath();
             ctx.strokeStyle = `rgba(69,151,176,${alpha.toFixed(3)})`;
-            ctx.lineWidth = 0.4;
+            ctx.lineWidth = 0.5;
             ctx.moveTo(ax, ay);
             ctx.lineTo(bx, by);
             ctx.stroke();
@@ -169,6 +199,33 @@ function ConvergenceCanvas() {
   }, []);
 
   return <canvas ref={canvasRef} className="absolute inset-0 w-full h-full" />;
+}
+
+/* ── Floating feature badges ── */
+const floatingBadges = [
+  { icon: Shield, label: "SOC 2 Compliant", x: "left-[6%]", y: "top-[18%]", delay: "0s" },
+  { icon: Zap, label: "Real-time Sync", x: "left-[8%]", y: "top-[45%]", delay: "0.5s" },
+  { icon: Globe, label: "Multi-source", x: "left-[5%]", y: "bottom-[25%]", delay: "1s" },
+  { icon: Brain, label: "AI-Powered", x: "right-[6%]", y: "top-[20%]", delay: "0.3s" },
+  { icon: BarChart3, label: "Analytics", x: "right-[7%]", y: "top-[48%]", delay: "0.8s" },
+  { icon: Lock, label: "Enterprise Ready", x: "right-[5%]", y: "bottom-[22%]", delay: "1.2s" },
+];
+
+function FloatingBadges() {
+  return (
+    <>
+      {floatingBadges.map((badge, i) => (
+        <div
+          key={i}
+          className={`absolute ${badge.x} ${badge.y} hidden lg:flex items-center gap-2 px-3 py-1.5 rounded-full bg-white/[0.03] border border-white/[0.06] backdrop-blur-sm text-white/30 text-xs animate-float pointer-events-none`}
+          style={{ animationDelay: badge.delay, animationDuration: "6s" }}
+        >
+          <badge.icon size={12} className="text-[#4597b0]/50" />
+          {badge.label}
+        </div>
+      ))}
+    </>
+  );
 }
 
 export default function SignupPage() {
@@ -196,9 +253,12 @@ export default function SignupPage() {
       <div
         className="absolute inset-0 pointer-events-none"
         style={{
-          background: "radial-gradient(ellipse at center, transparent 20%, rgba(8,6,4,0.6) 70%, rgba(8,6,4,0.85) 100%)",
+          background: "radial-gradient(ellipse at center, transparent 30%, rgba(8,6,4,0.4) 65%, rgba(8,6,4,0.75) 100%)",
         }}
       />
+
+      {/* Floating feature badges */}
+      <FloatingBadges />
 
       {/* Back to website */}
       <Link
@@ -345,6 +405,15 @@ export default function SignupPage() {
               Sign in
             </Link>
           </p>
+        </div>
+
+        {/* Trust strip below card */}
+        <div className="flex items-center justify-center gap-6 mt-6 text-white/20 text-[10px] tracking-wider uppercase">
+          <span className="flex items-center gap-1.5"><Lock size={10} /> 256-bit SSL</span>
+          <span className="w-px h-3 bg-white/10" />
+          <span className="flex items-center gap-1.5"><Shield size={10} /> SOC 2</span>
+          <span className="w-px h-3 bg-white/10" />
+          <span className="flex items-center gap-1.5"><Globe size={10} /> GDPR</span>
         </div>
       </div>
     </div>
