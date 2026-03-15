@@ -3,7 +3,6 @@ import AnimateOnScroll from "@/components/AnimateOnScroll";
 import Container from "@/components/ui/Container";
 import Badge from "@/components/ui/Badge";
 import Button from "@/components/ui/Button";
-import SectionDivider from "@/components/ui/SectionDivider";
 import CTABanner from "@/components/sections/CTABanner";
 import { PRICING_TIERS, SITE } from "@/lib/constants";
 
@@ -13,11 +12,11 @@ export const metadata: Metadata = {
     "Simple, transparent pricing for knowledge resolution. Start free. Scale with value.",
 };
 
-const tierHeaderColors = [
-  "bg-[#97c1cc] text-brand-900",     /* Free */
-  "bg-[#49818d] text-white",         /* Starter */
-  "bg-[#4597b0] text-white",         /* Professional — most prominent */
-  "bg-[#0c2329] text-white",         /* Enterprise */
+const tierAccents = [
+  { border: "border-t-4 border-t-brand-300", badge: "text-brand-300" },
+  { border: "border-t-4 border-t-brand-400", badge: "text-brand-400" },
+  { border: "border-t-4 border-t-brand-500", badge: "text-brand-500" },
+  { border: "border-t-4 border-t-accent-amber", badge: "text-accent-amber" },
 ];
 
 const faqs = [
@@ -31,11 +30,11 @@ const faqs = [
   },
   {
     q: "What counts as an active user?",
-    a: "Any team member who uses aiCartograph to resolve a question in a given billing period. Read-only dashboard viewers don't count.",
+    a: "Any team member who uses aiCartograph to resolve a question in a given billing period. Read-only dashboard viewers don\u2019t count.",
   },
   {
     q: "What about customer-facing deployments?",
-    a: "For customer-facing use cases where your end users interact with aiCartograph, we offer usage-based pricing at $0.30–$0.75 per resolution. Volume discounts available.",
+    a: "For customer-facing use cases where your end users interact with aiCartograph, we offer usage-based pricing at $0.30\u2013$0.75 per resolution. Volume discounts available.",
   },
   {
     q: "Do you offer annual billing?",
@@ -46,8 +45,8 @@ const faqs = [
 export default function PricingPage() {
   return (
     <>
-      {/* Hero (DARK) */}
-      <section className="pt-28 pb-16 section-dark relative">
+      {/* Hero */}
+      <section className="pt-28 pb-16 relative" style={{ background: "#0c2329" }}>
         <div className="absolute top-0 left-1/2 w-72 h-72 bg-brand-500/5 rounded-full blur-3xl -translate-x-1/2" />
         <Container className="relative text-center">
           <AnimateOnScroll className="space-y-5 max-w-3xl mx-auto">
@@ -62,51 +61,53 @@ export default function PricingPage() {
         </Container>
       </section>
 
-      <SectionDivider variant="rich" />
+      <div className="glow-divider" />
 
-      {/* Pricing Cards (LIGHT) */}
-      <section className="section-light py-12 lg:py-16">
+      {/* Pricing Cards */}
+      <section className="py-12 lg:py-16" style={{ background: "#0e2830" }}>
         <Container>
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 max-w-6xl mx-auto">
+          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 max-w-6xl mx-auto min-h-[200px]">
             {PRICING_TIERS.map((tier, i) => (
               <AnimateOnScroll key={tier.name} delay={i * 0.1}>
-                <div className={`card-surface rounded-xl overflow-hidden h-full flex flex-col hover:-translate-y-0.5 hover:shadow-lg transition-all duration-300 ${tier.highlighted ? "ring-2 ring-brand-500 shadow-lg shadow-brand-500/10" : ""}`}>
-                  {/* Colored tier header */}
-                  <div className={`px-6 py-3 ${tierHeaderColors[i]}`}>
-                    <h3 className="font-semibold text-lg">{tier.name}</h3>
-                  </div>
-
+                <div className={`dark-card overflow-hidden h-full flex flex-col ${tierAccents[i].border} ${tier.highlighted ? "ring-2 ring-brand-500 shadow-lg shadow-brand-500/10" : ""}`}>
                   <div className="p-6 flex flex-col flex-1">
-                    <p className="text-brand-700 text-sm mb-4">{tier.description}</p>
+                    <h3 className={`font-semibold text-lg mb-1 ${tierAccents[i].badge}`}>{tier.name}</h3>
+                    <p className="text-white/40 text-sm mb-4 break-words">{tier.description}</p>
 
                     <div className="mb-1">
                       {tier.basePrice === null ? (
-                        <span className="text-3xl font-bold text-brand-900">Custom</span>
+                        <span className="text-3xl font-bold text-[#FDFFFF]">Custom</span>
                       ) : tier.basePrice === 0 ? (
-                        <span className="text-3xl font-bold text-brand-900">$0</span>
+                        <span className="text-3xl font-bold text-[#FDFFFF]">$0</span>
                       ) : (
                         <>
-                          <span className="text-3xl font-bold text-brand-900">${tier.basePrice}</span>
-                          <span className="text-brand-700 ml-1">{tier.unit}</span>
+                          <span className="text-3xl font-bold text-[#FDFFFF]">${tier.basePrice}</span>
+                          <span className="text-white/40 ml-1">{tier.unit}</span>
                         </>
                       )}
                     </div>
                     {tier.perUser > 0 && (
-                      <p className="text-brand-500 text-sm mb-4">
+                      <p className="text-brand-400 text-sm mb-4">
                         + ${tier.perUser}/active user{tier.unit}
                       </p>
                     )}
                     {tier.perUser === 0 && <div className="mb-4" />}
 
                     <ul className="space-y-2.5 mb-6 flex-1">
-                      {tier.features.map((feature) => (
-                        <li key={feature} className="flex items-start gap-2.5">
-                          <svg className="w-4 h-4 text-brand-500 mt-0.5 shrink-0" fill="none" viewBox="0 0 20 20">
-                            <path d="M6 10l3 3 5-6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-                          </svg>
-                          <span className="text-brand-700 text-sm">{feature}</span>
-                        </li>
-                      ))}
+                      {tier.features.map((feature, fi) => {
+                        const isInherit = feature.startsWith("Everything in");
+                        return (
+                          <li key={feature} className="flex items-start gap-2.5">
+                            <svg className="w-4 h-4 text-brand-500 mt-0.5 shrink-0" fill="none" viewBox="0 0 20 20">
+                              <path d="M6 10l3 3 5-6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+                            </svg>
+                            <span className={`text-sm break-words ${isInherit ? "text-white/30 italic" : "text-white/60"}`}>{feature}</span>
+                            {isInherit && fi < tier.features.length - 1 && (
+                              <span className="sr-only">separator</span>
+                            )}
+                          </li>
+                        );
+                      })}
                     </ul>
 
                     <Button
@@ -126,8 +127,8 @@ export default function PricingPage() {
 
           {/* Early Access Banner */}
           <AnimateOnScroll className="mt-10">
-            <div className="max-w-2xl mx-auto text-center rounded-xl bg-gradient-to-r from-brand-500/10 to-brand-400/10 border border-brand-500/20 p-6">
-              <p className="text-brand-900 font-semibold text-lg mb-2">
+            <div className="max-w-2xl mx-auto text-center rounded-xl bg-brand-500/10 border border-brand-500/20 p-6">
+              <p className="text-[#FDFFFF] font-semibold text-lg mb-2">
                 Request Early Access and unlock founding member privileges
               </p>
               <Button href="#" variant="primary" size="md">
@@ -138,10 +139,10 @@ export default function PricingPage() {
         </Container>
       </section>
 
-      <SectionDivider variant="gradient" />
+      <div className="glow-divider" />
 
-      {/* Usage-based Pricing (DARK) */}
-      <section className="section-dark py-12 lg:py-16">
+      {/* Usage-based Pricing */}
+      <section className="py-12 lg:py-16" style={{ background: "#0c2329" }}>
         <Container>
           <div className="max-w-3xl mx-auto">
             <AnimateOnScroll className="text-center mb-10">
@@ -155,14 +156,14 @@ export default function PricingPage() {
             </AnimateOnScroll>
 
             <AnimateOnScroll>
-              <div className="rounded-xl bg-brand-800 border border-brand-700/30 p-8 text-center space-y-4">
+              <div className="dark-card p-8 text-center space-y-4">
                 <div className="flex items-baseline justify-center gap-2">
                   <span className="text-3xl font-bold text-[#FDFFFF]">$0.30</span>
-                  <span className="text-brand-300">–</span>
+                  <span className="text-brand-300">&ndash;</span>
                   <span className="text-3xl font-bold text-[#FDFFFF]">$0.75</span>
                   <span className="text-brand-300 ml-1">per resolution</span>
                 </div>
-                <p className="text-brand-300 max-w-md mx-auto text-sm">
+                <p className="text-white/50 max-w-md mx-auto text-sm break-words">
                   Price varies by resolution complexity — simple lookups cost less,
                   cross-source synthesis costs more. Volume discounts available.
                 </p>
@@ -172,27 +173,27 @@ export default function PricingPage() {
         </Container>
       </section>
 
-      <SectionDivider variant="rich" />
+      <div className="glow-divider" />
 
-      {/* FAQ (LIGHT) */}
-      <section className="section-light py-12 lg:py-16">
+      {/* FAQ */}
+      <section className="py-12 lg:py-16" style={{ background: "#0e2830" }}>
         <Container className="relative">
           <AnimateOnScroll className="text-center mb-8">
             <Badge variant="highlight">FAQ</Badge>
-            <h2 className="heading-h2 text-brand-900 mt-4 mb-3">
+            <h2 className="heading-h2 text-[#FDFFFF] mt-4 mb-3">
               Frequently asked questions
             </h2>
-            <p className="text-brand-700 text-lg max-w-xl mx-auto">
+            <p className="text-white/50 text-lg max-w-xl mx-auto">
               Everything you need to know about pricing and plans.
             </p>
           </AnimateOnScroll>
 
-          <div className="max-w-4xl mx-auto grid sm:grid-cols-2 gap-3">
+          <div className="max-w-4xl mx-auto grid sm:grid-cols-2 gap-3 min-h-[200px]">
             {faqs.map((faq, i) => (
               <AnimateOnScroll key={i} delay={i * 0.05}>
-                <div className="card-surface rounded-xl p-4 h-full">
-                  <h3 className="text-brand-900 font-medium mb-1 text-sm">{faq.q}</h3>
-                  <p className="text-brand-700 text-xs leading-relaxed">{faq.a}</p>
+                <div className="dark-card p-4 h-full">
+                  <h3 className="text-[#FDFFFF] font-medium mb-1 text-sm">{faq.q}</h3>
+                  <p className="text-white/50 text-xs leading-relaxed break-words">{faq.a}</p>
                 </div>
               </AnimateOnScroll>
             ))}
@@ -200,7 +201,7 @@ export default function PricingPage() {
         </Container>
       </section>
 
-      <SectionDivider variant="gradient" />
+      <div className="glow-divider" />
 
       <CTABanner
         headline="Ready to get started?"

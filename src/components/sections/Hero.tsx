@@ -62,8 +62,8 @@ export default function Hero() {
             {SITE.mission}
           </p>
 
-          {/* Two CTAs side by side */}
-          <div className="flex flex-col sm:flex-row items-center justify-center gap-4 pt-2">
+          {/* CTA */}
+          <div className="flex items-center justify-center pt-2">
             <div className="w-full sm:w-auto sm:min-w-[360px]">
               <EmailCapture
                 variant="inline"
@@ -71,9 +71,6 @@ export default function Hero() {
                 buttonText="Request Early Access"
               />
             </div>
-            <Button href={SITE.calendlyUrl} variant="secondary" size="md" className="h-12 whitespace-nowrap" external>
-              Schedule a Conversation &rarr;
-            </Button>
           </div>
         </motion.div>
       </Container>

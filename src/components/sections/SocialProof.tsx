@@ -48,21 +48,21 @@ export default function SocialProof() {
   ];
 
   return (
-    <section className="section-light py-12 lg:py-16 relative">
+    <section className="py-12 lg:py-16 relative" style={{ background: "#0e2830" }}>
       <Container className="relative">
         <AnimateOnScroll className="text-center mb-8">
           <p className="section-label mb-4">By the numbers</p>
-          <h2 className="heading-h2 text-brand-900">
+          <h2 className="heading-h2 text-[#FDFFFF]">
             The full knowledge lifecycle, resolved
           </h2>
         </AnimateOnScroll>
 
-        <div className="grid sm:grid-cols-3 gap-6 text-center max-w-3xl mx-auto">
+        <div className="grid sm:grid-cols-3 gap-6 text-center max-w-3xl mx-auto min-h-[200px]">
           {stats.map((stat, i) => (
             <AnimateOnScroll key={i} delay={i * 0.15}>
-              <div className="card-surface rounded-xl p-8 hover:-translate-y-0.5 hover:shadow-lg transition-all duration-300">
+              <div className="dark-card rounded-xl p-8">
                 <AnimatedCounter target={stat.value} suffix={stat.suffix} />
-                <p className="text-brand-700 mt-2 text-sm">{stat.label}</p>
+                <p className="text-white/50 mt-2 text-sm">{stat.label}</p>
               </div>
             </AnimateOnScroll>
           ))}

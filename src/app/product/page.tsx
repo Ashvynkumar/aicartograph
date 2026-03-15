@@ -2,10 +2,13 @@ import type { Metadata } from "next";
 import AnimateOnScroll from "@/components/AnimateOnScroll";
 import Container from "@/components/ui/Container";
 import Badge from "@/components/ui/Badge";
-import SectionDivider from "@/components/ui/SectionDivider";
 import { USPIcon } from "@/components/graphics/USPIcons";
 import { PillarIcon, SourceIcon } from "@/components/graphics/FancyIcons";
 import CTABanner from "@/components/sections/CTABanner";
+import MockupDashboard from "@/components/graphics/MockupDashboard";
+import MockupResolve from "@/components/graphics/MockupResolve";
+import MockupHealth from "@/components/graphics/MockupHealth";
+import MockupAgents from "@/components/graphics/MockupAgents";
 import { FRAMEWORK_PILLARS, USPS, EIGHTEEN_PROBLEMS, COMPETITOR_APPROACHES } from "@/lib/constants";
 
 export const metadata: Metadata = {
@@ -14,17 +17,17 @@ export const metadata: Metadata = {
     "Discover how aiCartograph resolves organizational knowledge — Connect, Resolve, Detect, Close the Loop.",
 };
 
-const pillarColors = [
+const pillarAccents = [
   { accent: "text-accent-amber", border: "border-l-4 border-accent-amber" },
   { accent: "text-accent-sky", border: "border-l-4 border-accent-sky" },
   { accent: "text-accent-coral", border: "border-l-4 border-accent-coral" },
   { accent: "text-accent-emerald", border: "border-l-4 border-accent-emerald" },
 ];
 
-/* ─── Section 1: Hero (DARK) ─── */
+/* ─── Section 1: Hero ─── */
 function ProductHero() {
   return (
-    <section className="pt-28 pb-16 section-dark relative">
+    <section className="pt-28 pb-16 relative" style={{ background: "#0c2329" }}>
       <div className="absolute top-0 left-1/3 w-72 h-72 bg-brand-500/5 rounded-full blur-3xl" />
       <Container className="relative">
         <AnimateOnScroll className="max-w-3xl space-y-5">
@@ -47,47 +50,61 @@ function ProductHero() {
   );
 }
 
-/* ─── Section 2: Four Pillars Full (LIGHT) ─── */
+/* ─── Section 2: Four Pillars Full ─── */
 function FourPillars() {
   return (
-    <section className="section-light py-12 lg:py-16">
+    <section className="py-12 lg:py-16" style={{ background: "#0e2830" }}>
       <Container>
         <AnimateOnScroll className="mb-8">
           <p className="section-label mb-4">The Framework</p>
-          <h2 className="heading-h2 text-brand-900">
+          <h2 className="heading-h2 text-[#FDFFFF]">
             Connect &rarr; Resolve &rarr; Detect &rarr; Close the Loop
           </h2>
-          <p className="text-brand-700 text-lg max-w-2xl mt-3">
+          <p className="text-white/50 text-lg max-w-2xl mt-3">
             Four pillars that form a continuous cycle of knowledge resolution.
           </p>
         </AnimateOnScroll>
 
-        <div className="space-y-6">
-          {FRAMEWORK_PILLARS.map((pillar, i) => (
-            <AnimateOnScroll key={pillar.id} delay={i * 0.1}>
-              <div className={`card-surface rounded-xl p-8 ${pillarColors[i].border} hover:-translate-y-0.5 hover:shadow-lg transition-all duration-300`}>
-                <div className="flex items-start gap-5">
-                  <PillarIcon id={pillar.id} className="w-10 h-10 shrink-0 mt-1" />
-                  <div>
-                    <div className="flex items-center gap-3 mb-2">
-                      <span className={`font-mono text-sm font-bold ${pillarColors[i].accent}`}>
-                        Pillar {String(i + 1).padStart(2, "0")}
-                      </span>
+        <div className="space-y-8 min-h-[200px]">
+          {FRAMEWORK_PILLARS.map((pillar, i) => {
+            const mockups = [
+              <MockupDashboard key="d" className="w-full" />,
+              <MockupResolve key="r" className="w-full" />,
+              <MockupHealth key="h" className="w-full" />,
+              <MockupAgents key="a" className="w-full" />,
+            ];
+            const isEven = i % 2 === 0;
+            return (
+              <AnimateOnScroll key={pillar.id} delay={i * 0.1}>
+                <div className={`grid lg:grid-cols-2 gap-6 items-center ${isEven ? "" : "lg:direction-rtl"}`}>
+                  <div className={`dark-card p-8 ${pillarAccents[i].border} ${isEven ? "" : "lg:order-2"}`}>
+                    <div className="flex items-start gap-5">
+                      <PillarIcon id={pillar.id} className="w-10 h-10 shrink-0 mt-1" />
+                      <div>
+                        <div className="flex items-center gap-3 mb-2">
+                          <span className={`font-mono text-sm font-bold ${pillarAccents[i].accent}`}>
+                            Pillar {String(i + 1).padStart(2, "0")}
+                          </span>
+                        </div>
+                        <h3 className="heading-h3 text-[#FDFFFF] mb-2">{pillar.verb}</h3>
+                        <p className="text-white/60 leading-relaxed break-words">{pillar.description}</p>
+                      </div>
                     </div>
-                    <h3 className="heading-h3 text-brand-900 mb-2">{pillar.verb}</h3>
-                    <p className="text-brand-700 leading-relaxed">{pillar.description}</p>
+                  </div>
+                  <div className={isEven ? "" : "lg:order-1"}>
+                    {mockups[i]}
                   </div>
                 </div>
-              </div>
-            </AnimateOnScroll>
-          ))}
+              </AnimateOnScroll>
+            );
+          })}
         </div>
       </Container>
     </section>
   );
 }
 
-/* ─── Section 3: Knowledge Sources (DARK) ─── */
+/* ─── Section 3: Knowledge Sources ─── */
 const sourceTypes = [
   "Wikis", "Help Centers", "Knowledge Bases", "Shared Drives", "Project Tools",
   "Communication Platforms", "Code Repositories", "CRM Systems", "Support Platforms",
@@ -95,7 +112,7 @@ const sourceTypes = [
 
 function KnowledgeSources() {
   return (
-    <section className="section-dark py-12 lg:py-16">
+    <section className="py-12 lg:py-16" style={{ background: "#0c2329" }}>
       <Container>
         <AnimateOnScroll className="text-center mb-8">
           <p className="section-label mb-4">Integrations</p>
@@ -122,12 +139,10 @@ function KnowledgeSources() {
   );
 }
 
-/* ─── Section 4: 18 Problems Diagnostic (DARK) ─── */
-const tileBgs = ["bg-brand-800", "bg-[#223e49]", "bg-[#1a3540]"];
-
+/* ─── Section 4: 18 Problems Diagnostic ─── */
 function EighteenProblems() {
   return (
-    <section id="diagnostic" className="section-dark py-12 lg:py-16">
+    <section id="diagnostic" className="py-12 lg:py-16" style={{ background: "#0a1e24" }}>
       <Container>
         <AnimateOnScroll className="text-center mb-8">
           <p className="section-label mb-4">The Knowledge Diagnostic</p>
@@ -136,14 +151,14 @@ function EighteenProblems() {
           </h2>
         </AnimateOnScroll>
 
-        <div className="grid grid-cols-3 sm:grid-cols-3 lg:grid-cols-6 gap-2 max-w-4xl mx-auto">
+        <div className="grid grid-cols-3 sm:grid-cols-3 lg:grid-cols-6 gap-2 max-w-4xl mx-auto min-h-[200px]">
           {EIGHTEEN_PROBLEMS.map((problem, i) => (
             <AnimateOnScroll key={problem.id} delay={i * 0.03}>
-              <div className={`${tileBgs[i % 3]} rounded-lg border border-brand-700/30 p-3 h-[70px] flex flex-col items-center justify-center text-center hover:border-brand-500/40 transition-all`}>
+              <div className="dark-card rounded-lg p-3 min-h-[72px] flex flex-col items-center justify-center text-center hover:border-brand-500/40 transition-all">
                 <span className="text-brand-500 font-mono text-xs font-bold mb-1">
                   {String(problem.id).padStart(2, "0")}
                 </span>
-                <span className="text-[#FDFFFF] text-sm font-semibold leading-tight">
+                <span className="text-[#FDFFFF] text-sm font-semibold leading-tight break-words">
                   {problem.name}
                 </span>
               </div>
@@ -161,7 +176,7 @@ function EighteenProblems() {
   );
 }
 
-/* ─── Section 5: Four USPs (LIGHT) ─── */
+/* ─── Section 5: Four USPs ─── */
 const uspBorders = [
   "border-l-4 border-accent-emerald",
   "border-l-4 border-accent-coral",
@@ -171,31 +186,31 @@ const uspBorders = [
 
 function USPDeepDive() {
   return (
-    <section className="section-light py-12 lg:py-16">
+    <section className="py-12 lg:py-16" style={{ background: "#0e2830" }}>
       <Container>
         <AnimateOnScroll className="mb-8 text-center">
           <p className="section-label mb-4">Differentiators</p>
-          <h2 className="heading-h2 text-brand-900 mb-3">
+          <h2 className="heading-h2 text-[#FDFFFF] mb-3">
             Four genuine differentiators
           </h2>
-          <p className="text-brand-700 text-lg max-w-2xl mx-auto">
+          <p className="text-white/50 text-lg max-w-2xl mx-auto">
             These aren&apos;t incremental features. They&apos;re fundamental capabilities
             that define Knowledge Resolution as a category.
           </p>
         </AnimateOnScroll>
 
-        <div className="grid sm:grid-cols-2 gap-6">
+        <div className="grid sm:grid-cols-2 gap-6 min-h-[200px]">
           {USPS.map((usp, i) => (
             <AnimateOnScroll key={usp.id} delay={i * 0.1}>
-              <div className={`card-surface rounded-xl p-6 h-full ${uspBorders[i]} hover:-translate-y-0.5 hover:shadow-lg transition-all duration-300`}>
+              <div className={`dark-card p-6 h-full ${uspBorders[i]}`}>
                 <div className="flex items-start gap-4">
                   <div className="shrink-0">
                     <USPIcon icon={usp.icon} className="w-12 h-12" />
                   </div>
                   <div>
                     <Badge variant="highlight">USP {i + 1}</Badge>
-                    <h3 className="heading-h3 text-brand-900 mt-2 mb-2">{usp.title}</h3>
-                    <p className="text-brand-700 text-sm leading-relaxed">{usp.longDescription}</p>
+                    <h3 className="heading-h3 text-[#FDFFFF] mt-2 mb-2">{usp.title}</h3>
+                    <p className="text-white/60 text-sm leading-relaxed break-words">{usp.longDescription}</p>
                   </div>
                 </div>
               </div>
@@ -207,10 +222,10 @@ function USPDeepDive() {
   );
 }
 
-/* ─── Section 6: Competitor Positioning (DARK) ─── */
+/* ─── Section 6: Competitor Positioning ─── */
 function CompetitivePositioning() {
   return (
-    <section className="section-dark py-12 lg:py-16">
+    <section className="py-12 lg:py-16" style={{ background: "#0c2329" }}>
       <Container>
         <AnimateOnScroll className="text-center mb-8">
           <p className="section-label mb-4">Category Creation</p>
@@ -222,10 +237,10 @@ function CompetitivePositioning() {
         <div className="grid sm:grid-cols-3 gap-6 max-w-4xl mx-auto">
           {COMPETITOR_APPROACHES.map((c, i) => (
             <AnimateOnScroll key={i} delay={i * 0.1}>
-              <div className="rounded-xl border border-brand-700/30 bg-brand-800 p-6 text-center space-y-3 h-full">
+              <div className="dark-card p-6 text-center space-y-3 h-full">
                 <p className="text-[#FDFFFF] font-semibold text-sm">{c.approach}</p>
                 <p className="text-accent-emerald text-sm">{c.does}</p>
-                <div className="h-px bg-brand-700/30" />
+                <div className="h-px bg-white/10" />
                 <p className="text-accent-coral text-sm font-medium">{c.gap}</p>
               </div>
             </AnimateOnScroll>
@@ -245,21 +260,69 @@ function CompetitivePositioning() {
   );
 }
 
+/* ─── Section 7: Agent Marketplace Preview ─── */
+const marketplaceAgents = [
+  { name: "User Manual Agent", desc: "Turn any product manual into an interactive AI agent.", available: true },
+  { name: "FAQ Bot", desc: "Auto-generate FAQ bots from your knowledge base.", available: false },
+  { name: "Onboarding Guide", desc: "Guide new employees through onboarding with AI.", available: false },
+  { name: "Sales Playbook Agent", desc: "Equip reps with real-time competitive intel.", available: false },
+];
+
+function AgentMarketplacePreview() {
+  return (
+    <section className="py-12 lg:py-16" style={{ background: "#0a1e24" }}>
+      <Container>
+        <AnimateOnScroll className="text-center mb-8">
+          <p className="section-label mb-4">Agent Marketplace</p>
+          <h2 className="heading-h2 text-[#FDFFFF] mb-3">
+            Pre-built agents for every use case
+          </h2>
+          <p className="text-white/50 text-lg max-w-2xl mx-auto">
+            Deploy customer-facing resolution agents in minutes, not months.
+          </p>
+        </AnimateOnScroll>
+
+        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4 max-w-5xl mx-auto">
+          {marketplaceAgents.map((agent) => (
+            <AnimateOnScroll key={agent.name}>
+              <div className={`dark-card p-5 h-full ${agent.available ? "" : "opacity-60"}`}>
+                <div className="flex items-center gap-2 mb-2">
+                  <span className={`text-[10px] font-medium px-2 py-0.5 rounded-full ${agent.available ? "bg-accent-emerald/10 text-accent-emerald" : "bg-accent-amber/10 text-accent-amber"}`}>
+                    {agent.available ? "Available" : "Coming Soon"}
+                  </span>
+                </div>
+                <h4 className="text-[#FDFFFF] font-semibold text-sm mb-1">{agent.name}</h4>
+                <p className="text-white/40 text-xs leading-relaxed">{agent.desc}</p>
+              </div>
+            </AnimateOnScroll>
+          ))}
+        </div>
+
+        <AnimateOnScroll className="text-center mt-8">
+          <Badge variant="highlight">Sign up to explore the full marketplace</Badge>
+        </AnimateOnScroll>
+      </Container>
+    </section>
+  );
+}
+
 export default function ProductPage() {
   return (
     <>
       <ProductHero />
-      <SectionDivider variant="rich" />
+      <div className="glow-divider" />
       <FourPillars />
-      <SectionDivider variant="gradient" />
+      <div className="glow-divider" />
       <KnowledgeSources />
-      <SectionDivider variant="rich" />
+      <div className="glow-divider" />
       <EighteenProblems />
-      <SectionDivider variant="gradient" />
+      <div className="glow-divider" />
       <USPDeepDive />
-      <SectionDivider variant="rich" />
+      <div className="glow-divider" />
       <CompetitivePositioning />
-      <SectionDivider variant="gradient" />
+      <div className="glow-divider" />
+      <AgentMarketplacePreview />
+      <div className="glow-divider" />
       <CTABanner
         headline="See aiCartograph in action"
         subheadline="Schedule a conversation to see how knowledge resolution works for your team."

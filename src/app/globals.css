@@ -12,9 +12,10 @@
   --color-brand-200: #aedbe4;
   --color-brand-100: #d6eef3;
   --color-brand-50: #eef7fa;
-  /* Light section backgrounds */
-  --color-light-bg: #F0F7FA;
-  --color-light-bg-alt: #E8F4F7;
+  /* Canvas tint variations for section separation */
+  --color-canvas-base: #0c2329;
+  --color-canvas-raised: #0e2830;
+  --color-canvas-sunken: #0a1e24;
   /* Extended accent palette — more vibrant */
   --color-accent-amber: #f0b429;
   --color-accent-copper: #e07c4f;
@@ -121,22 +122,40 @@ body {
   font-weight: 500;
 }
 
-/* Dark section */
-.section-dark {
+/* Unified dark canvas */
+.section-dark,
+.section-light {
   background: #0c2329;
   color: #FDFFFF;
 }
 
-/* Light section */
-.section-light {
-  background: #F0F7FA;
-  color: #0c2329;
+/* Dark card surfaces */
+.dark-card {
+  background: rgba(34, 62, 73, 0.4);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: 12px;
+  transition: all 0.2s ease;
+}
+.dark-card:hover {
+  background: rgba(34, 62, 73, 0.6);
+  border-color: rgba(69, 151, 176, 0.2);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(69, 151, 176, 0.08);
 }
 
-.section-light .text-muted { color: #44696a; }
-.section-light .card-surface {
-  background: white;
-  border: 1px solid #44696a20;
+/* Card surface — now dark */
+.card-surface {
+  background: rgba(34, 62, 73, 0.4);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+}
+.card-surface:hover {
+  border-color: rgba(69, 151, 176, 0.2);
+}
+
+/* Glow divider for section separation */
+.glow-divider {
+  height: 1px;
+  background: radial-gradient(50% 50% at 50% 50%, rgba(69, 151, 176, 0.3), transparent);
 }
 
 /* Animated gradient divider between sections */

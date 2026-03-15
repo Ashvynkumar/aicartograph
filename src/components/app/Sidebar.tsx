@@ -5,7 +5,7 @@ import Link from "next/link";
 import {
   LayoutDashboard, Database, HeartPulse, MessageSquare, Bot,
   BarChart3, MessageCircle, GitBranch, Shield, BookOpen,
-  ChevronLeft, ChevronRight, LogOut, Sun, Moon,
+  Menu, Sun, Moon,
   ChevronDown, ChevronUp,
 } from "lucide-react";
 import { useAppStore } from "@/lib/store";
@@ -29,7 +29,7 @@ export default function Sidebar() {
   const pathname = usePathname();
   const {
     sidebarCollapsed, setSidebarCollapsed, sources, conversations,
-    feedbackItems, healthIssues, theme, toggleTheme, logout, user,
+    feedbackItems, healthIssues, theme, toggleTheme,
   } = useAppStore();
 
   const [adminExpanded, setAdminExpanded] = useState(true);
@@ -208,35 +208,12 @@ export default function Sidebar() {
           {!sidebarCollapsed && <span>{theme === "dark" ? "Light Mode" : "Dark Mode"}</span>}
         </button>
 
-        {/* User */}
-        <div className="flex items-center gap-3 px-3 py-2">
-          <div className="w-7 h-7 rounded-full bg-gradient-to-br from-[#4597b0] to-[#56b3f5] flex items-center justify-center shrink-0 text-white text-xs font-bold">
-            {user.name[0]}
-          </div>
-          {!sidebarCollapsed && (
-            <div className="flex-1 min-w-0">
-              <p className="text-white/80 text-xs font-medium truncate">{user.name}</p>
-              <p className="text-white/30 text-[10px] truncate">{user.role}</p>
-            </div>
-          )}
-        </div>
-
-        {/* Logout */}
-        <button
-          onClick={logout}
-          className="flex items-center gap-3 px-3 py-2 rounded-lg text-sm text-red-400/70 hover:text-red-400 hover:bg-red-400/10 w-full transition-all"
-        >
-          <LogOut size={18} />
-          {!sidebarCollapsed && <span>Sign Out</span>}
-        </button>
-
         {/* Collapse */}
         <button
           onClick={() => setSidebarCollapsed(!sidebarCollapsed)}
           className="flex items-center gap-3 px-3 py-2 rounded-lg text-sm text-white/30 hover:text-white/60 hover:bg-white/5 w-full transition-all"
         >
-          {sidebarCollapsed ? <ChevronRight size={18} /> : <ChevronLeft size={18} />}
-          {!sidebarCollapsed && <span>Collapse</span>}
+          <Menu size={18} />
         </button>
       </div>
     </aside>

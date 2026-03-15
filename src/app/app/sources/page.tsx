@@ -32,6 +32,12 @@ const TEMPLATES = [
   { name: "Policy Document", category: "Compliance", icon: FileText },
   { name: "Battle Card", category: "Sales", icon: FileText },
   { name: "Runbook", category: "Engineering", icon: FileText },
+  { name: "Legal Agreement", category: "Legal", icon: FileText },
+  { name: "Marketing Brief", category: "Marketing", icon: FileText },
+  { name: "Compliance Policy", category: "Compliance", icon: FileText },
+  { name: "Product Requirements", category: "Product", icon: FileText },
+  { name: "Meeting Notes", category: "General", icon: FileText },
+  { name: "Knowledge Base Article", category: "Support", icon: FileText },
 ];
 
 const STATUS_COLORS: Record<string, string> = {

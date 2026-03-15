@@ -3,8 +3,6 @@
 import AnimateOnScroll from "../AnimateOnScroll";
 import Container from "../ui/Container";
 import EmailCapture from "../EmailCapture";
-import Button from "../ui/Button";
-import { SITE } from "@/lib/constants";
 
 interface CTABannerProps {
   headline?: string;
@@ -16,7 +14,7 @@ export default function CTABanner({
   subheadline = "Every answer. Everywhere. The moment it matters.",
 }: CTABannerProps) {
   return (
-    <section className="section-dark py-10 lg:py-12 relative">
+    <section className="py-10 lg:py-12 relative" style={{ background: "#0c2329" }}>
       <div className="absolute inset-0 bg-gradient-to-b from-transparent via-brand-500/[0.03] to-transparent" />
       <Container className="relative">
         <AnimateOnScroll>
@@ -27,13 +25,10 @@ export default function CTABanner({
             <p className="text-brand-300 text-base">
               {subheadline}
             </p>
-            <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
+            <div className="flex items-center justify-center">
               <div className="w-full sm:w-auto sm:min-w-[360px]">
                 <EmailCapture variant="inline" buttonText="Request Early Access" />
               </div>
-              <Button href={SITE.calendlyUrl} variant="secondary" size="md" className="h-12 whitespace-nowrap" external>
-                Schedule a Conversation &rarr;
-              </Button>
             </div>
           </div>
         </AnimateOnScroll>

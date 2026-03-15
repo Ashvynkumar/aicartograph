@@ -8,6 +8,7 @@ import {
   ChevronDown, Check, Phone, FileText,
   Users, BarChart3, ThumbsUp, Zap, Eye,
   Download, Shield, Copy, Server, Cloud, Terminal, CheckCheck,
+  BookOpen, HelpCircle, Target, Monitor, Layers, Upload,
 } from "lucide-react";
 
 type AgentStatus = "deployed" | "active" | "draft" | "paused";
@@ -15,6 +16,7 @@ type Channel = "web-widget" | "whatsapp" | "slack" | "email" | "api" | "custom";
 type Persona = "professional" | "friendly" | "technical" | "custom";
 type FallbackBehavior = "escalate" | "contact-info" | "suggest-docs";
 type ResponseMode = "quick" | "deep";
+type MainTab = "my-agents" | "marketplace";
 
 interface Agent {
   id: string;
@@ -31,6 +33,26 @@ interface Agent {
   responseMode: ResponseMode;
   knowledgeSources: string[];
 }
+
+interface MarketplaceTemplate {
+  id: string;
+  name: string;
+  icon: React.ElementType;
+  description: string;
+  available: boolean;
+}
+
+const MARKETPLACE_TEMPLATES: MarketplaceTemplate[] = [
+  { id: "tpl-1", name: "User Manual Agent", icon: BookOpen, description: "Turn any product manual into an interactive AI agent that answers user questions.", available: true },
+  { id: "tpl-2", name: "FAQ Bot", icon: HelpCircle, description: "Auto-generate FAQ bots from your knowledge base.", available: false },
+  { id: "tpl-3", name: "Onboarding Guide", icon: BookOpen, description: "Guide new employees through onboarding with AI.", available: false },
+  { id: "tpl-4", name: "Sales Playbook Agent", icon: Target, description: "Equip reps with real-time competitive intel and battle cards.", available: false },
+  { id: "tpl-5", name: "Compliance Checker", icon: Shield, description: "Ensure policy compliance with automated knowledge checks.", available: false },
+  { id: "tpl-6", name: "IT Helpdesk", icon: Monitor, description: "Resolve common IT issues with AI-powered troubleshooting.", available: false },
+  { id: "tpl-7", name: "HR Policy Agent", icon: Users, description: "Answer employee questions about policies and benefits.", available: false },
+  { id: "tpl-8", name: "Product Wiki Agent", icon: Layers, description: "Turn product documentation into an interactive wiki agent.", available: false },
+  { id: "tpl-9", name: "Code Documentation Agent", icon: Code, description: "AI-powered code documentation and API reference.", available: false },
+];
 
 const KNOWLEDGE_SOURCES = [
   { id: "kb-docs", label: "Product Documentation" },
@@ -159,6 +181,13 @@ export default function AgentsPage() {
   const [exportAgent, setExportAgent] = useState<Agent | null>(null);
   const [exportTab, setExportTab] = useState<"platform" | "code" | "docker">("platform");
   const [copiedBlock, setCopiedBlock] = useState<string | null>(null);
+  const [activeTab, setActiveTab] = useState<MainTab>("my-agents");
+
+  // Marketplace state
+  const [builderModalOpen, setBuilderModalOpen] = useState(false);
+  const [builderUrl, setBuilderUrl] = useState("");
+  const [builderPastedContent, setBuilderPastedContent] = useState("");
+  const [subscribedTemplates, setSubscribedTemplates] = useState<Set<string>>(new Set());
 
   // Modal form state
   const [formName, setFormName] = useState("");
@@ -280,6 +309,44 @@ export default function AgentsPage() {
     setTimeout(() => setCopiedBlock(null), 2000);
   };
 
+  const handleBuilderCreate = () => {
+    const newAgent: Agent = {
+      id: `agent-${Date.now()}`,
+      name: "User Manual Agent",
+      description: "Interactive AI agent built from a product manual.",
+      channel: "web-widget",
+      status: "draft",
+      icon: BookOpen,
+      queriesHandled: 0,
+      satisfactionRate: 0,
+      persona: "friendly",
+      greeting: "Hi! Ask me anything about this product.",
+      fallback: "suggest-docs",
+      responseMode: "deep",
+      knowledgeSources: ["kb-docs", "kb-guides"],
+    };
+    setAgents((prev) => [...prev, newAgent]);
+    setBuilderModalOpen(false);
+    setBuilderUrl("");
+    setBuilderPastedContent("");
+    setActiveTab("my-agents");
+  };
+
+  const handleNotifyMe = (templateId: string) => {
+    setSubscribedTemplates((prev) => {
+      const next = new Set(prev);
+      next.add(templateId);
+      return next;
+    });
+    setTimeout(() => {
+      setSubscribedTemplates((prev) => {
+        const next = new Set(prev);
+        next.delete(templateId);
+        return next;
+      });
+    }, 2000);
+  };
+
   const KNOWLEDGE_SLUG_MAP: Record<string, string> = {
     "kb-docs": "product-docs",
     "kb-faq": "faq",
@@ -326,136 +393,346 @@ docker run -d \\
           <h1 className="text-white text-xl font-bold font-serif">Agent Studio</h1>
           <p className="text-white/40 text-sm mt-1">Build and deploy AI agents for your users</p>
         </div>
+        {activeTab === "my-agents" && (
+          <button
+            onClick={openCreateModal}
+            className="flex items-center gap-2 px-4 py-2.5 rounded-lg bg-gradient-to-r from-[#4597b0] to-[#62acbb] text-white text-sm font-medium hover:shadow-lg hover:shadow-[#4597b0]/20 transition-all"
+          >
+            <Plus size={16} /> New Agent
+          </button>
+        )}
+      </div>
+
+      {/* Main Tabs */}
+      <div className="flex items-center gap-2">
         <button
-          onClick={openCreateModal}
-          className="flex items-center gap-2 px-4 py-2.5 rounded-lg bg-gradient-to-r from-[#4597b0] to-[#62acbb] text-white text-sm font-medium hover:shadow-lg hover:shadow-[#4597b0]/20 transition-all"
+          onClick={() => setActiveTab("my-agents")}
+          className={`px-5 py-2 rounded-full text-sm font-medium transition-all ${
+            activeTab === "my-agents"
+              ? "bg-[#4597b0] text-white shadow-lg shadow-[#4597b0]/20"
+              : "bg-white/5 text-white/50 hover:bg-white/10 hover:text-white/70"
+          }`}
         >
-          <Plus size={16} /> New Agent
+          My Agents
+        </button>
+        <button
+          onClick={() => setActiveTab("marketplace")}
+          className={`px-5 py-2 rounded-full text-sm font-medium transition-all ${
+            activeTab === "marketplace"
+              ? "bg-[#4597b0] text-white shadow-lg shadow-[#4597b0]/20"
+              : "bg-white/5 text-white/50 hover:bg-white/10 hover:text-white/70"
+          }`}
+        >
+          Marketplace
         </button>
       </div>
 
-      {/* Stats bar */}
-      <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
-        {[
-          { label: "Total Agents", value: agents.length.toString(), icon: Bot },
-          { label: "Deployed", value: agents.filter((a) => a.status === "deployed" || a.status === "active").length.toString(), icon: Rocket },
-          { label: "Queries Handled", value: formatNumber(agents.reduce((sum, a) => sum + a.queriesHandled, 0)), icon: BarChart3 },
-          { label: "Avg Satisfaction", value: (() => { const active = agents.filter((a) => a.satisfactionRate > 0); return active.length ? (active.reduce((sum, a) => sum + a.satisfactionRate, 0) / active.length).toFixed(1) + "%" : "N/A"; })(), icon: ThumbsUp },
-        ].map((stat) => (
-          <div key={stat.label} className="bg-[#223e49]/60 border border-white/5 rounded-xl p-4">
-            <div className="flex items-center gap-2 mb-2">
-              <stat.icon size={14} className="text-[#4597b0]" />
-              <span className="text-white/40 text-xs">{stat.label}</span>
-            </div>
-            <p className="text-white text-lg font-bold">{stat.value}</p>
+      {/* ===== MY AGENTS TAB ===== */}
+      {activeTab === "my-agents" && (
+        <>
+          {/* Stats bar */}
+          <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
+            {[
+              { label: "Total Agents", value: agents.length.toString(), icon: Bot },
+              { label: "Deployed", value: agents.filter((a) => a.status === "deployed" || a.status === "active").length.toString(), icon: Rocket },
+              { label: "Queries Handled", value: formatNumber(agents.reduce((sum, a) => sum + a.queriesHandled, 0)), icon: BarChart3 },
+              { label: "Avg Satisfaction", value: (() => { const active = agents.filter((a) => a.satisfactionRate > 0); return active.length ? (active.reduce((sum, a) => sum + a.satisfactionRate, 0) / active.length).toFixed(1) + "%" : "N/A"; })(), icon: ThumbsUp },
+            ].map((stat) => (
+              <div key={stat.label} className="bg-[#223e49]/60 border border-white/5 rounded-xl p-4">
+                <div className="flex items-center gap-2 mb-2">
+                  <stat.icon size={14} className="text-[#4597b0]" />
+                  <span className="text-white/40 text-xs">{stat.label}</span>
+                </div>
+                <p className="text-white text-lg font-bold">{stat.value}</p>
+              </div>
+            ))}
           </div>
-        ))}
-      </div>
 
-      {/* Privacy-First Banner */}
-      <div className="flex items-center gap-3 px-4 py-3 rounded-xl bg-[#4597b0]/5 border border-[#4597b0]/10">
-        <Shield size={18} className="text-[#4597b0] flex-shrink-0" />
-        <p className="text-white/50 text-sm">
-          <span className="text-white/70 font-medium">Your knowledge, your infrastructure.</span>{" "}
-          Export agents as code and deploy on your own servers. Zero data leaves your premises.
-        </p>
-      </div>
+          {/* Privacy-First Banner */}
+          <div className="flex items-center gap-3 px-4 py-3 rounded-xl bg-[#4597b0]/5 border border-[#4597b0]/10">
+            <Shield size={18} className="text-[#4597b0] flex-shrink-0" />
+            <p className="text-white/50 text-sm">
+              <span className="text-white/70 font-medium">Your knowledge, your infrastructure.</span>{" "}
+              Export agents as code and deploy on your own servers. Zero data leaves your premises.
+            </p>
+          </div>
 
-      {/* Agent Cards Grid */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-        {agents.map((agent) => {
-          const Icon = agent.icon;
-          const statusStyle = STATUS_STYLES[agent.status];
+          {/* Agent Cards Grid */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+            {agents.map((agent) => {
+              const Icon = agent.icon;
+              const statusStyle = STATUS_STYLES[agent.status];
 
-          return (
-            <div
-              key={agent.id}
-              className="bg-[#223e49]/60 border border-white/5 rounded-xl p-5 hover:border-[#4597b0]/30 hover:translate-y-[-2px] transition-all group"
+              return (
+                <div
+                  key={agent.id}
+                  className="bg-[#223e49]/60 border border-white/5 rounded-xl p-5 hover:border-[#4597b0]/30 hover:translate-y-[-2px] transition-all group"
+                >
+                  {/* Top: Icon + Status */}
+                  <div className="flex items-start justify-between mb-3">
+                    <div className="w-10 h-10 rounded-lg bg-white/5 flex items-center justify-center">
+                      <Icon size={20} className="text-[#4597b0]" />
+                    </div>
+                    <span className={`text-xs px-2.5 py-1 rounded-full flex items-center gap-1.5 ${statusStyle.bg} ${statusStyle.text}`}>
+                      <span className={`w-1.5 h-1.5 rounded-full ${statusStyle.dot}`} />
+                      {statusStyle.label}
+                    </span>
+                  </div>
+
+                  {/* Name + Channel */}
+                  <h3 className="text-white/90 font-medium text-sm mb-0.5">{agent.name}</h3>
+                  <span className="text-white/30 text-xs">{CHANNEL_LABELS[agent.channel]} Channel</span>
+
+                  {/* Description */}
+                  <p className="text-white/40 text-xs mt-2 line-clamp-2">{agent.description}</p>
+
+                  {/* Metrics */}
+                  <div className="flex items-center gap-4 mt-4 pt-3 border-t border-white/5">
+                    <div>
+                      <p className="text-white/30 text-[10px] uppercase tracking-wider">Queries</p>
+                      <p className="text-white/80 text-sm font-medium">
+                        {agent.queriesHandled > 0 ? formatNumber(agent.queriesHandled) : "--"}
+                      </p>
+                    </div>
+                    <div>
+                      <p className="text-white/30 text-[10px] uppercase tracking-wider">Satisfaction</p>
+                      <p className="text-white/80 text-sm font-medium">
+                        {agent.satisfactionRate > 0 ? agent.satisfactionRate + "%" : "--"}
+                      </p>
+                    </div>
+                  </div>
+
+                  {/* Actions */}
+                  <div className="flex items-center gap-2 mt-4 pt-3 border-t border-white/5">
+                    <button
+                      onClick={() => openConfigureModal(agent)}
+                      className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-white/5 text-white/50 text-xs hover:bg-white/10 hover:text-white/80 transition-colors"
+                    >
+                      <Settings size={12} /> Configure
+                    </button>
+                    <button className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-white/5 text-white/50 text-xs hover:bg-white/10 hover:text-white/80 transition-colors">
+                      <TestTube size={12} /> Test
+                    </button>
+                    <button
+                      onClick={() => { setExportAgent(agent); setExportTab("platform"); setExportModalOpen(true); }}
+                      className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-white/5 text-white/50 text-xs hover:bg-white/10 hover:text-white/80 transition-colors"
+                    >
+                      <Download size={12} /> Export
+                    </button>
+                    <button
+                      onClick={() => handleDeploy(agent.id)}
+                      className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs ml-auto transition-colors ${
+                        agent.status === "deployed" || agent.status === "active"
+                          ? "bg-white/5 text-white/50 hover:bg-red-500/10 hover:text-red-400"
+                          : "bg-[#4597b0]/10 text-[#4597b0] hover:bg-[#4597b0]/20"
+                      }`}
+                    >
+                      {agent.status === "deployed" || agent.status === "active" ? (
+                        <><Pause size={12} /> Pause</>
+                      ) : (
+                        <><Rocket size={12} /> Deploy</>
+                      )}
+                    </button>
+                  </div>
+                </div>
+              );
+            })}
+
+            {/* Create New Agent Card */}
+            <button
+              onClick={openCreateModal}
+              className="bg-[#223e49]/30 border border-dashed border-white/10 rounded-xl p-5 flex flex-col items-center justify-center gap-3 hover:border-[#4597b0]/40 hover:bg-[#223e49]/50 transition-all min-h-[280px] group"
             >
-              {/* Top: Icon + Status */}
-              <div className="flex items-start justify-between mb-3">
-                <div className="w-10 h-10 rounded-lg bg-white/5 flex items-center justify-center">
-                  <Icon size={20} className="text-[#4597b0]" />
-                </div>
-                <span className={`text-xs px-2.5 py-1 rounded-full flex items-center gap-1.5 ${statusStyle.bg} ${statusStyle.text}`}>
-                  <span className={`w-1.5 h-1.5 rounded-full ${statusStyle.dot}`} />
-                  {statusStyle.label}
-                </span>
+              <div className="w-12 h-12 rounded-xl bg-white/5 flex items-center justify-center group-hover:bg-[#4597b0]/10 transition-colors">
+                <Plus size={24} className="text-white/20 group-hover:text-[#4597b0] transition-colors" />
               </div>
-
-              {/* Name + Channel */}
-              <h3 className="text-white/90 font-medium text-sm mb-0.5">{agent.name}</h3>
-              <span className="text-white/30 text-xs">{CHANNEL_LABELS[agent.channel]} Channel</span>
-
-              {/* Description */}
-              <p className="text-white/40 text-xs mt-2 line-clamp-2">{agent.description}</p>
-
-              {/* Metrics */}
-              <div className="flex items-center gap-4 mt-4 pt-3 border-t border-white/5">
-                <div>
-                  <p className="text-white/30 text-[10px] uppercase tracking-wider">Queries</p>
-                  <p className="text-white/80 text-sm font-medium">
-                    {agent.queriesHandled > 0 ? formatNumber(agent.queriesHandled) : "--"}
-                  </p>
-                </div>
-                <div>
-                  <p className="text-white/30 text-[10px] uppercase tracking-wider">Satisfaction</p>
-                  <p className="text-white/80 text-sm font-medium">
-                    {agent.satisfactionRate > 0 ? agent.satisfactionRate + "%" : "--"}
-                  </p>
-                </div>
+              <div className="text-center">
+                <p className="text-white/50 text-sm font-medium group-hover:text-white/80 transition-colors">Create New Agent</p>
+                <p className="text-white/20 text-xs mt-1">Build a custom AI agent for any channel</p>
               </div>
+            </button>
+          </div>
+        </>
+      )}
 
-              {/* Actions */}
-              <div className="flex items-center gap-2 mt-4 pt-3 border-t border-white/5">
-                <button
-                  onClick={() => openConfigureModal(agent)}
-                  className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-white/5 text-white/50 text-xs hover:bg-white/10 hover:text-white/80 transition-colors"
-                >
-                  <Settings size={12} /> Configure
-                </button>
-                <button className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-white/5 text-white/50 text-xs hover:bg-white/10 hover:text-white/80 transition-colors">
-                  <TestTube size={12} /> Test
-                </button>
-                <button
-                  onClick={() => { setExportAgent(agent); setExportTab("platform"); setExportModalOpen(true); }}
-                  className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-white/5 text-white/50 text-xs hover:bg-white/10 hover:text-white/80 transition-colors"
-                >
-                  <Download size={12} /> Export
-                </button>
-                <button
-                  onClick={() => handleDeploy(agent.id)}
-                  className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs ml-auto transition-colors ${
-                    agent.status === "deployed" || agent.status === "active"
-                      ? "bg-white/5 text-white/50 hover:bg-red-500/10 hover:text-red-400"
-                      : "bg-[#4597b0]/10 text-[#4597b0] hover:bg-[#4597b0]/20"
+      {/* ===== MARKETPLACE TAB ===== */}
+      {activeTab === "marketplace" && (
+        <>
+          <div className="flex items-center gap-3 px-4 py-3 rounded-xl bg-[#4597b0]/5 border border-[#4597b0]/10">
+            <Layers size={18} className="text-[#4597b0] flex-shrink-0" />
+            <p className="text-white/50 text-sm">
+              <span className="text-white/70 font-medium">Agent Templates.</span>{" "}
+              Pre-built agent templates to get you started quickly. Click an available template to configure and deploy.
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+            {MARKETPLACE_TEMPLATES.map((template) => {
+              const TplIcon = template.icon;
+              const isSubscribed = subscribedTemplates.has(template.id);
+
+              return (
+                <div
+                  key={template.id}
+                  onClick={() => {
+                    if (template.available) {
+                      setBuilderUrl("");
+                      setBuilderPastedContent("");
+                      setBuilderModalOpen(true);
+                    }
+                  }}
+                  className={`bg-[#223e49]/60 border border-white/5 rounded-xl p-5 transition-all ${
+                    template.available
+                      ? "hover:border-[#4597b0]/30 hover:translate-y-[-2px] cursor-pointer group"
+                      : "opacity-50 cursor-default"
                   }`}
                 >
-                  {agent.status === "deployed" || agent.status === "active" ? (
-                    <><Pause size={12} /> Pause</>
-                  ) : (
-                    <><Rocket size={12} /> Deploy</>
-                  )}
-                </button>
+                  {/* Top: Icon + Badge */}
+                  <div className="flex items-start justify-between mb-3">
+                    <div className="w-10 h-10 rounded-lg bg-white/5 flex items-center justify-center">
+                      <TplIcon size={20} className={template.available ? "text-[#4597b0]" : "text-white/30"} />
+                    </div>
+                    {template.available ? (
+                      <span className="text-xs px-2.5 py-1 rounded-full flex items-center gap-1.5 bg-emerald-500/10 text-emerald-400">
+                        <span className="w-1.5 h-1.5 rounded-full bg-emerald-400" />
+                        Available
+                      </span>
+                    ) : (
+                      <span className="text-xs px-2.5 py-1 rounded-full flex items-center gap-1.5 bg-amber-500/10 text-amber-400">
+                        <span className="w-1.5 h-1.5 rounded-full bg-amber-400" />
+                        Coming Soon
+                      </span>
+                    )}
+                  </div>
+
+                  {/* Name */}
+                  <h3 className={`font-medium text-sm mb-1 ${template.available ? "text-white/90" : "text-white/50"}`}>
+                    {template.name}
+                  </h3>
+
+                  {/* Description */}
+                  <p className={`text-xs mt-1 leading-relaxed ${template.available ? "text-white/40" : "text-white/25"}`}>
+                    {template.description}
+                  </p>
+
+                  {/* Action */}
+                  <div className="mt-4 pt-3 border-t border-white/5">
+                    {template.available ? (
+                      <span className="text-[#4597b0] text-xs font-medium group-hover:underline">
+                        Use Template &rarr;
+                      </span>
+                    ) : (
+                      <button
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          handleNotifyMe(template.id);
+                        }}
+                        className={`text-xs px-3 py-1.5 rounded-lg transition-colors ${
+                          isSubscribed
+                            ? "bg-emerald-500/10 text-emerald-400"
+                            : "bg-white/5 text-white/50 hover:bg-white/10 hover:text-white/70"
+                        }`}
+                      >
+                        {isSubscribed ? (
+                          <span className="flex items-center gap-1.5"><Check size={12} /> Subscribed!</span>
+                        ) : (
+                          "Notify Me"
+                        )}
+                      </button>
+                    )}
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+        </>
+      )}
+
+      {/* ===== BUILDER MODAL (User Manual Agent) ===== */}
+      {builderModalOpen && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm">
+          <div className="bg-[#0c2329] border border-white/10 rounded-2xl max-w-2xl w-full mx-4 max-h-[90vh] overflow-y-auto">
+            {/* Modal Header */}
+            <div className="flex items-center justify-between p-6 border-b border-white/5 sticky top-0 bg-[#0c2329] z-10 rounded-t-2xl">
+              <div className="flex items-center gap-3">
+                <div className="w-10 h-10 rounded-xl bg-[#4597b0]/10 flex items-center justify-center">
+                  <BookOpen size={20} className="text-[#4597b0]" />
+                </div>
+                <div>
+                  <h2 className="text-white font-bold">User Manual Agent Builder</h2>
+                  <p className="text-white/40 text-xs">Provide a product manual to create an interactive agent</p>
+                </div>
+              </div>
+              <button
+                onClick={() => setBuilderModalOpen(false)}
+                className="text-white/40 hover:text-white/80 transition-colors"
+              >
+                <X size={20} />
+              </button>
+            </div>
+
+            <div className="p-6 space-y-6">
+              {/* URL Input */}
+              <div>
+                <label className="text-white/40 text-xs block mb-1.5">Product Manual URL</label>
+                <input
+                  type="url"
+                  value={builderUrl}
+                  onChange={(e) => setBuilderUrl(e.target.value)}
+                  placeholder="https://docs.example.com/product-manual"
+                  className="w-full px-3 py-2.5 rounded-lg bg-white/5 border border-white/10 text-white text-sm outline-none placeholder:text-white/20 focus:border-[#4597b0]/50 transition-colors"
+                />
+                <p className="text-white/20 text-[10px] mt-1.5 flex items-center gap-1">
+                  <Shield size={10} className="text-[#4597b0]" />
+                  Credentials in URLs are automatically masked and stored securely.
+                </p>
+              </div>
+
+              {/* File Upload Dropzone */}
+              <div>
+                <label className="text-white/40 text-xs block mb-1.5">Upload Files (PDF, audio, video, GIF)</label>
+                <div className="border-2 border-dashed border-white/10 rounded-xl p-8 flex flex-col items-center justify-center gap-3 hover:border-[#4597b0]/30 hover:bg-white/[0.02] transition-all cursor-pointer">
+                  <div className="w-12 h-12 rounded-xl bg-white/5 flex items-center justify-center">
+                    <Upload size={24} className="text-white/20" />
+                  </div>
+                  <div className="text-center">
+                    <p className="text-white/50 text-sm font-medium">Drag and drop files here</p>
+                    <p className="text-white/20 text-xs mt-1">or click to browse - PDF, audio, video, GIF supported</p>
+                  </div>
+                </div>
+              </div>
+
+              {/* Paste Content */}
+              <div>
+                <label className="text-white/40 text-xs block mb-1.5">Or Paste Manual Content Directly</label>
+                <textarea
+                  value={builderPastedContent}
+                  onChange={(e) => setBuilderPastedContent(e.target.value)}
+                  placeholder="Paste product manual text, FAQ content, or documentation here..."
+                  rows={6}
+                  className="w-full px-3 py-2.5 rounded-lg bg-white/5 border border-white/10 text-white text-sm outline-none placeholder:text-white/20 focus:border-[#4597b0]/50 transition-colors resize-none"
+                />
               </div>
             </div>
-          );
-        })}
 
-        {/* Create New Agent Card */}
-        <button
-          onClick={openCreateModal}
-          className="bg-[#223e49]/30 border border-dashed border-white/10 rounded-xl p-5 flex flex-col items-center justify-center gap-3 hover:border-[#4597b0]/40 hover:bg-[#223e49]/50 transition-all min-h-[280px] group"
-        >
-          <div className="w-12 h-12 rounded-xl bg-white/5 flex items-center justify-center group-hover:bg-[#4597b0]/10 transition-colors">
-            <Plus size={24} className="text-white/20 group-hover:text-[#4597b0] transition-colors" />
+            {/* Modal Footer */}
+            <div className="flex items-center justify-between p-6 border-t border-white/5 sticky bottom-0 bg-[#0c2329] rounded-b-2xl">
+              <button
+                onClick={() => setBuilderModalOpen(false)}
+                className="px-4 py-2.5 rounded-lg text-white/50 text-sm hover:text-white/80 hover:bg-white/5 transition-colors"
+              >
+                Cancel
+              </button>
+              <button
+                onClick={handleBuilderCreate}
+                className="flex items-center gap-2 px-5 py-2.5 rounded-lg bg-gradient-to-r from-[#4597b0] to-[#62acbb] text-white text-sm font-medium hover:shadow-lg hover:shadow-[#4597b0]/20 transition-all"
+              >
+                <Rocket size={14} /> Create Agent
+              </button>
+            </div>
           </div>
-          <div className="text-center">
-            <p className="text-white/50 text-sm font-medium group-hover:text-white/80 transition-colors">Create New Agent</p>
-            <p className="text-white/20 text-xs mt-1">Build a custom AI agent for any channel</p>
-          </div>
-        </button>
-      </div>
+        </div>
+      )}
 
       {/* Agent Builder Modal */}
       {modalOpen && (

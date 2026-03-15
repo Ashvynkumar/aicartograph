@@ -5,7 +5,6 @@ import AnimateOnScroll from "@/components/AnimateOnScroll";
 import Container from "@/components/ui/Container";
 import Badge from "@/components/ui/Badge";
 import Button from "@/components/ui/Button";
-import SectionDivider from "@/components/ui/SectionDivider";
 import { SITE } from "@/lib/constants";
 
 export default function ContactPage() {
@@ -48,13 +47,13 @@ export default function ContactPage() {
     }
   }
 
-  const inputClassesDark =
-    "w-full rounded-xl bg-brand-800/60 border border-brand-700/40 px-5 py-3 text-[#FDFFFF] placeholder:text-brand-300/50 outline-none focus:border-brand-500/50 focus:ring-1 focus:ring-brand-500/25 transition-all";
+  const inputClasses =
+    "w-full rounded-xl bg-white/5 border border-white/10 px-5 py-3 text-[#FDFFFF] placeholder:text-white/30 outline-none focus:border-brand-500/50 focus:ring-1 focus:ring-brand-500/25 transition-all";
 
   return (
     <>
-      {/* Hero (DARK) */}
-      <section className="pt-24 pb-8 section-dark relative">
+      {/* Hero */}
+      <section className="pt-24 pb-8 relative" style={{ background: "#0c2329" }}>
         <div className="absolute top-0 left-1/2 w-72 h-72 bg-brand-500/5 rounded-full blur-3xl -translate-x-1/2" />
         <Container className="relative text-center">
           <AnimateOnScroll className="space-y-5 max-w-3xl mx-auto">
@@ -70,63 +69,63 @@ export default function ContactPage() {
         </Container>
       </section>
 
-      <SectionDivider variant="rich" />
+      <div className="glow-divider" />
 
-      {/* Form + Calendly (LIGHT) */}
-      <section className="section-light py-8 lg:py-10">
+      {/* Form + Calendly */}
+      <section className="py-8 lg:py-10" style={{ background: "#0e2830" }}>
         <Container>
           <div className="grid lg:grid-cols-2 gap-8 max-w-5xl mx-auto">
             {/* Form */}
             <AnimateOnScroll>
               <div className="space-y-6">
-                <h2 className="heading-h2 text-brand-900">Send us a message</h2>
+                <h2 className="heading-h2 text-[#FDFFFF]">Send us a message</h2>
 
                 {status === "success" ? (
-                  <div className="card-surface rounded-xl border-l-4 border-brand-500 p-8 text-center space-y-3">
-                    <p className="text-brand-500 text-lg font-medium">
+                  <div className="dark-card border-l-4 border-brand-500 p-8 text-center space-y-3">
+                    <p className="text-brand-400 text-lg font-medium">
                       Thanks for reaching out!
                     </p>
-                    <p className="text-brand-700">
+                    <p className="text-white/50">
                       We&apos;ll get back to you within 24 hours.
                     </p>
                   </div>
                 ) : (
                   <form onSubmit={handleSubmit} className="space-y-3">
                     <div>
-                      <label htmlFor="name" className="block text-sm text-brand-700 mb-1.5">Name</label>
+                      <label htmlFor="name" className="block text-sm text-white/50 mb-1.5">Name</label>
                       <input
                         id="name" type="text" required
-                        className="w-full rounded-xl border border-brand-700/20 bg-white px-5 py-3 text-brand-900 placeholder:text-brand-700/40 outline-none focus:border-brand-500/50 focus:ring-1 focus:ring-brand-500/25 transition-all"
+                        className={inputClasses}
                         placeholder="Your name"
                         value={formState.name}
                         onChange={(e) => setFormState({ ...formState, name: e.target.value })}
                       />
                     </div>
                     <div>
-                      <label htmlFor="email" className="block text-sm text-brand-700 mb-1.5">Email</label>
+                      <label htmlFor="email" className="block text-sm text-white/50 mb-1.5">Email</label>
                       <input
                         id="email" type="email" required
-                        className="w-full rounded-xl border border-brand-700/20 bg-white px-5 py-3 text-brand-900 placeholder:text-brand-700/40 outline-none focus:border-brand-500/50 focus:ring-1 focus:ring-brand-500/25 transition-all"
+                        className={inputClasses}
                         placeholder="you@company.com"
                         value={formState.email}
                         onChange={(e) => setFormState({ ...formState, email: e.target.value })}
                       />
                     </div>
                     <div>
-                      <label htmlFor="company" className="block text-sm text-brand-700 mb-1.5">Company</label>
+                      <label htmlFor="company" className="block text-sm text-white/50 mb-1.5">Company</label>
                       <input
                         id="company" type="text"
-                        className="w-full rounded-xl border border-brand-700/20 bg-white px-5 py-3 text-brand-900 placeholder:text-brand-700/40 outline-none focus:border-brand-500/50 focus:ring-1 focus:ring-brand-500/25 transition-all"
+                        className={inputClasses}
                         placeholder="Your company"
                         value={formState.company}
                         onChange={(e) => setFormState({ ...formState, company: e.target.value })}
                       />
                     </div>
                     <div>
-                      <label htmlFor="message" className="block text-sm text-brand-700 mb-1.5">Message</label>
+                      <label htmlFor="message" className="block text-sm text-white/50 mb-1.5">Message</label>
                       <textarea
                         id="message" rows={2}
-                        className="w-full rounded-xl border border-brand-700/20 bg-white px-5 py-3 text-brand-900 placeholder:text-brand-700/40 outline-none focus:border-brand-500/50 focus:ring-1 focus:ring-brand-500/25 transition-all resize-none"
+                        className={`${inputClasses} resize-none`}
                         placeholder="Tell us about your knowledge challenges..."
                         value={formState.message}
                         onChange={(e) => setFormState({ ...formState, message: e.target.value })}
@@ -148,22 +147,22 @@ export default function ContactPage() {
             {/* Calendly + Info */}
             <AnimateOnScroll delay={0.2}>
               <div className="space-y-6">
-                <h2 className="heading-h2 text-brand-900">Schedule a conversation</h2>
-                <p className="text-brand-700 leading-relaxed text-sm">
+                <h2 className="heading-h2 text-[#FDFFFF]">Schedule a conversation</h2>
+                <p className="text-white/50 leading-relaxed text-sm">
                   Prefer a conversation? We&apos;ll walk you through how aiCartograph can work for your organization.
                 </p>
 
-                <div className="card-surface rounded-xl p-5 space-y-4">
+                <div className="dark-card p-5 space-y-4">
                   <Button href={SITE.calendlyUrl} variant="primary" className="w-full" external>
                     Schedule a Conversation
                   </Button>
 
-                  <div className="space-y-2.5 pt-3 border-t border-brand-700/10">
+                  <div className="space-y-2.5 pt-3 border-t border-white/10">
                     <div className="flex items-center gap-3">
                       <svg className="w-4 h-4 text-brand-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
                         <path strokeLinecap="round" strokeLinejoin="round" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
                       </svg>
-                      <a href={`mailto:${SITE.email}`} className="text-brand-700 hover:text-brand-500 transition-colors text-sm">
+                      <a href={`mailto:${SITE.email}`} className="text-white/60 hover:text-brand-400 transition-colors text-sm">
                         {SITE.email}
                       </a>
                     </div>
@@ -171,13 +170,13 @@ export default function ContactPage() {
                       <svg className="w-4 h-4 text-brand-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
                         <path strokeLinecap="round" strokeLinejoin="round" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
                       </svg>
-                      <span className="text-brand-700 text-sm">Response within 24 hours</span>
+                      <span className="text-white/60 text-sm">Response within 24 hours</span>
                     </div>
                     <div className="flex items-center gap-3">
                       <svg className="w-4 h-4 text-brand-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
                         <path strokeLinecap="round" strokeLinejoin="round" d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
                       </svg>
-                      <span className="text-brand-700 text-sm">Based in the UK, serving globally</span>
+                      <span className="text-white/60 text-sm">Based in the UK, serving globally</span>
                     </div>
                   </div>
                 </div>
