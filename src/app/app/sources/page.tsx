@@ -224,6 +224,24 @@ export default function SourcesPage() {
         </div>
       )}
 
+      {/* Module Handshake CTAs */}
+      {sources.length > 0 && (
+        <div className="rounded-xl p-4 flex items-center justify-between" style={{ background: "linear-gradient(135deg, rgba(69,151,176,0.08), rgba(86,179,245,0.04))", border: "1px solid rgba(69,151,176,0.15)" }}>
+          <div>
+            <p className="text-sm font-medium" style={{ color: "var(--text-secondary)" }}>Sources indexed and ready</p>
+            <p className="text-xs mt-0.5" style={{ color: "var(--text-muted)" }}>Try asking a question or check your knowledge health</p>
+          </div>
+          <div className="flex gap-2">
+            <a href="/app/resolve" className="px-3 py-1.5 rounded-lg text-xs font-medium text-white bg-[#4597b0] hover:bg-[#3a87a0] transition-all">
+              Ask a Question
+            </a>
+            <a href="/app/health" className="px-3 py-1.5 rounded-lg text-xs font-medium transition-all" style={{ background: "var(--bg-input)", border: "1px solid var(--border-primary)", color: "var(--text-tertiary)" }}>
+              Check Health
+            </a>
+          </div>
+        </div>
+      )}
+
       {/* Detail Modal */}
       {detailData && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm">

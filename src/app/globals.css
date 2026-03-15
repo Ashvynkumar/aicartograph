@@ -3,29 +3,77 @@
 @theme inline {
   --color-brand-950: #080604;
   --color-brand-900: #0c2329;
-  --color-brand-800: #223e49;
-  --color-brand-700: #44696a;
-  --color-brand-600: #49818d;
+  --color-brand-800: #1a3a45;
+  --color-brand-700: #2d5a66;
+  --color-brand-600: #3a7a8a;
   --color-brand-500: #4597b0;
   --color-brand-400: #62acbb;
-  --color-brand-300: #97c1cc;
-  --color-brand-200: #c3dce3;
-  --color-brand-100: #e6f0f3;
-  --color-brand-50: #f2f8fa;
+  --color-brand-300: #85c4d0;
+  --color-brand-200: #aedbe4;
+  --color-brand-100: #d6eef3;
+  --color-brand-50: #eef7fa;
   /* Light section backgrounds */
   --color-light-bg: #F0F7FA;
   --color-light-bg-alt: #E8F4F7;
-  /* Extended accent palette */
-  --color-accent-amber: #d4a853;
-  --color-accent-copper: #c27849;
-  --color-accent-sage: #6a9a7b;
-  --color-accent-lavender: #8b7ec8;
-  --color-accent-coral: #d4726a;
-  --color-accent-sky: #5ba4d9;
-  --color-accent-gold: #e8c547;
-  --color-accent-emerald: #4ba88e;
+  /* Extended accent palette — more vibrant */
+  --color-accent-amber: #f0b429;
+  --color-accent-copper: #e07c4f;
+  --color-accent-sage: #4caf7d;
+  --color-accent-lavender: #9b8ce8;
+  --color-accent-coral: #f06565;
+  --color-accent-sky: #56b3f5;
+  --color-accent-gold: #ffd644;
+  --color-accent-emerald: #36c08e;
   --font-sans: "Inter", ui-sans-serif, system-ui, -apple-system, sans-serif;
   --font-serif: "Georgia", "Times New Roman", serif;
+}
+
+/* ——— Theme CSS Variables ——— */
+:root,
+[data-theme="dark"] {
+  --bg-primary: #0c2329;
+  --bg-secondary: #080604;
+  --bg-card: rgba(34, 62, 73, 0.6);
+  --bg-card-hover: rgba(34, 62, 73, 0.85);
+  --bg-elevated: #1a3a45;
+  --bg-input: rgba(255, 255, 255, 0.05);
+  --bg-input-hover: rgba(255, 255, 255, 0.1);
+  --border-primary: rgba(255, 255, 255, 0.06);
+  --border-hover: rgba(69, 151, 176, 0.3);
+  --text-primary: #ffffff;
+  --text-secondary: rgba(255, 255, 255, 0.8);
+  --text-tertiary: rgba(255, 255, 255, 0.5);
+  --text-muted: rgba(255, 255, 255, 0.3);
+  --sidebar-bg: #080604;
+  --topbar-bg: rgba(12, 35, 41, 0.8);
+  --accent-primary: #4597b0;
+  --accent-secondary: #62acbb;
+  --accent-glow: rgba(69, 151, 176, 0.2);
+  --scrollbar-thumb: rgba(69, 151, 176, 0.2);
+  --scrollbar-hover: rgba(69, 151, 176, 0.4);
+}
+
+[data-theme="light"] {
+  --bg-primary: #f5f8fa;
+  --bg-secondary: #ffffff;
+  --bg-card: rgba(255, 255, 255, 0.95);
+  --bg-card-hover: rgba(255, 255, 255, 1);
+  --bg-elevated: #ffffff;
+  --bg-input: rgba(0, 0, 0, 0.04);
+  --bg-input-hover: rgba(0, 0, 0, 0.07);
+  --border-primary: rgba(0, 0, 0, 0.08);
+  --border-hover: rgba(69, 151, 176, 0.4);
+  --text-primary: #0f1a1e;
+  --text-secondary: #2d4a54;
+  --text-tertiary: #5a7a86;
+  --text-muted: #8fa8b3;
+  --sidebar-bg: #0e2a32;
+  --topbar-bg: rgba(255, 255, 255, 0.85);
+  --accent-primary: #3a87a0;
+  --accent-secondary: #4d9bb0;
+  --accent-glow: rgba(69, 151, 176, 0.15);
+  --scrollbar-thumb: rgba(69, 151, 176, 0.25);
+  --scrollbar-hover: rgba(69, 151, 176, 0.45);
 }
 
 html {
@@ -33,8 +81,8 @@ html {
 }
 
 body {
-  background: #0c2329;
-  color: #FDFFFF;
+  background: var(--bg-primary);
+  color: var(--text-primary);
   font-family: var(--font-sans), system-ui, sans-serif;
 }
 
@@ -69,7 +117,7 @@ body {
   font-size: 0.8rem;
   text-transform: uppercase;
   letter-spacing: 0.25em;
-  color: #4597b0;
+  color: var(--accent-primary);
   font-weight: 500;
 }
 
@@ -109,11 +157,11 @@ body {
   background: linear-gradient(
     90deg,
     transparent 0%,
-    rgba(212, 168, 83, 0.2) 10%,
+    rgba(240, 180, 41, 0.25) 10%,
     rgba(69, 151, 176, 0.5) 30%,
-    rgba(139, 126, 200, 0.4) 50%,
+    rgba(155, 140, 232, 0.4) 50%,
     rgba(69, 151, 176, 0.5) 70%,
-    rgba(75, 168, 142, 0.2) 90%,
+    rgba(54, 192, 142, 0.25) 90%,
     transparent 100%
   );
 }
@@ -124,6 +172,47 @@ body {
   backdrop-filter: blur(20px) saturate(1.4);
   border: 1px solid rgba(255, 255, 255, 0.06);
   border-radius: 9999px;
+}
+
+/* Theme-aware app cards */
+.app-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border-primary);
+  transition: all 0.2s ease;
+}
+.app-card:hover {
+  border-color: var(--border-hover);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px var(--accent-glow);
+}
+
+/* Theme-aware inputs */
+.app-input {
+  background: var(--bg-input);
+  border: 1px solid var(--border-primary);
+  color: var(--text-primary);
+  outline: none;
+  transition: border-color 0.2s ease;
+}
+.app-input:focus {
+  border-color: var(--accent-primary);
+}
+.app-input::placeholder {
+  color: var(--text-muted);
+}
+
+/* Light theme specific overrides for app layout */
+[data-theme="light"] .app-layout-main {
+  background: var(--bg-primary);
+}
+[data-theme="light"] .app-topbar {
+  background: var(--topbar-bg);
+  backdrop-filter: blur(20px) saturate(1.4);
+  border-bottom: 1px solid var(--border-primary);
+}
+[data-theme="light"] .app-sidebar-nav a.active,
+[data-theme="light"] .app-sidebar-nav button.active {
+  background: rgba(255, 255, 255, 0.15);
 }
 
 /* Animated compass keyframes */
@@ -155,11 +244,18 @@ body {
   50% { opacity: 0.08; }
 }
 
+@keyframes gradient-flow {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
 .animate-compass-spin { animation: compass-spin 6s ease-in-out infinite; }
 .animate-compass-pulse { animation: compass-pulse 3s ease-in-out infinite; }
 .animate-float { animation: float-gentle 4s ease-in-out infinite; }
 .animate-shimmer { background-size: 200% 100%; animation: shimmer 3s linear infinite; }
 .animate-glow-breathe { animation: glow-breathe 4s ease-in-out infinite; }
+.animate-gradient-flow { background-size: 200% 200%; animation: gradient-flow 4s ease infinite; }
 
 /* Agent widget styles */
 .agent-widget {
@@ -179,5 +275,16 @@ body {
 /* Scrollbar styling */
 ::-webkit-scrollbar { width: 6px; }
 ::-webkit-scrollbar-track { background: transparent; }
-::-webkit-scrollbar-thumb { background: rgba(69, 151, 176, 0.2); border-radius: 3px; }
-::-webkit-scrollbar-thumb:hover { background: rgba(69, 151, 176, 0.4); }
+::-webkit-scrollbar-thumb { background: var(--scrollbar-thumb); border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: var(--scrollbar-hover); }
+
+/* Welcome prompt typing animation */
+@keyframes typing-cursor {
+  0%, 50% { opacity: 1; }
+  51%, 100% { opacity: 0; }
+}
+.typing-cursor::after {
+  content: "▊";
+  animation: typing-cursor 1s step-end infinite;
+  color: var(--accent-primary);
+}

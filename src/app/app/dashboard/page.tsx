@@ -11,15 +11,16 @@ import {
   AreaChart, Area, XAxis, YAxis, Tooltip, ResponsiveContainer,
 } from "recharts";
 import ClientOnly from "@/components/app/ClientOnly";
+import WelcomePrompt from "@/components/app/WelcomePrompt";
 
 function MetricCard({ label, value, change, changeDir, icon: Icon, href, color }: {
   label: string; value: string | number; change: string; changeDir: "up" | "down";
   icon: React.ElementType; href: string; color: string;
 }) {
   return (
-    <Link href={href} className="group bg-[#223e49]/60 border border-white/5 rounded-xl p-5 hover:border-[#4597b0]/30 hover:translate-y-[-2px] hover:shadow-lg transition-all">
+    <Link href={href} className="group app-card rounded-xl p-5">
       <div className="flex items-center justify-between mb-3">
-        <div className={`w-10 h-10 rounded-lg flex items-center justify-center`} style={{ backgroundColor: `${color}20` }}>
+        <div className="w-10 h-10 rounded-lg flex items-center justify-center" style={{ backgroundColor: `${color}20` }}>
           <Icon size={20} style={{ color }} />
         </div>
         <div className={`flex items-center gap-1 text-xs ${changeDir === "up" ? "text-emerald-400" : "text-red-400"}`}>
@@ -27,8 +28,8 @@ function MetricCard({ label, value, change, changeDir, icon: Icon, href, color }
           {change}
         </div>
       </div>
-      <p className="text-2xl font-bold text-white">{value}</p>
-      <p className="text-white/40 text-sm mt-1">{label}</p>
+      <p className="text-2xl font-bold" style={{ color: "var(--text-primary)" }}>{value}</p>
+      <p className="text-sm mt-1" style={{ color: "var(--text-muted)" }}>{label}</p>
     </Link>
   );
 }
@@ -45,7 +46,7 @@ function ActivityIcon({ type }: { type: string }) {
 }
 
 export default function DashboardPage() {
-  const { sources, conversations, metrics, activity, healthIssues, feedbackItems, user } = useAppStore();
+  const { sources, conversations, metrics, activity, healthIssues, feedbackItems, user, welcomePromptDismissed } = useAppStore();
 
   const totalSources = sources.length;
   const resolutionRate = 73;
@@ -61,14 +62,22 @@ export default function DashboardPage() {
 
   const statusColor = { active: "bg-emerald-400", idle: "bg-white/20", alert: "bg-amber-400" };
 
+  if (!welcomePromptDismissed) {
+    return (
+      <div className="h-[calc(100vh-5rem)] -mt-2">
+        <WelcomePrompt />
+      </div>
+    );
+  }
+
   return (
     <div className="space-y-6 max-w-7xl">
       {/* Welcome */}
-      <div className="bg-gradient-to-r from-[#4597b0]/10 to-[#62acbb]/5 border border-[#4597b0]/20 rounded-xl p-6">
-        <h1 className="text-white text-xl font-bold font-serif">
+      <div className="rounded-xl p-6" style={{ background: "linear-gradient(135deg, rgba(69,151,176,0.12), rgba(86,179,245,0.06))", border: "1px solid rgba(69,151,176,0.2)" }}>
+        <h1 className="text-xl font-bold font-serif" style={{ color: "var(--text-primary)" }}>
           Welcome back, {user.name}
         </h1>
-        <p className="text-white/50 text-sm mt-1">
+        <p className="text-sm mt-1" style={{ color: "var(--text-tertiary)" }}>
           {user.company} &middot; Command Center
         </p>
       </div>
@@ -84,9 +93,9 @@ export default function DashboardPage() {
       {/* Charts + Activity */}
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
         {/* Chart */}
-        <div className="lg:col-span-2 bg-[#223e49]/60 border border-white/5 rounded-xl p-5">
+        <div className="lg:col-span-2 app-card rounded-xl p-5">
           <div className="flex items-center justify-between mb-4">
-            <h3 className="text-white/90 text-sm font-semibold">Resolution Volume — Last 7 Days</h3>
+            <h3 className="text-sm font-semibold" style={{ color: "var(--text-secondary)" }}>Resolution Volume — Last 7 Days</h3>
             <div className="flex items-center gap-1 text-emerald-400 text-xs">
               <TrendingUp size={12} />
               <span>215 total</span>
@@ -115,17 +124,17 @@ export default function DashboardPage() {
         </div>
 
         {/* Activity Feed */}
-        <div className="bg-[#223e49]/60 border border-white/5 rounded-xl p-5">
-          <h3 className="text-white/90 text-sm font-semibold mb-4">Recent Activity</h3>
+        <div className="app-card rounded-xl p-5">
+          <h3 className="text-sm font-semibold mb-4" style={{ color: "var(--text-secondary)" }}>Recent Activity</h3>
           <div className="space-y-3">
             {activity.slice(0, 8).map((a) => (
               <div key={a.id} className="flex items-start gap-3 group">
-                <div className="w-7 h-7 rounded-lg bg-white/5 flex items-center justify-center mt-0.5 shrink-0">
+                <div className="w-7 h-7 rounded-lg flex items-center justify-center mt-0.5 shrink-0" style={{ background: "var(--bg-input)" }}>
                   <ActivityIcon type={a.type} />
                 </div>
                 <div className="min-w-0">
-                  <p className="text-white/80 text-xs font-medium truncate">{a.title}</p>
-                  <p className="text-white/30 text-[10px] mt-0.5">{new Date(a.timestamp).toLocaleDateString()}</p>
+                  <p className="text-xs font-medium truncate" style={{ color: "var(--text-secondary)" }}>{a.title}</p>
+                  <p className="text-[10px] mt-0.5" style={{ color: "var(--text-muted)" }}>{new Date(a.timestamp).toLocaleDateString()}</p>
                 </div>
               </div>
             ))}
@@ -136,36 +145,37 @@ export default function DashboardPage() {
       {/* Quick Actions + Agent Status */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         {/* Quick Actions */}
-        <div className="bg-[#223e49]/60 border border-white/5 rounded-xl p-5">
-          <h3 className="text-white/90 text-sm font-semibold mb-4">Quick Actions</h3>
+        <div className="app-card rounded-xl p-5">
+          <h3 className="text-sm font-semibold mb-4" style={{ color: "var(--text-secondary)" }}>Quick Actions</h3>
           <div className="grid grid-cols-3 gap-3">
             {[
               { label: "Upload Source", icon: Upload, href: "/app/sources", color: "#4597b0" },
               { label: "Ask a Question", icon: HelpCircle, href: "/app/resolve", color: "#62acbb" },
-              { label: "View Health", icon: HeartPulse, href: "/app/health", color: "#4ba88e" },
+              { label: "View Health", icon: HeartPulse, href: "/app/health", color: "#36c08e" },
             ].map((a) => (
               <Link
                 key={a.label}
                 href={a.href}
-                className="flex flex-col items-center gap-2 p-4 rounded-lg bg-white/5 border border-white/5 hover:border-[#4597b0]/30 hover:bg-white/10 transition-all"
+                className="flex flex-col items-center gap-2 p-4 rounded-lg transition-all hover:scale-[1.02]"
+                style={{ background: "var(--bg-input)", border: "1px solid var(--border-primary)" }}
               >
                 <a.icon size={20} style={{ color: a.color }} />
-                <span className="text-white/60 text-xs text-center">{a.label}</span>
+                <span className="text-xs text-center" style={{ color: "var(--text-tertiary)" }}>{a.label}</span>
               </Link>
             ))}
           </div>
         </div>
 
         {/* Agent Status */}
-        <div className="bg-[#223e49]/60 border border-white/5 rounded-xl p-5">
-          <h3 className="text-white/90 text-sm font-semibold mb-4">Agent Status</h3>
+        <div className="app-card rounded-xl p-5">
+          <h3 className="text-sm font-semibold mb-4" style={{ color: "var(--text-secondary)" }}>Agent Status</h3>
           <div className="grid grid-cols-2 gap-3">
             {agents.map((agent) => (
-              <div key={agent.name} className="flex items-center gap-3 p-3 rounded-lg bg-white/5">
+              <div key={agent.name} className="flex items-center gap-3 p-3 rounded-lg" style={{ background: "var(--bg-input)" }}>
                 <div className={`w-2.5 h-2.5 rounded-full ${statusColor[agent.status]} ${agent.status === "active" ? "animate-pulse" : ""}`} />
                 <div>
-                  <p className="text-white/80 text-sm font-medium">{agent.name}</p>
-                  <p className="text-white/30 text-[10px]">{agent.desc}</p>
+                  <p className="text-sm font-medium" style={{ color: "var(--text-secondary)" }}>{agent.name}</p>
+                  <p className="text-[10px]" style={{ color: "var(--text-muted)" }}>{agent.desc}</p>
                 </div>
               </div>
             ))}
