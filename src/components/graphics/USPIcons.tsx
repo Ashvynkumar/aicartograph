@@ -73,6 +73,31 @@ export function DeliveryIcon({ className = "w-12 h-12" }: IconProps) {
   );
 }
 
+export function GovernanceIcon({ className = "w-12 h-12" }: IconProps) {
+  return (
+    <svg viewBox="0 0 48 48" fill="none" className={className}>
+      <circle cx="24" cy="24" r="20" stroke="#f0b429" strokeWidth="1.5" opacity="0.2" />
+      <path d="M14 20l10-8 10 8" stroke="#f0b429" strokeWidth="2" strokeLinejoin="round" />
+      <path d="M16 20v12h16V20" stroke="#f0b429" strokeWidth="1.5" />
+      <rect x="20" y="24" width="8" height="8" rx="1" stroke="#f0b429" strokeWidth="1.5" fill="#f0b42915" />
+      <path d="M24 26v4M22 28h4" stroke="#f0b429" strokeWidth="1.5" strokeLinecap="round" />
+    </svg>
+  );
+}
+
+export function RoleAwareIcon({ className = "w-12 h-12" }: IconProps) {
+  return (
+    <svg viewBox="0 0 48 48" fill="none" className={className}>
+      <circle cx="24" cy="24" r="20" stroke="#4597b0" strokeWidth="1.5" opacity="0.2" />
+      <circle cx="18" cy="16" r="4" stroke="#4597b0" strokeWidth="1.5" />
+      <circle cx="30" cy="16" r="4" stroke="#62acbb" strokeWidth="1.5" />
+      <path d="M10 32c0-4.4 3.6-8 8-8" stroke="#4597b0" strokeWidth="1.5" strokeLinecap="round" />
+      <path d="M38 32c0-4.4-3.6-8-8-8" stroke="#62acbb" strokeWidth="1.5" strokeLinecap="round" />
+      <path d="M24 28v8M20 32h8" stroke="#4597b0" strokeWidth="1.5" strokeLinecap="round" opacity="0.6" />
+    </svg>
+  );
+}
+
 export function USPIcon({ icon, className }: { icon: string; className?: string }) {
   switch (icon) {
     case "feedback":
@@ -83,6 +108,10 @@ export function USPIcon({ icon, className }: { icon: string; className?: string 
       return <SynthesisIcon className={className} />;
     case "delivery":
       return <DeliveryIcon className={className} />;
+    case "governance":
+      return <GovernanceIcon className={className} />;
+    case "role":
+      return <RoleAwareIcon className={className} />;
     default:
       return null;
   }

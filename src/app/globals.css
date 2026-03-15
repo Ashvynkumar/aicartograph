@@ -440,3 +440,31 @@ body {
 .animate-multi-glow {
   animation: multi-glow-breathe 8s ease-in-out infinite;
 }
+
+/* ─── Infinite scroll marquee ─── */
+@keyframes marquee-scroll {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+.marquee-container {
+  overflow: hidden;
+  mask-image: linear-gradient(to right, transparent, black 8%, black 92%, transparent);
+  -webkit-mask-image: linear-gradient(to right, transparent, black 8%, black 92%, transparent);
+}
+
+.marquee-track {
+  display: flex;
+  gap: 1.5rem;
+  width: max-content;
+  animation: marquee-scroll 40s linear infinite;
+}
+
+.marquee-track:hover {
+  animation-play-state: paused;
+}
+
+.marquee-item {
+  flex-shrink: 0;
+  width: 320px;
+}

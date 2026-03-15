@@ -4,13 +4,15 @@ import AnimateOnScroll from "../AnimateOnScroll";
 import Card from "../ui/Card";
 import Container from "../ui/Container";
 import { USPIcon } from "../graphics/USPIcons";
-import { USPS } from "@/lib/constants";
+import { DIFFERENTIATORS } from "@/lib/constants";
 
 const uspAccents = [
   "border-accent-emerald/20 hover:border-accent-emerald/40",
   "border-accent-coral/20 hover:border-accent-coral/40",
   "border-accent-sky/20 hover:border-accent-sky/40",
   "border-accent-lavender/20 hover:border-accent-lavender/40",
+  "border-accent-amber/20 hover:border-accent-amber/40",
+  "border-accent-sky/20 hover:border-accent-sky/40",
 ];
 
 const uspGlows = [
@@ -18,6 +20,8 @@ const uspGlows = [
   "bg-accent-coral/5",
   "bg-accent-sky/5",
   "bg-accent-lavender/5",
+  "bg-accent-amber/5",
+  "bg-accent-sky/5",
 ];
 
 export default function USPGrid() {
@@ -35,15 +39,15 @@ export default function USPGrid() {
         </AnimateOnScroll>
 
         <div className="grid sm:grid-cols-2 gap-5">
-          {USPS.map((usp, i) => (
-            <AnimateOnScroll key={usp.id} delay={i * 0.1}>
-              <Card className={`h-full space-y-4 group transition-all duration-300 hover:scale-[1.01] ${uspAccents[i]}`}>
-                <div className={`w-14 h-14 rounded-2xl ${uspGlows[i]} flex items-center justify-center`}>
-                  <USPIcon icon={usp.icon} className="w-10 h-10" />
+          {DIFFERENTIATORS.map((diff, i) => (
+            <AnimateOnScroll key={diff.id} delay={i * 0.1}>
+              <Card className={`h-full space-y-4 group transition-all duration-300 hover:scale-[1.01] ${uspAccents[i % uspAccents.length]}`}>
+                <div className={`w-14 h-14 rounded-2xl ${uspGlows[i % uspGlows.length]} flex items-center justify-center`}>
+                  <USPIcon icon={diff.icon} className="w-10 h-10" />
                 </div>
-                <h3 className="text-xl font-semibold text-white">{usp.title}</h3>
+                <h3 className="text-xl font-semibold text-white">{diff.title}</h3>
                 <p className="text-white/45 leading-relaxed">
-                  {usp.shortDescription}
+                  {diff.description}
                 </p>
               </Card>
             </AnimateOnScroll>

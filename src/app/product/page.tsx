@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import AnimateOnScroll from "@/components/AnimateOnScroll";
 import Container from "@/components/ui/Container";
-import Badge from "@/components/ui/Badge";
+import Button from "@/components/ui/Button";
 import { USPIcon } from "@/components/graphics/USPIcons";
 import { PillarIcon, SourceIcon } from "@/components/graphics/FancyIcons";
 import CTABanner from "@/components/sections/CTABanner";
@@ -9,7 +9,7 @@ import MockupDashboard from "@/components/graphics/MockupDashboard";
 import MockupResolve from "@/components/graphics/MockupResolve";
 import MockupHealth from "@/components/graphics/MockupHealth";
 import MockupAgents from "@/components/graphics/MockupAgents";
-import { FRAMEWORK_PILLARS, USPS, EIGHTEEN_PROBLEMS, COMPETITOR_APPROACHES } from "@/lib/constants";
+import { FRAMEWORK_PILLARS, DIFFERENTIATORS, EIGHTEEN_PROBLEMS, COMPETITOR_APPROACHES } from "@/lib/constants";
 
 export const metadata: Metadata = {
   title: "Product",
@@ -107,6 +107,9 @@ function FourPillars() {
 const sourceTypes = [
   "Wikis", "Help Centers", "Knowledge Bases", "Shared Drives", "Project Tools",
   "Communication Platforms", "Code Repositories", "CRM Systems", "Support Platforms",
+  "Cloud Storage", "Email Archives", "Design Tools", "HR Systems", "ERP Platforms",
+  "API Documentation", "Video Libraries", "Learning Management", "Analytics Dashboards",
+  "Ticketing Systems", "Product Roadmaps",
 ];
 
 function KnowledgeSources() {
@@ -123,7 +126,7 @@ function KnowledgeSources() {
           </p>
         </AnimateOnScroll>
 
-        <div className="flex flex-wrap justify-center gap-4 max-w-3xl mx-auto">
+        <div className="flex flex-wrap justify-center gap-3 max-w-5xl mx-auto">
           {sourceTypes.map((name, i) => (
             <AnimateOnScroll key={name} delay={i * 0.05}>
               <div className="group rounded-full border border-brand-700/40 bg-brand-800/60 px-5 py-3 flex items-center gap-2.5 hover:border-brand-500/50 hover:bg-brand-800 transition-all cursor-default">
@@ -153,17 +156,17 @@ function EighteenProblems() {
           </h2>
         </AnimateOnScroll>
 
-        <div className="grid grid-cols-3 sm:grid-cols-3 lg:grid-cols-6 gap-2 max-w-4xl mx-auto min-h-[200px]">
+        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3 max-w-6xl mx-auto min-h-[200px]">
           {EIGHTEEN_PROBLEMS.map((problem, i) => {
             const color = diagnosticColors[i];
             return (
               <AnimateOnScroll key={problem.id} delay={i * 0.03}>
-                <div className="relative rounded-lg p-3 min-h-[72px] flex flex-col items-center justify-center text-center group transition-all duration-300 hover:scale-105 cursor-default overflow-hidden" style={{ background: `linear-gradient(145deg, ${color}0C, transparent)`, border: `1px solid ${color}18` }}>
+                <div className="relative rounded-lg px-4 py-3 min-h-[72px] flex flex-col items-center justify-center text-center group transition-all duration-300 hover:scale-105 cursor-default overflow-hidden whitespace-nowrap" style={{ background: `linear-gradient(145deg, ${color}0C, transparent)`, border: `1px solid ${color}18` }}>
                   <div className="absolute top-0 left-0 right-0 h-[1px]" style={{ background: `linear-gradient(90deg, transparent, ${color}40, transparent)` }} />
                   <span className="font-mono text-xs font-bold mb-1" style={{ color }}>
                     {String(problem.id).padStart(2, "0")}
                   </span>
-                  <span className="text-[#FDFFFF] text-sm font-semibold leading-tight break-words">
+                  <span className="text-[#FDFFFF] text-sm font-semibold leading-tight">
                     {problem.name}
                   </span>
                 </div>
@@ -182,22 +185,17 @@ function EighteenProblems() {
   );
 }
 
-/* ─── Section 5: Four USPs ─── */
-const uspBorders = [
-  "border-l-4 border-accent-emerald",
-  "border-l-4 border-accent-coral",
-  "border-l-4 border-accent-sky",
-  "border-l-4 border-accent-lavender",
-];
+/* ─── Section 5: Differentiators ─── */
+const diffAccents = ["#36c08e", "#f06565", "#56b3f5", "#9b8ce8", "#f0b429", "#4597b0"];
 
-function USPDeepDive() {
+function DifferentiatorsSection() {
   return (
     <section className="py-12 lg:py-16" style={{ background: "#091e26" }}>
       <Container>
-        <AnimateOnScroll className="mb-8 text-center">
-          <p className="section-label mb-4">Differentiators</p>
+        <AnimateOnScroll className="mb-10 text-center">
+          <p className="section-label mb-4">What Sets Us Apart</p>
           <h2 className="heading-h2 text-[#FDFFFF] mb-3">
-            Four genuine differentiators
+            Built different. Not incrementally better.
           </h2>
           <p className="text-white/50 text-lg max-w-2xl mx-auto">
             These aren&apos;t incremental features. They&apos;re fundamental capabilities
@@ -205,23 +203,26 @@ function USPDeepDive() {
           </p>
         </AnimateOnScroll>
 
-        <div className="grid sm:grid-cols-2 gap-6 min-h-[200px]">
-          {USPS.map((usp, i) => (
-            <AnimateOnScroll key={usp.id} delay={i * 0.1}>
-              <div className={`glass-card p-6 h-full ${uspBorders[i]}`}>
-                <div className="flex items-start gap-4">
-                  <div className="shrink-0">
-                    <USPIcon icon={usp.icon} className="w-12 h-12" />
-                  </div>
-                  <div>
-                    <Badge variant="highlight">USP {i + 1}</Badge>
-                    <h3 className="heading-h3 text-[#FDFFFF] mt-2 mb-2">{usp.title}</h3>
-                    <p className="text-white/60 text-sm leading-relaxed break-words">{usp.longDescription}</p>
+        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5 min-h-[200px]">
+          {DIFFERENTIATORS.map((diff, i) => {
+            const accent = diffAccents[i % diffAccents.length];
+            return (
+              <AnimateOnScroll key={diff.id} delay={i * 0.08}>
+                <div className="glass-card p-6 h-full relative overflow-hidden" style={{ borderLeft: `3px solid ${accent}` }}>
+                  <div className="absolute top-0 left-0 right-0 h-[1px]" style={{ background: `linear-gradient(90deg, ${accent}40, transparent)` }} />
+                  <div className="flex items-start gap-4">
+                    <div className="shrink-0">
+                      <USPIcon icon={diff.icon} className="w-10 h-10" />
+                    </div>
+                    <div>
+                      <h3 className="text-[#FDFFFF] font-semibold text-base mb-2">{diff.title}</h3>
+                      <p className="text-white/50 text-sm leading-relaxed">{diff.description}</p>
+                    </div>
                   </div>
                 </div>
-              </div>
-            </AnimateOnScroll>
-          ))}
+              </AnimateOnScroll>
+            );
+          })}
         </div>
       </Container>
     </section>
@@ -269,9 +270,13 @@ function CompetitivePositioning() {
 /* ─── Section 7: Agent Marketplace Preview ─── */
 const marketplaceAgents = [
   { name: "User Manual Agent", desc: "Turn any product manual into an interactive AI agent.", available: true },
-  { name: "FAQ Bot", desc: "Auto-generate FAQ bots from your knowledge base.", available: false },
+  { name: "Knowledge Search Agent", desc: "Semantic search across all connected knowledge sources.", available: true },
+  { name: "FAQ Bot", desc: "Auto-generate FAQ bots from your knowledge base.", available: true },
   { name: "Onboarding Guide", desc: "Guide new employees through onboarding with AI.", available: false },
   { name: "Sales Playbook Agent", desc: "Equip reps with real-time competitive intel.", available: false },
+  { name: "Support Triage Agent", desc: "Classify and route support tickets to the right knowledge.", available: false },
+  { name: "Compliance Checker", desc: "Verify policy adherence across all documentation.", available: false },
+  { name: "Release Notes Agent", desc: "Auto-generate release notes from engineering artifacts.", available: false },
 ];
 
 function AgentMarketplacePreview() {
@@ -288,10 +293,10 @@ function AgentMarketplacePreview() {
           </p>
         </AnimateOnScroll>
 
-        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4 max-w-5xl mx-auto">
+        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4 max-w-6xl mx-auto">
           {marketplaceAgents.map((agent) => (
             <AnimateOnScroll key={agent.name}>
-              <div className={`dark-card p-5 h-full ${agent.available ? "" : "opacity-60"}`}>
+              <div className={`dark-card p-5 h-full ${agent.available ? "" : "opacity-50"}`}>
                 <div className="flex items-center gap-2 mb-2">
                   <span className={`text-[10px] font-medium px-2 py-0.5 rounded-full ${agent.available ? "bg-accent-emerald/10 text-accent-emerald" : "bg-accent-amber/10 text-accent-amber"}`}>
                     {agent.available ? "Available" : "Coming Soon"}
@@ -304,8 +309,10 @@ function AgentMarketplacePreview() {
           ))}
         </div>
 
-        <AnimateOnScroll className="text-center mt-8">
-          <Badge variant="highlight">Sign up to explore the full marketplace</Badge>
+        <AnimateOnScroll className="text-center mt-10">
+          <Button href="/contact" variant="primary" size="lg" className="text-base font-semibold">
+            Explore the Full Marketplace &rarr;
+          </Button>
         </AnimateOnScroll>
       </Container>
     </section>
@@ -323,7 +330,7 @@ export default function ProductPage() {
       <div className="glow-divider" />
       <EighteenProblems />
       <div className="glow-divider" />
-      <USPDeepDive />
+      <DifferentiatorsSection />
       <div className="glow-divider" />
       <CompetitivePositioning />
       <div className="glow-divider" />

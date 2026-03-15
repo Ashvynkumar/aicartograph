@@ -53,42 +53,48 @@ export const FRAMEWORK_PILLARS = [
   },
 ];
 
-export const USPS = [
+export const DIFFERENTIATORS = [
   {
     id: "feedback-loop",
     title: "Feedback-to-Creation Loop",
-    shortDescription:
-      "Connect consumption failures back to creation priorities.",
-    longDescription:
+    description:
       "Every time someone can't find what they need, aiCartograph captures that consumption signal and routes it to the right knowledge owner. Your knowledge corpus improves based on real resolution data — not guesswork.",
     icon: "feedback" as const,
   },
   {
     id: "health-intelligence",
     title: "Knowledge Health Intelligence",
-    shortDescription:
-      "Staleness detection, semantic contradiction analysis, gap analysis.",
-    longDescription:
-      "aiCartograph continuously monitors your knowledge corpus for staleness, contradictions between sources, knowledge drift, and coverage gaps. Know exactly what needs updating before your people hit a dead end.",
+    description:
+      "Continuously monitors your knowledge corpus for staleness, contradictions between sources, knowledge drift, and coverage gaps. Know exactly what needs updating before your people hit a dead end.",
     icon: "health" as const,
   },
   {
     id: "cross-source",
     title: "Cross-Source Contextual Synthesis",
-    shortDescription:
-      "Assemble answers from multiple sources for each person's specific context.",
-    longDescription:
+    description:
       "Real questions rarely have answers in a single source. aiCartograph synthesizes information across your entire knowledge corpus, assembling contextually relevant answers tailored to each person's role and situation.",
     icon: "synthesis" as const,
   },
   {
     id: "embedded-delivery",
     title: "Embedded Knowledge Delivery",
-    shortDescription:
-      "Push the right knowledge at the right moment inside your SaaS product.",
-    longDescription:
+    description:
       "Don't wait for people to search. aiCartograph's intelligent widget delivers relevant knowledge proactively — right where and when people need it, directly inside your product.",
     icon: "delivery" as const,
+  },
+  {
+    id: "governance",
+    title: "Source-of-Truth Governance",
+    description:
+      "Automatically identify conflicting information across sources and flag the authoritative version. Enforce governance rules without manual audits or spreadsheet tracking.",
+    icon: "governance" as const,
+  },
+  {
+    id: "role-awareness",
+    title: "Role-Aware Resolution",
+    description:
+      "The same question gets a different answer depending on who's asking. aiCartograph tailors every resolution to the person's role, team, permissions, and context — automatically.",
+    icon: "role" as const,
   },
 ];
 

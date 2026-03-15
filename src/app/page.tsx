@@ -58,36 +58,37 @@ function FrameworkStrip() {
   );
 }
 
-/* ─── Section 3: Platform Preview (NEW) ─── */
+/* ─── Section 3: Platform Preview (Infinite Scroll) ─── */
 function PlatformPreview() {
+  const mockups = [
+    { label: "Dashboard", Component: MockupDashboard },
+    { label: "Resolution Engine", Component: MockupResolve },
+    { label: "Health Intelligence", Component: MockupHealth },
+    { label: "Agent Marketplace", Component: MockupAgents },
+  ];
+
   return (
     <section className="py-12 lg:py-16" style={{ background: "#050d12" }}>
-      <Container>
-        <AnimateOnScroll className="text-center mb-10">
-          <p className="section-label mb-4">Platform Preview</p>
-          <h2 className="heading-h2 text-[#FDFFFF]">
-            See it in action
-          </h2>
-          <p className="text-white/50 text-lg mt-3 max-w-2xl mx-auto">
-            A unified platform for knowledge resolution — from ingestion to insight.
-          </p>
-        </AnimateOnScroll>
+      <AnimateOnScroll className="text-center mb-10 px-4">
+        <p className="section-label mb-4">Platform Preview</p>
+        <h2 className="heading-h2 text-[#FDFFFF]">
+          See it in action
+        </h2>
+        <p className="text-white/50 text-lg mt-3 max-w-2xl mx-auto">
+          A unified platform for knowledge resolution — from ingestion to insight.
+        </p>
+      </AnimateOnScroll>
 
-        <div className="grid md:grid-cols-2 gap-6 max-w-5xl mx-auto">
-          <AnimateOnScroll delay={0}>
-            <MockupDashboard className="w-full" />
-          </AnimateOnScroll>
-          <AnimateOnScroll delay={0.1}>
-            <MockupResolve className="w-full" />
-          </AnimateOnScroll>
-          <AnimateOnScroll delay={0.2}>
-            <MockupHealth className="w-full" />
-          </AnimateOnScroll>
-          <AnimateOnScroll delay={0.3}>
-            <MockupAgents className="w-full" />
-          </AnimateOnScroll>
+      <div className="marquee-container">
+        <div className="marquee-track">
+          {[...mockups, ...mockups].map((m, i) => (
+            <div key={i} className="marquee-item">
+              <m.Component className="w-full" />
+              <p className="text-center text-white/40 text-sm mt-2 font-medium">{m.label}</p>
+            </div>
+          ))}
         </div>
-      </Container>
+      </div>
     </section>
   );
 }
@@ -109,17 +110,17 @@ function ProblemTeaser() {
           <p className="text-brand-300 text-lg">How many is yours living with?</p>
         </AnimateOnScroll>
 
-        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3 max-w-4xl mx-auto min-h-[200px]">
+        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3 max-w-5xl mx-auto min-h-[200px]">
           {previewProblems.map((problem, i) => {
             const color = diagnosticColors[i];
             return (
               <AnimateOnScroll key={problem.id} delay={i * 0.05}>
-                <div className="relative rounded-xl p-4 h-[80px] flex flex-col items-center justify-center text-center group transition-all duration-300 hover:scale-105 cursor-default overflow-hidden" style={{ background: `linear-gradient(145deg, ${color}10, transparent)`, border: `1px solid ${color}20` }}>
+                <div className="relative rounded-xl px-5 py-4 h-[80px] flex flex-col items-center justify-center text-center group transition-all duration-300 hover:scale-105 cursor-default overflow-hidden whitespace-nowrap" style={{ background: `linear-gradient(145deg, ${color}10, transparent)`, border: `1px solid ${color}20` }}>
                   <div className="absolute top-0 left-0 right-0 h-[2px]" style={{ background: `linear-gradient(90deg, transparent, ${color}50, transparent)` }} />
                   <span className="font-mono text-xs block mb-1 font-bold" style={{ color }}>
                     {String(problem.id).padStart(2, "0")}
                   </span>
-                  <span className="text-[#FDFFFF] text-sm font-medium leading-tight break-words">
+                  <span className="text-[#FDFFFF] text-sm font-medium leading-tight">
                     {problem.name}
                   </span>
                 </div>
