@@ -472,10 +472,15 @@ body {
 .marquee-item {
   flex-shrink: 0;
   width: 420px;
-  height: 340px;
 }
 
-.marquee-item > div:first-child {
-  height: 310px;
+.mockup-scaler-wrap {
   overflow: hidden;
+}
+
+.mockup-scaler {
+  width: 540px;
+  transform: scale(0.778);
+  transform-origin: top left;
+  margin-bottom: -22%;
 }

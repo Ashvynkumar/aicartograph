@@ -83,7 +83,11 @@ function PlatformPreview() {
         <div className="marquee-track">
           {[...mockups, ...mockups].map((m, i) => (
             <div key={i} className="marquee-item">
-              <m.Component className="w-full" />
+              <div className="mockup-scaler-wrap">
+                <div className="mockup-scaler">
+                  <m.Component className="w-full" />
+                </div>
+              </div>
               <p className="text-center text-white/40 text-sm mt-2 font-medium">{m.label}</p>
             </div>
           ))}
