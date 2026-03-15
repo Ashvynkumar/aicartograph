@@ -190,24 +190,35 @@ export default function SignupPage() {
   };
 
   return (
-    <div className="min-h-screen bg-[#040a0d] flex items-center justify-center px-4 relative overflow-hidden">
+    <div className="min-h-screen bg-brand-950 flex items-center justify-center px-4 relative overflow-hidden">
       <ConvergenceCanvas />
 
       <div
         className="absolute inset-0 pointer-events-none"
         style={{
-          background: "radial-gradient(ellipse at center, transparent 20%, rgba(4,10,13,0.6) 70%, rgba(4,10,13,0.85) 100%)",
+          background: "radial-gradient(ellipse at center, transparent 20%, rgba(8,6,4,0.6) 70%, rgba(8,6,4,0.85) 100%)",
         }}
       />
+
+      {/* Back to website */}
+      <Link
+        href="/"
+        className="absolute top-6 left-6 z-10 flex items-center gap-2 text-white/40 hover:text-white/70 transition-colors text-sm group"
+      >
+        <svg className="w-4 h-4 transition-transform group-hover:-translate-x-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+          <path strokeLinecap="round" strokeLinejoin="round" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+        </svg>
+        Back to website
+      </Link>
 
       <div
         className={`relative w-full max-w-md transition-all duration-700 ${
           mounted ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
         }`}
       >
-        <div className="bg-[#0c1f27]/80 backdrop-blur-2xl border border-white/[0.08] rounded-2xl p-8 shadow-2xl shadow-black/40">
+        <div className="bg-brand-900/80 backdrop-blur-2xl border border-white/[0.08] rounded-2xl p-8 shadow-2xl shadow-black/40">
           <div className="text-center mb-8">
-            <div className="w-14 h-14 mx-auto mb-4 animate-float">
+            <Link href="/" className="inline-block w-14 h-14 mx-auto mb-4 animate-float hover:scale-110 transition-transform">
               <Image
                 src="/aiCartograph_icon_final.svg"
                 alt="aiCartograph"
@@ -215,7 +226,7 @@ export default function SignupPage() {
                 height={56}
                 className="w-14 h-14"
               />
-            </div>
+            </Link>
             <h1 className="text-white text-2xl font-bold font-serif">Create your account</h1>
             <p className="text-white/40 text-sm mt-1">Start resolving knowledge in minutes</p>
           </div>
